@@ -1,0 +1,69 @@
+[menu]
+start = "id-1"
+activeNode = 0
+listItemClasses = "nav-item"
+primaryClasses = "navbar-nav"
+secondaryClasses = "dropdown-menu"
+numberOfLevels = 2
+
+==
+
+{% component 'menu' %}
+
+<nav class="navbar fixed" id="headernavbar" {% if user %} style="margin-top:69px;"{% endif %}>
+    <div class="container">
+        <a href="{{'home'|page}}" class="navbar-brand">
+            <img src="{{ this.theme.site_logo.getPath() }}" alt="{{ this.theme.site_name }}">
+        </a>
+
+        <!-- Desktop header elements -->
+        <div class="desktop-header-elements">
+            <div id="google_translate_element"></div>
+            <div class="search-container">
+                <button class="btn search-btn" id="searchToggle" aria-label="Open search" type="button">
+                    <span class="search-icon"></span>
+                </button>
+            </div>
+            <button id="desktopMenuToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="navbar-collapse" id="headerNavbarNav">
+        <button id="closeMenuBtn" aria-label="Close navigation">
+            <span>&times;</span>
+        </button>
+
+        {% component 'menu' %}
+        
+        <!-- <div class="navbar-bottom-elements">
+            <div class="social-networks">
+                {% if this.theme.linkedin %}
+                <a href="{{this.theme.linkedin_url}}" class="linkedin" target="_blank" aria-label="LinkedIn"></a>
+                {% endif %}
+
+                {% if this.theme.bluesky %}
+                <a href="{{this.theme.bluesky_url}}" class="bluesky" target="_blank" aria-label="Bluesky"></a>
+                {% endif %}
+
+                {% if this.theme.youtube %}
+                <a href="{{this.theme.youtube_url}}" class="youtube" target="_blank" aria-label="YouTube"></a>
+                {% endif %}
+            </div>
+        </div> -->
+    </div>
+    
+    <div id="search" class="search" style="display: none;">
+        <div class="container">
+            <form class="input-group align-items-start" action="{{ url('search')}}" method="get" role="search">
+                <label for="searchInput" class="sr-only">Search</label>
+                <input id="searchInput" class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search here..." aria-label="Search">
+                <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit" aria-label="Submit search"></button>
+                <button type="button" class="close-search" onclick="hideSearchForm();" aria-label="Close search">&#10006;</button>
+            </form>
+        </div>
+    </div>
+</nav>
