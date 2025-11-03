@@ -6,64 +6,149 @@ primaryClasses = "navbar-nav"
 secondaryClasses = "dropdown-menu"
 numberOfLevels = 2
 
+[jumbotron hero-text]
+jumbotron = "hero-text"
+templates = "template2" 
+description_limit = 0
+
+[jumbotron resources-intro]
+jumbotron = "resources-intro"
+templates = "resources-intro" 
+description_limit = 0
+
+[jumbotron detection-intro]
+jumbotron = "detection-intro"
+templates = "detection-intro" 
+description_limit = 0
+
+[jumbotron prioritisation-intro]
+jumbotron = "prioritisation-intro"
+templates = "prioritisation-intro" 
+description_limit = 0
+
+[jumbotron dissemination-intro]
+jumbotron = "dissemination-intro"
+templates = "dissemination-intro" 
+description_limit = 0
+
+[jumbotron socio-political-intro]
+jumbotron = "socio-political-intro"
+templates = "socio-political-intro" 
+description_limit = 0
+
 ==
-
-{% component 'menu' %}
-
-<nav class="navbar fixed" id="headernavbar" {% if user %} style="margin-top:69px;"{% endif %}>
-    <div class="container">
+<nav class="navbar fixed" id="headernavbar" aria-label="Main navigation" {% if user %} style="margin-top:69px;"{% endif %}>
+    <div class="container container-responsive">
         <a href="{{'home'|page}}" class="navbar-brand">
             <img src="{{ this.theme.site_logo.getPath() }}" alt="{{ this.theme.site_name }}">
         </a>
 
-        <!-- Desktop header elements -->
-        <div class="desktop-header-elements">
-            <div id="google_translate_element"></div>
-            <div class="search-container">
-                <button class="btn search-btn" id="searchToggle" aria-label="Open search" type="button">
-                    <span class="search-icon"></span>
-                </button>
-            </div>
-            <button id="desktopMenuToggle" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+        <button type="button" id="desktopMenuToggle" aria-label="Toggle navigation">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </button>
     </div>
     
     <div class="navbar-collapse" id="headerNavbarNav">
-        <button id="closeMenuBtn" aria-label="Close navigation">
-            <span>&times;</span>
+        <button type="button" id="closeMenuBtn" aria-label="Close navigation">
+            <span aria-hidden="true">&times;</span>
         </button>
 
         {% component 'menu' %}
         
-        <!-- <div class="navbar-bottom-elements">
-            <div class="social-networks">
-                {% if this.theme.linkedin %}
-                <a href="{{this.theme.linkedin_url}}" class="linkedin" target="_blank" aria-label="LinkedIn"></a>
+        <div class="navbar-bottom-elements">
+            
+            <div class="social-icons">
+                {% if enable_linkedin and linkedin_url %}
+                <a href="{{ linkedin_url }}" class="social-icon linkedin" aria-label="LinkedIn (opens in new tab)" target="_blank"></a>
                 {% endif %}
-
-                {% if this.theme.bluesky %}
-                <a href="{{this.theme.bluesky_url}}" class="bluesky" target="_blank" aria-label="Bluesky"></a>
+                {% if enable_bluesky and bluesky_url %}
+                <a href="{{ bluesky_url }}" class="social-icon bluesky" aria-label="BlueSky (opens in new tab)" target="_blank"></a>
                 {% endif %}
-
-                {% if this.theme.youtube %}
-                <a href="{{this.theme.youtube_url}}" class="youtube" target="_blank" aria-label="YouTube"></a>
+                {% if enable_youtube and youtube_url %}
+                <a href="{{youtube_url}}" target="_blank" class="social-icon pr p-secondary p-youtube normal" aria-label="YouTube (opens in new tab)"></a>
                 {% endif %}
             </div>
-        </div> -->
-    </div>
-    
-    <div id="search" class="search" style="display: none;">
-        <div class="container">
-            <form class="input-group align-items-start" action="{{ url('search')}}" method="get" role="search">
-                <label for="searchInput" class="sr-only">Search</label>
-                <input id="searchInput" class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search here..." aria-label="Search">
-                <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit" aria-label="Submit search"></button>
-                <button type="button" class="close-search" onclick="hideSearchForm();" aria-label="Close search">&#10006;</button>
-            </form>
+            
+            <div class="bottom-row">
+                <div id="google_translate_element"></div>
+                <div class="search-container">
+                    <button type="button" class="btn btn-primary search-btn" id="searchToggle" aria-label="Search">
+                        <span class="search-icon" aria-hidden="true"></span> Search
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="search" class="srearch" style="display: none;">
+            <div class="containe">
+                <form class="input-group align-items-start" role="search" action="{{ url('search')}}" method="get">
+                    <label for="searchInput" class="sr-only">Search</label>
+                    <input id="searchInput" class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search here...">
+                    <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit" aria-label="Submit search"></button>
+                    <button type="button" class="close-search" onclick="hideSearchForm();" aria-label="Close search">&#10006;</button>
+                </form>
+            </div>
         </div>
     </div>
 </nav>
+
+
+
+{% if this.theme.header_image %}
+<div class="header-image {{page_id}} hero">
+    {% if page_id == 'home' %}
+    <div class="container hero-container" {% if user %} style="margin-top: 20px;" {% endif %}>
+        <div class="row">
+            <div class="col-md-7 col-xs-12">
+                <div class="hero-content">
+                    {% component 'hero-text' %}
+                </div>
+            </div>
+            <div class="col-md-5 col-xs-12 outer-circle-container">
+                <div class="outer-cicle">
+                    <div class="outer-circle-border"></div>
+                    <div class="leaf-circle"></div>
+                    <div class="image-placeholder">
+                        <img src="{{ 'assets/images/home-image-1.png'|theme }}" alt="{{ this.theme.site_name }}">
+                        <img src="{{ 'assets/images/home-image-2.png'|theme }}" alt="{{ this.theme.site_name }}">
+                        <img src="{{ 'assets/images/home-image-3.png'|theme }}" alt="{{ this.theme.site_name }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="header-image-bar" {% if user and this.page.id != 'home' %} style="margin-top: 154px!important;" {% endif %}>
+            <h1 class="underline white">{%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}</h1>
+        </div>
+    {%endif%}
+    
+    {% if page_id == 'home' %}
+    <div class="ellipse-top-decoration"></div>
+    <div class="ellipse-bottom-decoration"></div>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- Video Popup Modal -->
+<div class="video-popup" id="videoPopup" aria-hidden="true">
+    <div class="video-popup-backdrop" data-close-video></div>
+    
+    <div class="video-popup-dialog" role="dialog" aria-modal="true">
+        <div class="video-popup-content">
+            <div class="video-wrapper">
+                <button type="button" class="video-popup-close" data-close-video aria-label="Close video">
+                    <img src="{{ 'assets/images/close-video.svg'|theme }}" alt="Close">
+                </button>
+                <iframe id="videoIframe"
+                        src=""
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        data-video-url="https://www.youtube.com/embed/Bl6EYpWDlFg?autoplay=1&rel=0&modestbranding=1">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>

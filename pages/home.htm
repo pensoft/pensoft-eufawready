@@ -1,0 +1,24 @@
+url = "/"
+layout = "default"
+title = "EUFAWReady"
+is_hidden = 0
+meta_title = "EUFAWReady"
+meta_description = "EUFAWReady"
+robot_index = "index"
+robot_follow = "follow"
+
+==
+<?php
+use Pensoft\Articles\Models\Article;
+
+function onStart(){
+
+    $this['highlights'] = Article::news()->where('published', 'true')->orderBy('published_at', 'desc')->take(10)->get()->map(function($item){
+        $item->content = str_limit(strip_tags($item->content), 90);
+        $item->href = $item->slug;
+        return $item;
+    });
+
+}
+?>
+==

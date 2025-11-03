@@ -22,6 +22,18 @@
   font-display: block;
 }
 
+@font-face {
+  font-family: 'x-icon';
+  src:  url('../fonts/icons/x-icon/icomoon.eot?o4q3va');
+  src:  url('../fonts/icons/x-icon/icomoon.eot?o4q3va#iefix') format('embedded-opentype'),
+    url('../fonts/icons/x-icon/icomoon.ttf?o4q3va') format('truetype'),
+    url('../fonts/icons/x-icon/icomoon.woff?o4q3va') format('woff'),
+    url('../fonts/icons/x-icon/icomoon.svg?o4q3va#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
 .p, .pb, .pd, .pl, .pr, .ps {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -37,13 +49,25 @@
       vertical-align: middle;
     }
     &.small {
-      .font-size(0.80);
+      .font-size(1.1);
+        &.p-twitter{
+            .font-size(1);
+        }
     }
     &.normal {
-      .font-size(1.2);
+      .font-size(1.3);
+        &.p-twitter{
+            .font-size(1);
+            margin-top: 3px;
+        }
     }
+
     &.big {
       .font-size(1.8);
+        &.p-twitter{
+            .font-size(1.4);
+            margin-top: 11px;
+        }
     }
     &.middle {
       .font-size(2.3);
@@ -59,20 +83,21 @@
       .font-size(5);
     }
     &.p-primary {
-      color: @button-background-color!important;
-      background-color: @white-color!important;
-        width: 71px;
-        height: 71px;
-        display: flex;
+        color: @white-color!important;
+        background-color: @link-color!important;
+        width: 45px;
+        height: 45px;
+        line-height: 33px;
         align-items: center;
         border: none;
-        margin-bottom: 16px;
       .rounded(50%);
+        display: inline-block;
 
       &.subscribe_home{
-        .rounded(50px);
+        .rounded(12px);
         width: fit-content;
         padding: 10px 50px 0 50px!important;
+        font-family: "Clear Sans";
         font-weight: bold;
         .breakpoint-small-down({
           font-size: 16px;
@@ -85,9 +110,9 @@
 
     &.p-facebook{
     }
-    &.p-twitter{
-
-    }
+    // &.p-twitter{
+    //   margin-top: 7px;
+    // }
 
     &.p-secondary {
       line-height: 1em!important;
@@ -97,7 +122,8 @@
     }
 
     &.p-search {
-      color: @white-color;
+        //background: url("../../assets/images/Icon search.svg") center no-repeat;
+      //color: @white-color;
     }
     &.p-success {
       color: @success-color;
@@ -120,21 +146,20 @@
     &.p-link {
     color: @primary-color;
     }
-    &.p-subscribe {
-      font-size: 1em!important;
-      width: 14.7px!important;
-      height: 14.4px!important;
-      line-height: 14.7px!important;
-      text-align: center;
-    }
-
-    &.p-mail {
-      font-size: 1em!important;
-      width: 14.7px!important;
-      height: 14.4px!important;
-      line-height: 14.7px!important;
-      text-align: center;
-    }
+    //&.p-subscribe {
+    //  font-size: 1.3em!important;
+    //  width: 36px!important;
+    //  height: 36px!important;
+    //  line-height: 36px!important;
+    //  text-align: center;
+    //}
+    //&.p-mail {
+    //  font-size: 1em!important;
+    //  width: 36px!important;
+    //  height: 36px!important;
+    //  line-height: 36px!important;
+    //  text-align: center;
+    //}
 
 
 }
@@ -219,7 +244,7 @@
     content: "\eaed";
 }
 .p-mail:before {
-    content: "\e901";
+    content: "\e900";
 }
 .p-website:before {
     content: "\e903";
@@ -239,18 +264,36 @@
 .p-RSS:before {
     content: "\eaf1";
 }
-.p-twitter:before {
-    content: "\e900";
+
+.p-bluesky:before {
+  content: "";
+  background-image: url('/themes/pensoft-onestop/assets/images/blue_sky.svg');
+  background-size: 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 18px;
+  height: 18px;
+
+    // font-family: 'x-icon';
+    // content: "\e900";
 }
+
+.p-twitter:before {
+  font-family: 'x-icon';
+  content: "\e901";
+}
+
 .p-youtube:before {
     content: "\eaf3";
 }
+
 .p-subscribe:before {
     content: "\e901";
 }
-// .p-mail:before {
-//     content: "\e900";
-// }
+
+.p-mail:before {
+    content: "\e900";
+}
 .p-key:before {
     content: "\eaf4";
 }
@@ -282,7 +325,7 @@
     content: "\eafe";
 }
 .p-download:before {
-    content: "\e915";
+    //content: "\e914";
 }
 .p-drag:before {
     content: "\eb00";
@@ -295,48 +338,4 @@
 }
 .p-add:before {
     content: "\eb03";
-}
-
-.social-networks {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-  
-  a {
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.20);
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(2px);
-      transition: all 0.3s ease;
-      
-      &.bluesky {
-          background: rgba(255, 255, 255, 0.15) url("../../assets/images/bluesky-white-icon.svg") center no-repeat;
-          background-size: 20px;
-      }
-      
-      &.linkedin {
-          background: rgba(255, 255, 255, 0.15) url("../../assets/images/linkedin-white-icon.svg") center no-repeat;
-          background-size: 20px;
-      }
-      
-      &.youtube {
-          background: rgba(255, 255, 255, 0.15) url("../../assets/images/youtube-white-icon.svg") center no-repeat;
-          background-size: 20px;
-      }
-      
-      &:hover {
-          background-color: rgba(255, 255, 255, 0.3);
-          transform: scale(1.05);
-      }
-  }
-  .breakpoint-large-down({
-      display: flex;
-      justify-content: center;
-      margin-bottom: 30px;
-      margin-top: 30px;
-  });
 }

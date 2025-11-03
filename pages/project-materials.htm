@@ -1,0 +1,93 @@
+url = "/project-materials"
+layout = "default"
+title = "Project Materials"
+is_hidden = 0
+meta_description = "project materials page"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+==
+<?php
+use Pensoft\Media\Models\MediaLogos;
+use Pensoft\Media\Models\Flyers;
+use Pensoft\Media\Models\Newsletters;
+use Pensoft\Media\Models\Presentations;
+use Pensoft\Media\Models\Pressreleases;
+use Pensoft\Media\Models\Videos;
+
+function onStart(){
+	$this['logos'] =  MediaLogos::get();
+	$this['flyers'] =  Flyers::get();
+	$this['newsletters'] =  Newsletters::get();
+	$this['presentations'] =  Presentations::get();
+	$this['pressreleases'] =  Pressreleases::get();
+	$this['videos'] =  Videos::get();
+}
+?>
+==
+
+<div class="container-fluid page-tabs">
+    <div class="container mb-0 pb-0">
+        <div class="tabs-navigation row" role="tablist">
+            <button type="button" class="tab-link active" data-tab="brand-kit" role="tab" aria-selected="true" aria-controls="brand-kit">Brand kit</button>
+            <button type="button" class="tab-link" data-tab="promotional-materials" role="tab" aria-selected="false" aria-controls="promotional-materials">Promotional materials</button>
+            <button type="button" class="tab-link" data-tab="technical-materials" role="tab" aria-selected="false" aria-controls="technical-materials">Technical materials</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid page-content">
+        <!-- Brand Kit Tab Content -->
+        <div id="brand-kit" class="container tab-content active" role="tabpanel" aria-labelledby="brand-kit">
+            {% if logos.count() %}
+            <div class="row">
+                {% for logo in logos %}
+                <div class="col-md-4 col-xs-12 mb-4">
+                    <div class="logo-container" data-item-name="{{ logo.name | default('Logo') }}">
+                        {% partial 'download-dropdown' item=logo imageField='logo_image' itemType='logo' %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No brand kit materials available at the moment.</p>
+            {% endif %}
+        </div>
+
+        <!-- Promotional Materials Tab Content -->
+        <div id="promotional-materials" class="container tab-content" role="tabpanel" aria-labelledby="promotional-materials">
+            {% if flyers.count() %}
+            <div class="row">
+                {% for flyer in flyers %}
+                <div class="col-md-4 col-xs-12 mb-4">
+                    <div class="flyer-container" data-item-name="{{ flyer.name | default('Promo Material') }}">
+                        {% partial 'download-dropdown' item=flyer imageField='flyer_image' itemType='flyer' %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No promotional materials available at the moment.</p>
+            {% endif %}
+        </div>
+
+        <!-- Technical Materials Tab Content -->
+        <div id="technical-materials" class="container tab-content" role="tabpanel" aria-labelledby="technical-materials">
+            {% if presentations.count() %}
+            <div class="row">
+                {% for presentation in presentations %}
+                <div class="col-md-4 col-xs-12 mb-4">
+                    <div class="presentation-container" data-item-name="{{ presentation.name | default('Presentation') }}">
+                        {% partial 'download-dropdown' item=presentation imageField='presentation_image' itemType='presentation' %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No technical materials available at the moment.</p>
+            {% endif %}
+        </div>
+</div>
+

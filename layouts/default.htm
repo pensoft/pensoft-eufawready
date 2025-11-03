@@ -10,10 +10,9 @@ includePageMeta = 1
 escape = 1
 
 [googleTracker]
-
 ==
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -27,23 +26,21 @@ escape = 1
     <link href="{{ ['assets/css/scale.css']|theme }}" rel="stylesheet">
     <link href="{{ ['assets/css/light.css']|theme }}" rel="stylesheet">
     <script src="{{ 'assets/js/jquery.js'|theme }}"></script>
-
+    <!--<script src="{{ 'assets/js/popper.min.js'|theme }}"></script>
+    <script src="{{ 'assets/js/tippy-bundle.umd.min.js'|theme}}"></script>-->
     <script src="{{ 'assets/js/app.js'|theme }}"></script>
-    <script src="{{ 'assets/js/site-search.js'|theme }}"></script>
-    
+    <script src="{{ 'assets/js/translation.js'|theme }}"></script>
     <script src="{{ 'assets/js/jquery-ui.js'|theme }}"></script>
     <script src="{{ 'assets/vendor/bootstrap/js/modal.js'|theme  }}"></script>
     <script type="text/javascript" src="{{ 'assets/js/slick.min.js'|theme }}"></script>
+    <script src="{{ 'assets/js/living-labs-map.js'|theme }}"></script>
     <link rel="stylesheet" href="{{ 'assets/css/aos.css'|theme }}">
     <script src="{{ 'assets/js/aos.js'|theme }}"></script>
     <script src="{{ 'assets/js/ckeditor/ckeditor.js'|theme}}"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
 
-
-    <!-- Hidden element for Google Translate API access -->
-    <!-- <div id="google_translate_element_hidden" style="display: none;"></div> -->
+     <!-- Hidden element for Google Translate API access -->
+    <div id="google_translate_element_hidden" style="display: none;"></div>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -63,7 +60,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {% styles %}
     {% scripts %}
     <!-- Matomo -->
-    
 <script>
   var _paq = window._paq = window._paq || [];
   / tracker methods like "setCustomDimension" should be called before "trackPageView" /
@@ -106,9 +102,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </header>
 
     <!-- Content -->
-    <section id="layout-content" class="{{this.page.id}}">
+    <main id="layout-content" class="{{this.page.id}}">
         {% page %}
-    </section>
+    </main>
 </div>
 {% if this.theme.enable_footer %}
 <!-- Footer -->
@@ -137,10 +133,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+
 <div id="gdpr-reload">
     {% partial 'gdpr' %}
 </div>
 
+<script>
+    $(function() {
+        AOS.init();
+    });
+</script>
+
 </body>
+
 
 </html>

@@ -1,0 +1,9 @@
+<button type="button" class="accordion-toggle folder row" style="margin-bottom: 0;" role="button" aria-expanded="false" aria-controls="accordion-content">
+	<div class="col-xs-12">
+		{% if prefix %}
+		<span class="accordion-title-predix hide relative" aria-hidden="true">{{prefix}}</span>
+		{% endif %}
+		<div id="folderName-7">{{title}}</div>
+	</div>
+</button>
+<div class="accordion-content">{{content|raw}}</div>

@@ -9,7 +9,7 @@ button:not(:disabled) {
     display: inline-block;
     box-sizing: border-box;
     font-weight: 400;
-    color: #6CDDB4;
+    color: #212529;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
@@ -38,11 +38,11 @@ button:not(:disabled) {
         padding-bottom: 0 !important;
         padding-left: 0 !important;
         line-height: unset!important;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        .border-bottom();
-        .border-top();
-        .border-right();
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-bottom: 1px solid @border-color;
+        border-top: 1px solid @border-color;
+        border-right: 1px solid @border-color;
         padding: 0;
         height: 32px;
         .breakpoint-small-down({
@@ -58,7 +58,9 @@ button:not(:disabled) {
         padding: 0!important;
     }
 
-    // Size variants handled below
+    &.small, &.large, &.huge {
+
+    }
     &.small {
       .line-height(0.8);
     }
@@ -89,60 +91,41 @@ button:not(:disabled) {
 }
 
 .btn-primary {
-    border-radius: 10px;
-    background: #E3F2F6;
-    color: #0F2F2A;
-    padding: 8px 30px;
-    justify-content: center;
-    align-items: center;
-    gap: 9px;
-    position: relative;
-    transition: all 0.3s ease-in-out;
-    display: inline-flex;
-    text-decoration: none;
-    cursor: pointer;
-    
-    &::after {
-        content: '';
-        background: url("../../assets/images/green-arrow-btn.svg") center no-repeat;
-        background-size: contain;
-        width: 10px;
-        height: 11px;
-        transition: all 0.3s ease-in-out;
-        transform: translateX(0);
-    }
-    
-    &:hover {
-        background: #d1e8ed;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(227, 242, 246, 0.3);
-        
-        &::after {
-            transform: translateX(4px);
-        }
-    }
-    
-    &:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 6px rgba(227, 242, 246, 0.2);
-    }
+    color: @white-color;
+    background-color: #3CBB54;
+    border-color: #3CBB54;
+    border-radius: 6px;
+    box-shadow: 0px 1px 2px 0px rgba(198, 228, 246, 0.05);
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 13.6px;
+    padding-bottom: 13.6px;
+    min-width: 129px;
+    font-size: 14px;
+    font-family: 'Satoshi Regular';
+}
+
+.btn-primary:hover, .btn-primary.active {
+    color: @white-color;
+    background-color: #329B46;
+    border-color: #329B46;
 }
 
 .btn-secondary {
     color: @white-color;
-    font-size: 17px;
-    background: @button-background-color-secondary url("../../assets/images/subscribe-button-arrow.svg") center no-repeat;
-    background-position: center right 15px;
-    border-color: @button-background-color-secondary;
-    cursor: pointer;
-    .rounded(10px);
-    padding: 9px 35px 9px 25px;
-    transition: all 0.3s ease-in-out;
+    background-color: @secondary-btn-color;
+    border-color: @secondary-color;
+    .rounded(7px);
+    padding: 5px 20px;
+    &.width100{
+      width: 100%;
+    }
 }
 
 .btn-secondary:hover{
-    background: @button-background-color-secondary url("../../assets/images/subscribe-button-arrow.svg") center no-repeat;
-    background-position: center right 20px;
+  color: @secondary-btn-color;
+  background-color: @white-color;
+  border-color: @secondary-btn-color;
 }
 
 .btn-success {
@@ -150,49 +133,41 @@ button:not(:disabled) {
     background-color: @success-color;
     border-color: @success-color;
 }
-
 .btn-danger {
     color: @white-color;
     background-color: @danger-color;
     border-color: @danger-color;
 }
-
 .btn-warning {
     color: @white-color;
     background-color: @warning-color;
     border-color: @warning-color;
 }
-
 .btn-info {
     color: @white-color;
     background-color: @info-color;
     border-color: @info-color;
 }
-
 .btn-light {
     color: @dark-color;
     background-color: @light-color;
     border-color: @light-color;
 }
-
 .btn-dark {
     color: @white-color;
     background-color: @dark-color;
     border-color: @dark-color;
 }
-
 .btn-yellow {
     color: @white-color;
     background-color: @yellow-color;
     border-color: @yellow-color;
 }
-
 .btn-yellow:hover {
     color: @yellow-color;
     background-color: @secondary-color;
     border-color: @secondary-color;
 }
-
 .btn-link {
     color: @link-color;
 }

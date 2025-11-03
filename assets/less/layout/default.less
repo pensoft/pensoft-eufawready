@@ -1,10 +1,11 @@
 .container {
-    max-width: calc(100vw - 8rem);
-    // max-width: 100%;
+    max-width: calc(100vw - 8rem) !important;
     padding-right: 0.5rem;
     padding-left: 0.5rem;
-    // padding-top: 50px;
-    // padding-bottom: 50px;
+     //padding-top: @padding-base-space-home * 2.5;
+    padding-top: 50px;
+    //padding-bottom: @padding-base-space-home * 2.5;
+    padding-bottom: 50px;
     margin-right: auto;
     margin-left: auto;
 
@@ -28,10 +29,16 @@
     }
 }
 
+.container-responsive {
+    max-width: calc(100vw - 8rem) !important;
+}
+
 .container-fluid {
     width: 100%;
     padding-left: 0!important;
 }
+
+
 
 
 .fixed-top,.fixed-bottom,.fixed-right,.fixed-left {

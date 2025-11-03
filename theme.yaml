@@ -282,7 +282,6 @@ form:
                 assetVar: 'font-family'
                 default: satoshi
                 options:
-                    gilroy: Gilroy
                     satoshi: Satoshi
             background:
                 label: Background color
