@@ -6,43 +6,31 @@ primaryClasses = "navbar-nav"
 secondaryClasses = "dropdown-menu"
 numberOfLevels = 2
 
-[jumbotron hero-text]
-jumbotron = "hero-text"
-templates = "template2" 
-description_limit = 0
-
-[jumbotron resources-intro]
-jumbotron = "resources-intro"
-templates = "resources-intro" 
-description_limit = 0
-
-[jumbotron detection-intro]
-jumbotron = "detection-intro"
-templates = "detection-intro" 
-description_limit = 0
-
-[jumbotron prioritisation-intro]
-jumbotron = "prioritisation-intro"
-templates = "prioritisation-intro" 
-description_limit = 0
-
-[jumbotron dissemination-intro]
-jumbotron = "dissemination-intro"
-templates = "dissemination-intro" 
-description_limit = 0
-
-[jumbotron socio-political-intro]
-jumbotron = "socio-political-intro"
-templates = "socio-political-intro" 
-description_limit = 0
+[menu desktopMenu]
+start = "id-1"
+activeNode = 0
+listItemClasses = "nav-item"
+primaryClasses = "navbar-nav-desktop"
+secondaryClasses = "dropdown-menu"
+numberOfLevels = 2
 
 ==
 <nav class="navbar fixed" id="headernavbar" aria-label="Main navigation" {% if user %} style="margin-top:69px;"{% endif %}>
+
     <div class="container container-responsive">
         <a href="{{'home'|page}}" class="navbar-brand">
             <img src="{{ this.theme.site_logo.getPath() }}" alt="{{ this.theme.site_name }}">
         </a>
 
+        <!-- Desktop Navigation (visible on >= 992px) -->
+        <div class="navbar-nav-desktop-wrapper">
+            {% component 'desktopMenu' %}
+            <button type="button" id="desktopSearchBtn" aria-label="Search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Hamburger Toggle (visible on < 992px) -->
         <button type="button" id="desktopMenuToggle" aria-label="Toggle navigation">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -59,7 +47,7 @@ description_limit = 0
         
         <div class="navbar-bottom-elements">
             
-            <div class="social-icons">
+            <!-- <div class="social-icons">
                 {% if enable_linkedin and linkedin_url %}
                 <a href="{{ linkedin_url }}" class="social-icon linkedin" aria-label="LinkedIn (opens in new tab)" target="_blank"></a>
                 {% endif %}
@@ -69,7 +57,7 @@ description_limit = 0
                 {% if enable_youtube and youtube_url %}
                 <a href="{{youtube_url}}" target="_blank" class="social-icon pr p-secondary p-youtube normal" aria-label="YouTube (opens in new tab)"></a>
                 {% endif %}
-            </div>
+            </div> -->
             
             <div class="bottom-row">
                 <div id="google_translate_element"></div>
@@ -80,6 +68,7 @@ description_limit = 0
                 </div>
             </div>
         </div>
+
         <div id="search" class="srearch" style="display: none;">
             <div class="containe">
                 <form class="input-group align-items-start" role="search" action="{{ url('search')}}" method="get">
