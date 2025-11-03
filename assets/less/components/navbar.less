@@ -1,4 +1,4 @@
-#headernavbar .navbar-collapse .search .container form .text-grey-search-btn:before {
+#headernavbar .search-overlay .container form .text-grey-search-btn:before {
     font-size: 40px !important;
     display: flex;
     justify-content: center;
@@ -193,6 +193,12 @@
         transition: all 0.3s ease;
         padding: 0;
 
+        img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+
         svg, .fa, i {
             color: white;
             font-size: 18px;
@@ -292,140 +298,6 @@
             right: 0;
             opacity: 1;
             visibility: visible;
-        }
-        
-        .search {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 0;
-            z-index: 1010;
-            display: none;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            animation: fadeBackdrop 0.3s ease forwards;
-            
-            @keyframes fadeBackdrop {
-                from {
-                    backdrop-filter: blur(0px);
-                    -webkit-backdrop-filter: blur(0px);
-                }
-                to {
-                    backdrop-filter: blur(5px);
-                    -webkit-backdrop-filter: blur(5px);
-                }
-            }
-            
-            .container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                
-                form {
-                    width: 100%;
-                    max-width: 600px;
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    background-color: white;
-                    border-radius: 8px;
-                    padding: 10px;
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-                    transform-origin: center;
-                    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); // Bouncy effect
-                    transform: scale(0.8);
-                    opacity: 0;
-                    
-                    &.pop-in {
-                        transform: scale(1);
-                        opacity: 1;
-                    }
-                    
-                    .search_input {
-                        width: 100%;
-                        padding: 15px 50px 15px 20px;
-                        border-radius: 4px;
-                        border: none;
-                        font-size: 16px;
-                        background: transparent;
-                        animation: inputFocus 0.5s ease 0.3s forwards;
-
-                        @keyframes inputFocus {
-                            0% {
-                                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
-                            }
-                            50% {
-                                box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
-                            }
-                            100% {
-                                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
-                            }
-                        }
-                        
-                        &:focus {
-                            outline: none;
-                        }
-                        
-                        &::placeholder {
-                            color: #999;
-                            opacity: 0.7;
-                            transition: opacity 0.3s ease;
-                        }
-                        
-                        &:focus::placeholder {
-                            opacity: 0.4;
-                        }
-                    }
-                    
-                    .text-grey-search-btn {
-                        position: absolute;
-                        right: 15px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        background: transparent;
-                        border: none;
-                        cursor: pointer;
-                        padding: 0;
-                        transition: transform 0.2s ease;
-                        
-                        &:before {
-                            font-size: 20px;
-                        }
-                        
-                        &:hover {
-                            transform: translateY(-50%) scale(1.1);
-                        }
-                        .breakpoint-large-down({
-                            width: 10%;
-                        })
-                    }
-                    
-                    .close-search {
-                        position: absolute;
-                        right: -40px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        color: white;
-                        cursor: pointer;
-                        font-size: 24px;
-                        width: 30px;
-                        height: 30px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        transition: transform 0.2s ease;
-                        
-                        &:hover {
-                            color: #4caf50;
-                            transform: translateY(-50%) scale(1.2);
-                        }
-                    }
-                }
-            }
         }
         
         .navbar-bottom-elements {
@@ -664,6 +536,159 @@
             }
         }
     }
+    
+    // Search Overlay (independent of navbar-collapse)
+    .search-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 0;
+        z-index: 1010;
+        display: none;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        animation: fadeBackdrop 0.3s ease forwards;
+        
+        @keyframes fadeBackdrop {
+            from {
+                backdrop-filter: blur(0px);
+                -webkit-backdrop-filter: blur(0px);
+            }
+            to {
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
+            }
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            
+            form {
+                width: 100%;
+                max-width: 600px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                background-color: white;
+                border-radius: 8px;
+                padding: 10px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                transform-origin: center;
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); // Bouncy effect
+                transform: scale(0.8);
+                opacity: 0;
+                
+                &.pop-in {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                
+                // Hide the search label
+                label.sr-only {
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                    display: none !important;
+                }
+                
+                .search_input {
+                    width: 100%;
+                    padding: 15px 50px 15px 20px;
+                    border-radius: 4px;
+                    border: none;
+                    font-size: 16px;
+                    background: transparent;
+                    animation: inputFocus 0.5s ease 0.3s forwards;
+
+                    @keyframes inputFocus {
+                        0% {
+                            box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+                        }
+                        50% {
+                            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+                        }
+                        100% {
+                            box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+                        }
+                    }
+                    
+                    &:focus {
+                        outline: none;
+                    }
+                    
+                    &::placeholder {
+                        color: #999;
+                        opacity: 0.7;
+                        transition: opacity 0.3s ease;
+                    }
+                    
+                    &:focus::placeholder {
+                        opacity: 0.4;
+                    }
+                }
+                
+                .text-grey-search-btn {
+                    position: absolute;
+                    right: 15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                    transition: transform 0.2s ease;
+                    
+                    &:before {
+                        font-size: 20px;
+                    }
+                    
+                    &:hover {
+                        transform: translateY(-50%) scale(1.1);
+                    }
+                    .breakpoint-large-down({
+                        width: 10%;
+                    })
+                }
+                
+                .close-search {
+                    position: absolute;
+                    right: -40px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #4caf50;
+                    cursor: pointer;
+                    font-size: 28px;
+                    font-weight: bold;
+                    width: 32px;
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.2s ease;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    
+                    &:hover {
+                        color: #009344;
+                        transform: translateY(-50%) scale(1.2) rotate(90deg);
+                    }
+                }
+            }
+        }
+    }
 }
 
 body.menu-open {
@@ -709,32 +734,6 @@ body.menu-open {
         .navbar-collapse {
             width: 95%;
             padding: 60px 10px 15px;
-            
-            // Responsive search container
-            .search {
-                .container {
-                    padding: 0 20px;
-                    
-                    form {
-                        max-width: 90%;
-                        margin: 0 auto;
-                        padding: 8px;
-                        
-                        .search_input {
-                            padding: 12px 40px 12px 15px;
-                            font-size: 14px;
-                        }
-                        
-                        .close-search {
-                            right: -30px;
-                            top: -40px; // Position above the form on mobile
-                            font-size: 20px;
-                            width: 24px;
-                            height: 24px;
-                        }
-                    }
-                }
-            }
             
             .navbar-nav {
                 .nav-item {
@@ -821,6 +820,38 @@ body.menu-open {
             top: 15px;
             right: 15px;
             font-size: 24px;
+        }
+        
+        // Mobile responsive search overlay
+        .search-overlay {
+            .container {
+                padding: 0 20px;
+                
+                form {
+                    max-width: 90%;
+                    margin: 0 auto;
+                    padding: 8px;
+                    
+                    .search_input {
+                        padding: 12px 40px 12px 15px;
+                        font-size: 14px;
+                    }
+                    
+                    .close-search {
+                        right: -30px;
+                        top: -40px; // Position above the form on mobile
+                        font-size: 24px;
+                        font-weight: bold;
+                        width: 28px;
+                        height: 28px;
+                        color: #4caf50;
+                        
+                        &:hover {
+                            color: #009344;
+                        }
+                    }
+                }
+            }
         }
     }
 }

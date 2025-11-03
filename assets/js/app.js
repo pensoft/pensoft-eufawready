@@ -22,20 +22,27 @@ function showSearchForm() {
     // Prevent scrolling when search is open
     $('body').css('overflow', 'hidden');
     
-    // Add event listener to close search when clicking outside
-    $(document).on('click.searchClose', function(event) {
-        var $search = $('#search form');
-        var $searchToggle = $('#searchToggle');
-        
-        // If click is outside search container and not on search button
-        if (!$search.is(event.target) && 
-            $search.has(event.target).length === 0 && 
-            !$searchToggle.is(event.target) && 
-            $searchToggle.has(event.target).length === 0 &&
-            !$(event.target).closest('.close-search').length) {
-            hideSearchForm();
-        }
-    });
+    // Delay adding the click-outside listener to prevent immediate closure
+    // This ensures the current click event finishes propagating before we start listening
+    setTimeout(function() {
+        // Add event listener to close search when clicking outside
+        $(document).on('click.searchClose', function(event) {
+            var $search = $('#search form');
+            var $searchToggle = $('#searchToggle');
+            var $desktopSearchBtn = $('#desktopSearchBtn');
+            
+            // If click is outside search container and not on search buttons
+            if (!$search.is(event.target) && 
+                $search.has(event.target).length === 0 && 
+                !$searchToggle.is(event.target) && 
+                $searchToggle.has(event.target).length === 0 &&
+                !$desktopSearchBtn.is(event.target) && 
+                $desktopSearchBtn.has(event.target).length === 0 &&
+                !$(event.target).closest('.close-search').length) {
+                hideSearchForm();
+            }
+        });
+    }, 100);
     
     // Add escape key handler
     $(document).on('keydown.searchEscape', function(e) {
@@ -290,10 +297,10 @@ $(document).ready(function() {
         }
     });
 
-    onHashChange();
-	$(window).on("hashchange", function() {
-		onHashChange();
-	});
+    // onHashChange();
+	// $(window).on("hashchange", function() {
+	// 	onHashChange();
+	// });
 
 	$('.nav.nav-pills').removeAttr('id');
 

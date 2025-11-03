@@ -1,0 +1,17 @@
+==
+<?php
+
+use Mohsin\Carousel\Models\Carousel as Carousel;
+
+function onStart(){
+    $carousel = Carousel::where('name', 'Main')->first();
+    $this['carousel_images'] = $carousel ? $carousel->images : collect();
+}
+
+?>
+
+==
+
+<div class="hero">
+    
+</div>

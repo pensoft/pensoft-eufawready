@@ -26,7 +26,7 @@ numberOfLevels = 2
         <div class="navbar-nav-desktop-wrapper">
             {% component 'desktopMenu' %}
             <button type="button" id="desktopSearchBtn" aria-label="Search">
-                <i class="fa fa-search" aria-hidden="true"></i>
+                <img src="{{ 'assets/images/search-icon.svg'|theme }}" alt="Search" aria-hidden="true">
             </button>
         </div>
 
@@ -68,16 +68,17 @@ numberOfLevels = 2
                 </div>
             </div>
         </div>
-
-        <div id="search" class="srearch" style="display: none;">
-            <div class="containe">
-                <form class="input-group align-items-start" role="search" action="{{ url('search')}}" method="get">
-                    <label for="searchInput" class="sr-only">Search</label>
-                    <input id="searchInput" class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search here...">
-                    <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit" aria-label="Submit search"></button>
-                    <button type="button" class="close-search" onclick="hideSearchForm();" aria-label="Close search">&#10006;</button>
-                </form>
-            </div>
+    </div>
+    
+    <!-- Search Overlay (independent of menu) -->
+    <div id="search" class="search-overlay" style="display: none;">
+        <div class="container">
+            <form class="input-group align-items-start" role="search" action="{{ url('search')}}" method="get">
+                <label for="searchInput" class="sr-only">Search</label>
+                <input id="searchInput" class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search here...">
+                <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit" aria-label="Submit search"></button>
+                <button type="button" class="close-search" onclick="hideSearchForm();" aria-label="Close search">&#10006;</button>
+            </form>
         </div>
     </div>
 </nav>
@@ -85,59 +86,14 @@ numberOfLevels = 2
 
 
 {% if this.theme.header_image %}
-<div class="header-image {{page_id}} hero">
+<div class="header-image {{page_id}}">
     {% if page_id == 'home' %}
-    <div class="container hero-container" {% if user %} style="margin-top: 20px;" {% endif %}>
-        <div class="row">
-            <div class="col-md-7 col-xs-12">
-                <div class="hero-content">
-                    {% component 'hero-text' %}
-                </div>
-            </div>
-            <div class="col-md-5 col-xs-12 outer-circle-container">
-                <div class="outer-cicle">
-                    <div class="outer-circle-border"></div>
-                    <div class="leaf-circle"></div>
-                    <div class="image-placeholder">
-                        <img src="{{ 'assets/images/home-image-1.png'|theme }}" alt="{{ this.theme.site_name }}">
-                        <img src="{{ 'assets/images/home-image-2.png'|theme }}" alt="{{ this.theme.site_name }}">
-                        <img src="{{ 'assets/images/home-image-3.png'|theme }}" alt="{{ this.theme.site_name }}">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        {% partial 'components/hero' %}
     {% else %}
-        <div class="header-image-bar" {% if user and this.page.id != 'home' %} style="margin-top: 154px!important;" {% endif %}>
+        <div class="header-image-bar">
             <h1 class="underline white">{%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}</h1>
         </div>
     {%endif%}
     
-    {% if page_id == 'home' %}
-    <div class="ellipse-top-decoration"></div>
-    <div class="ellipse-bottom-decoration"></div>
-    {% endif %}
 </div>
 {% endif %}
-
-<!-- Video Popup Modal -->
-<div class="video-popup" id="videoPopup" aria-hidden="true">
-    <div class="video-popup-backdrop" data-close-video></div>
-    
-    <div class="video-popup-dialog" role="dialog" aria-modal="true">
-        <div class="video-popup-content">
-            <div class="video-wrapper">
-                <button type="button" class="video-popup-close" data-close-video aria-label="Close video">
-                    <img src="{{ 'assets/images/close-video.svg'|theme }}" alt="Close">
-                </button>
-                <iframe id="videoIframe"
-                        src=""
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        data-video-url="https://www.youtube.com/embed/Bl6EYpWDlFg?autoplay=1&rel=0&modestbranding=1">
-                </iframe>
-            </div>
-        </div>
-    </div>
-</div>
