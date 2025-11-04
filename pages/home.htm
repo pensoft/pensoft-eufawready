@@ -19,7 +19,7 @@ use Pensoft\Articles\Models\Article;
 
 function onStart(){
 
-    $this['highlights'] = Article::news()->where('published', 'true')->orderBy('published_at', 'desc')->take(10)->get()->map(function($item){
+    $this['highlights'] = Article::news()->where('published', 'true')->orderBy('published_at', 'desc')->take(3)->get()->map(function($item){
         $item->content = str_limit(strip_tags($item->content), 90);
         $item->href = $item->slug;
         return $item;
@@ -31,4 +31,37 @@ function onStart(){
 
 <section class="container-fluid home-blocks">
     {% component 'home-blocks' %}
+</section>
+
+<section class="container-fluid home-highlights">
+    <div class="container">
+        <h2 class="section-header">Latest news</h2>
+        <div class="row">
+            {% for article in highlights %}
+            <div class="col-md-4 col-xs-12">
+                <div class="highlight-card">
+                    <a href="{{ 'news'|page }}/{{ article.slug }}" class="highlight-image-wrapper">
+                        {% if article.cover %}
+                        <img src="{{ article.cover.path }}" alt="{{ article.title }}" class="highlight-image" />
+                        {% endif %}
+                        <div class="highlight-date-badge">
+                            {{ article.pretty_published_at }}
+                        </div>
+                    </a>
+                    <div class="highlight-content">
+                        <a href="{{ 'news'|page }}/{{ article.slug }}" class="highlight-title-link">
+                            <h3 class="highlight-title">{{ article.title }}</h3>
+                        </a>
+                        <a href="{{ 'news'|page }}/{{ article.slug }}" class="highlight-arrow">
+                            <img src="{{ 'assets/images/read-more-white.svg'|theme }}" alt="Read more" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="view-all-wrapper">
+        <a href="{{ 'news'|page }}" class="btn btn-primary">View all news</a>
+    </div>
 </section>

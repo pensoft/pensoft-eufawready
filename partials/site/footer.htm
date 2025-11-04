@@ -11,6 +11,12 @@ dismiss = "Got it!"
 learnMore = "Opt-out here"
 link = "/privacy-policy#cookies"
 theme = "dark-bottom"
+
+[jumbotron funding-text]
+jumbotron = "funding-text"
+templates = "template2"
+background = transparent
+description_limit = 0
 ==
 {% component 'cookieConsent' %}
 
@@ -45,7 +51,9 @@ theme = "dark-bottom"
                     {% if footer_funds_flag %}
                     <div class="eu-funding">
                         <img src="{{ footer_funds_flag }}" alt="EU Flag" class="eu-flag">
-                        <p class="eu-text">{{ footer_funds_text | raw }}</p>
+                        <div class="funding-text">
+                            {% component 'funding-text' %}
+                        </div>
                     </div>
                     {% endif %}
 
