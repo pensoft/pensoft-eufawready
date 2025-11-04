@@ -15,7 +15,7 @@ secondaryClasses = "dropdown-menu"
 numberOfLevels = 2
 
 ==
-<nav class="navbar fixed" id="headernavbar" aria-label="Main navigation" {% if user %} style="margin-top:69px;"{% endif %}>
+<nav class="navbar fixed" id="headernavbar" aria-label="Main navigation">
 
     <div class="container container-responsive">
         <a href="{{'home'|page}}" class="navbar-brand">
@@ -25,10 +25,12 @@ numberOfLevels = 2
         <!-- Desktop Navigation (visible on >= 992px) -->
         <div class="navbar-nav-desktop-wrapper">
             {% component 'desktopMenu' %}
-            <button type="button" id="desktopSearchBtn" aria-label="Search">
-                <img src="{{ 'assets/images/search-icon.svg'|theme }}" alt="Search" aria-hidden="true">
-            </button>
         </div>
+
+        <!-- Desktop Search Button (visible on >= 992px) -->
+        <button type="button" id="desktopSearchBtn" aria-label="Search">
+            <img src="{{ 'assets/images/search-icon.svg'|theme }}" alt="Search" aria-hidden="true">
+        </button>
 
         <!-- Mobile Hamburger Toggle (visible on < 992px) -->
         <button type="button" id="desktopMenuToggle" aria-label="Toggle navigation">

@@ -26,6 +26,7 @@
         margin: 0 auto;
         padding: 0 15px;
         flex-direction: row;
+        gap: 40px;
     }
 
     .navbar-brand {
@@ -33,6 +34,7 @@
         align-items: center;
         height: 55px;
         order: 0;
+        flex-shrink: 0;
         transition: transform 0.3s ease;
 
         img {
@@ -66,9 +68,12 @@
     .navbar-nav-desktop-wrapper {
         display: flex;
         align-items: center;
+        justify-content: center;
         height: 47px;
         gap: 20px;
         order: 1;
+        flex-grow: 1;
+        flex-shrink: 1;
 
         .breakpoint-large-down({
             display: none;
@@ -192,6 +197,8 @@
         cursor: pointer;
         transition: all 0.3s ease;
         padding: 0;
+        flex-shrink: 0;
+        order: 2;
 
         img {
             width: 18px;
@@ -222,8 +229,9 @@
         border: none;
         padding: 0;
         outline: none;
-        order: 1;
+        order: 3;
         display: none;
+        flex-shrink: 0;
 
         .breakpoint-large-down({
             display: block;

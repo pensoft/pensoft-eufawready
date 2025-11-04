@@ -4,7 +4,7 @@
 use Mohsin\Carousel\Models\Carousel as Carousel;
 
 function onStart(){
-    $carousel = Carousel::where('name', 'Main')->first();
+    $carousel = Carousel::where('name', 'Hero')->first();
     $this['carousel_images'] = $carousel ? $carousel->images : collect();
 }
 
@@ -12,6 +12,27 @@ function onStart(){
 
 ==
 
-<div class="hero">
-    
+<div class="container hero" role="banner">
+    {% if carousel_images|length > 0 %}
+    <div class="hero-carousel" role="region" aria-label="Hero carousel">
+        {% for image in carousel_images %}
+        <div class="hero-slide">
+            <div class="hero-content">
+                <div class="hero-content-group">
+                    <h1 class="hero-title">
+                        Enhancing Europe's readiness for managing fall armyworm
+                    </h1>
+                    <a href="/aboout" class="btn btn-primary btn-hero">
+                        Learn more
+                    </a>
+                </div>
+            </div>
+            <div class="hero-background" aria-hidden="true">
+                <div class="hero-image" style="background-image: url('{{ image.getPath() }}');" role="img" aria-label="Hero background image"></div>
+                <div class="hero-overlay"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>

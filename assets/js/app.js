@@ -304,6 +304,39 @@ $(document).ready(function() {
 
 	$('.nav.nav-pills').removeAttr('id');
 
+    // Hero Carousel Initialization
+    if($('.hero-carousel').length){
+        $('.hero-carousel').slick({
+            dots: true,
+            arrows: false,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            fade: true,
+            cssEase: 'linear',
+            speed: 1000,
+            infinite: true,
+            pauseOnHover: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            adaptiveHeight: false,
+            responsive: [
+                {
+                    breakpoint: 992, // Tablets and below
+                    settings: {
+                        autoplaySpeed: 4000,
+                        speed: 800
+                    }
+                },
+                {
+                    breakpoint: 576, // Mobile phones
+                    settings: {
+                        autoplaySpeed: 4000,
+                        speed: 800
+                    }
+                }
+            ]
+        });
+    }
 
     // if(width > 1024){
     //     $('.partners_list .key_0, .partners_list .key_2, .partners_list .key_4, .partners_list .key_6, .partners_list .key_8, .partners_list .key_10, .partners_list .key_12, .partners_list .key_14, .partners_list .key_16, .partners_list .key_18').wrapAll('<div class="col-md-6 col-xs-12"></div>');
