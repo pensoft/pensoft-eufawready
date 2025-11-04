@@ -7,6 +7,12 @@ meta_description = "EUFAWReady"
 robot_index = "index"
 robot_follow = "follow"
 
+[jumbotron home-blocks]
+jumbotron = "home-blocks"
+templates = "template2"
+background = transparent
+description_limit = 0
+
 ==
 <?php
 use Pensoft\Articles\Models\Article;
@@ -24,5 +30,5 @@ function onStart(){
 ==
 
 <section class="container-fluid home-blocks">
-    <div class=""></div>
+    {% component 'home-blocks' %}
 </section>
