@@ -36,6 +36,16 @@ numberOfLevels = 2
     </div>
     
     <div class="navbar-collapse" id="headerNavbarNav">
+        <!-- Mobile Menu Header with Logo and Close Button -->
+        <div class="mobile-menu-header">
+            <a href="{{'home'|page}}" class="mobile-logo" aria-label="Home">
+                <img src="{{ this.theme.site_logo.getPath() }}" alt="{{ this.theme.site_name }}">
+            </a>
+            <button type="button" class="close-menu-btn" id="closeMobileMenu" aria-label="Close menu">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
         <!-- Mobile Menu (same component as desktop, will be repositioned by CSS) -->
         <div class="navbar-nav-wrapper-mobile">
             {% component 'menu' %}

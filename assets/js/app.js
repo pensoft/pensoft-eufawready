@@ -86,6 +86,25 @@ $(document).ready(function() {
     // Initialize hamburger menu dropdown functionality
     initHamburgerMenuDropdowns();
 
+    // Wrap nav-item text in span for roulette animation (desktop only)
+    if (window.matchMedia('(min-width: 992px)').matches) {
+        $('.navbar-nav-wrapper .nav-item > a').each(function() {
+            var $link = $(this);
+            var text = $link.text().trim();
+
+            // Don't wrap if it already contains spans (to avoid double wrapping)
+            if (!$link.find('.nav-text').length && text) {
+                // Create two copies: one goes up, one comes from bottom
+                $link.html(
+                    '<span class="nav-text-wrapper">' +
+                        '<span class="nav-text nav-text-1">' + text + '</span>' +
+                        '<span class="nav-text nav-text-2">' + text + '</span>' +
+                    '</span>'
+                );
+            }
+        });
+    }
+
     // Search button functionality
     $('#searchToggle').on('click', function(e) {
         e.preventDefault();
@@ -113,6 +132,16 @@ $(document).ready(function() {
         $('#headerNavbarNav').addClass('show');
         $('#desktopMenuToggle').addClass('active');
         $('body').addClass('menu-open');
+    });
+
+    // Close mobile menu with X button
+    $('#closeMobileMenu').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        $('#headerNavbarNav').removeClass('show');
+        $('#desktopMenuToggle').removeClass('active');
+        $('body').removeClass('menu-open');
     });
 
     // Close mobile menu when clicking outside

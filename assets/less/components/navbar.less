@@ -85,7 +85,7 @@
     .navbar-nav-wrapper-mobile {
         display: block;
         width: 100%;
-        padding: 0;
+        padding: 20px 0;
         margin: 0;
     }
 
@@ -93,7 +93,7 @@
     .mobile-actions-wrapper {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 12px;
         order: 2;
         flex-shrink: 0;
 
@@ -209,7 +209,7 @@
         width: 350px;
         height: 100vh;
         background-color: @dark-color;
-        padding: 100px 0px 20px;
+        padding: 0; // Padding handled by internal sections
         transition: all 0.3s ease;
         overflow-y: auto;
         overflow-x: hidden;
@@ -227,7 +227,76 @@
             opacity: 1;
             visibility: visible;
         }
-        
+
+        // Mobile Menu Header (Logo + Close Button)
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            .mobile-logo {
+                display: flex;
+                align-items: center;
+                height: 40px;
+                text-decoration: none;
+                transition: transform 0.3s ease;
+
+                img {
+                    height: 40px;
+                    width: auto;
+                    filter: brightness(0) invert(1);
+                    transition: transform 0.3s ease;
+                }
+
+                &:hover img {
+                    transform: scale(1.05);
+                }
+
+                &:active img {
+                    transform: scale(0.98);
+                }
+            }
+
+            .close-menu-btn {
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 36px;
+                line-height: 1;
+                cursor: pointer;
+                padding: 0;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+                border-radius: 50%;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                    transform: rotate(90deg);
+                }
+
+                &:active {
+                    transform: scale(0.95) rotate(90deg);
+                }
+
+                span {
+                    font-weight: 300;
+                    display: block;
+                }
+            }
+        }
+
         .navbar-bottom-elements {
             display: flex;
             flex-direction: column;
@@ -408,6 +477,65 @@
                     background-color: #1B1B1B;
                     border-left: 3px solid #4caf50;
                     color: white;
+                }
+            }
+
+            // Roulette rotation animation for desktop nav items
+            @media (min-width: 992px) {
+                > a {
+                    perspective: 200px;
+                    position: relative;
+                    overflow: hidden;
+                    display: inline-block;
+                    padding-bottom: 4px;
+
+                    .nav-text-wrapper {
+                        display: inline-block;
+                        position: relative;
+                    }
+
+                    .nav-text {
+                        display: inline-block;
+                        position: relative;
+                    }
+
+                    .nav-text-1 {
+                        position: relative;
+                    }
+
+                    .nav-text-2 {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        width: 0;
+                        height: 2px;
+                        background-color: #009344;
+                        transform: translateX(-50%);
+                        transition: width 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    }
+                }
+
+                &:hover > a {
+                    .nav-text-1 {
+                        animation: rouletteRollUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+                    }
+
+                    .nav-text-2 {
+                        animation: rouletteRollIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+                    }
+
+                    &::after {
+                        width: 100%;
+                    }
                 }
             }
 
@@ -737,6 +865,34 @@
     }
 }
 
+// Roulette Roll Keyframes Animations - Two text copies for seamless transition
+
+// First text: rolls up and fades out
+@keyframes rouletteRollUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+}
+
+// Second text: comes from bottom and fades in
+@keyframes rouletteRollIn {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 body.menu-open {
     overflow: hidden;
 }
@@ -752,9 +908,9 @@ body.menu-open {
         .navbar-brand {
             order: 0;
             
-            img {
-                height: 30px;
-            }
+            // img {
+            //     height: 30px;
+            // }
             
             // Slightly reduced effects for mobile
             &:hover {
