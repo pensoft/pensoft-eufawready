@@ -1,0 +1,344 @@
+
+
+.site-footer {
+    width: 100%;
+    margin-top: 80px;
+    .breakpoint-large-down({
+        margin-top: 60px;
+    });
+
+    // Main Footer Section (Dark Green)
+    .footer-main {
+        background-color: #061b07;
+        background-image: url('../../images/footer-pattern.svg');
+        background-repeat: no-repeat;
+        background-position: right bottom;
+        background-size: auto 100%;
+        position: relative;
+        padding: 40px 0;
+
+        .breakpoint-large-down({
+            padding: 60px 0 40px;
+            background-size: auto 80%;
+        });
+
+        .breakpoint-small-down({
+            padding: 40px 0 30px;
+            background-size: auto 60%;
+        });
+
+        // Left Column: Logo + Newsletter
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+
+            .breakpoint-large-down({
+                gap: 40px;
+                margin-bottom: 40px;
+                align-items: center;
+                text-align: center;
+            });
+
+            .footer-logo {
+                max-width: 148px;
+                height: auto;
+                display: block;
+
+                .breakpoint-large-down({
+                    max-width: 120px;
+                });
+
+                .breakpoint-small-down({
+                    max-width: 180px;
+                });
+            }
+
+            .newsletter-section {
+                display: flex;
+                flex-direction: column;
+                gap: 29px;
+
+                .breakpoint-large-down({
+                    gap: 20px;
+                    align-items: center;
+                });
+
+                .newsletter-text {
+                    color: @white-color;
+                    font-size: 20px;
+                    font-family: 'Satoshi Medium', sans-serif;
+                    letter-spacing: -0.6px;
+                    line-height: normal;
+                    margin: 0;
+
+                    .breakpoint-large-down({
+                        font-size: 18px;
+                    });
+
+                    .breakpoint-small-down({
+                        font-size: 16px;
+                    });
+                }
+
+                .btn-subscribe {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    width: 239px;
+                    height: 52px;
+
+                    .breakpoint-large-down({
+                        width: 220px;
+                        height: 48px;
+                    });
+
+                    .breakpoint-small-down({
+                        width: 100%;
+                        max-width: 280px;
+                    });
+
+                    .bell-icon {
+                        width: 16px;
+                        height: 21px;
+                        flex-shrink: 0;
+                    }
+                }
+            }
+        }
+
+        // Right Column: Menu + EU Badge + Social Icons
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            gap: 54px;
+
+            .breakpoint-large-down({
+                gap: 40px;
+                align-items: center;
+            });
+
+            // Navigation Menu
+            .footer-navbar-nav {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 25px;
+                align-items: center;
+
+                .breakpoint-large-down({
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 15px;
+                });
+
+                .footer-nav-item {
+                    margin: 0;
+
+                    a {
+                        color: @white-color;
+                        text-decoration: none;
+                        font-size: 17px;
+                        font-family: 'Satoshi Medium', sans-serif;
+                        letter-spacing: -0.51px;
+                        transition: opacity 0.3s ease;
+
+                        .breakpoint-large-down({
+                            font-size: 16px;
+                        });
+
+                        &:hover {
+                            opacity: 0.8;
+                        }
+                    }
+                }
+            }
+
+            .eu-funding {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+
+                .breakpoint-large-down({
+                    align-items: center;
+                    text-align: center;
+                });
+
+                .eu-flag {
+                    width: 158px;
+                    height: 35px;
+                    object-fit: contain;
+
+                    .breakpoint-large-down({
+                        width: 140px;
+                        height: 31px;
+                    });
+                }
+
+                .eu-text {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 12px;
+                    font-family: 'Arial', sans-serif;
+                    line-height: 19px;
+                    letter-spacing: -0.36px;
+                    margin: 0;
+
+                    .breakpoint-large-down({
+                        font-size: 11px;
+                        line-height: 17px;
+                    });
+                }
+            }
+
+            .social-icons {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                justify-content: flex-start;
+
+                .breakpoint-large-down({
+                    justify-content: center;
+                });
+
+                .social-icon-link {
+                    text-decoration: none;
+                    display: block;
+                    transition: transform 0.3s ease;
+
+                    &:hover {
+                        transform: translateY(-2px);
+                    }
+
+                    .social-icon-wrapper {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 46px;
+                        height: 46px;
+                        background-color: #009344;
+                        border-radius: 10px;
+                        transition: background-color 0.3s ease;
+
+                        .breakpoint-large-down({
+                            width: 42px;
+                            height: 42px;
+                        });
+
+                        // Icon font (for Twitter/Facebook if no SVG available)
+                        i {
+                            color: @white-color;
+                            font-size: 28px;
+
+                            .breakpoint-large-down({
+                                font-size: 24px;
+                            });
+                        }
+
+                        // Custom SVG icons
+                        .social-icon-svg {
+                            width: 24px;
+                            height: 24px;
+                            display: block;
+                            filter: brightness(0) invert(1); // Makes SVG white
+
+                            .breakpoint-large-down({
+                                width: 20px;
+                                height: 20px;
+                            });
+                        }
+                    }
+
+                    &:hover .social-icon-wrapper {
+                        background-color: #007A38;
+                    }
+                }
+            }
+        }
+    }
+
+    // Bottom Bar (Black)
+    .footer-bottom {
+        background-color: @black-color;
+        padding: 18px 0;
+
+        .breakpoint-large-down({
+            padding: 15px 0;
+        });
+
+        .black-footer-container{
+            padding: 0;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+
+            .breakpoint-large-down({
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            });
+
+            .privacy-link {
+                color: @white-color;
+                text-decoration: none;
+                font-size: 15px;
+                font-family: 'Satoshi', sans-serif;
+                letter-spacing: -0.45px;
+                transition: opacity 0.3s ease;
+
+                .breakpoint-large-down({
+                    font-size: 14px;
+                });
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+
+            .powered-by {
+                color: @white-color;
+                font-size: 15px;
+                font-family: 'Satoshi', sans-serif;
+                letter-spacing: -0.45px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                .breakpoint-large-down({
+                    font-size: 14px;
+                    text-align: center;
+                    justify-content: center;
+                });
+
+                .pensoft-link {
+                    display: inline-flex;
+                    align-items: center;
+                    text-decoration: none;
+                    transition: opacity 0.3s ease;
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+
+                    .pensoft-logo {
+                        height: 16px;
+                        width: auto;
+                        display: block;
+
+                        .breakpoint-large-down({
+                            height: 14px;
+                        });
+                    }
+                }
+            }
+        }
+    }
+}

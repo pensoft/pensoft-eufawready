@@ -1,10 +1,9 @@
-[menu footer_menu]
-start = "id-10"
+[menu]
+start = "id-1"
 activeNode = 0
-listItemClasses = "footer-menu-item"
-primaryClasses = "footer-menu"
-secondaryClasses = "dropdown-menu"
-numberOfLevels = 2
+listItemClasses = "footer-nav-item"
+primaryClasses = "footer-navbar-nav"
+numberOfLevels = 1
 
 [cookieConsent]
 message = "This website uses cookies to ensure you get the best experience on our website."
@@ -12,14 +11,103 @@ dismiss = "Got it!"
 learnMore = "Opt-out here"
 link = "/privacy-policy#cookies"
 theme = "dark-bottom"
-
-[jumbotron funding-text]
-jumbotron = "funding-text"
-background = "transperant"
-templates = "template2"
-description_limit = 0
 ==
 {% component 'cookieConsent' %}
-<footer class="site-footer">
 
+<footer class="site-footer">
+    <!-- Main Footer Section (Dark Green) -->
+    <div class="container-fluid footer-main">
+        <div class="container">
+            <div class="row">
+                <!-- Left Column: Logo + Newsletter -->
+                <div class="col-md-5 col-xs-12 footer-left">
+                    {% if this.theme.site_logo %}
+                    <img src="{{ this.theme.site_logo.getPath() }}"
+                         alt="{{ this.theme.site_name }}"
+                         class="footer-logo">
+                    {% endif %}
+
+                    <div class="newsletter-section">
+                        <p class="newsletter-text">Subscribe to our newsletter!</p>
+                        {% if this.theme.subscribe %}
+                        <a href="{{this.theme.subscribe}}" class="btn btn-subscribe" target="_blank" aria-label="Subscribe to newsletter (opens in new tab)">
+                            <span class="bell-icon" aria-hidden="true"></span>
+                            Subscribe
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Right Column: EU Badge + Social Icons -->
+                <div class="col-md-7 col-xs-12 footer-right">
+                    {% component 'menu' %}
+                    <!-- EU Funding Badge -->
+                    {% if footer_funds_flag %}
+                    <div class="eu-funding">
+                        <img src="{{ footer_funds_flag }}" alt="EU Flag" class="eu-flag">
+                        <p class="eu-text">{{ footer_funds_text | raw }}</p>
+                    </div>
+                    {% endif %}
+
+                    <!-- Social Media Icons -->
+                    {% if enable_social_media %}
+                    <div class="social-icons">
+                        {% if enable_twitter %}
+                        <a href="{{ twitter_url }}" target="_blank" rel="noopener" aria-label="Twitter" class="social-icon-link">
+                            <span class="social-icon-wrapper">
+                                <i class="p p-twitter"></i>
+                            </span>
+                        </a>
+                        {% endif %}
+                        {% if facebook_url %}
+                        <a href="{{ facebook_url }}" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon-link">
+                            <span class="social-icon-wrapper">
+                                <i class="p p-facebook"></i>
+                            </span>
+                        </a>
+                        {% endif %}
+                        {% if enable_linkedin %}
+                        <a href="{{ linkedin_url }}" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon-link">
+                            <span class="social-icon-wrapper">
+                                <img src="{{ 'assets/images/linkedin.svg' | theme }}" alt="LinkedIn" class="social-icon-svg">
+                            </span>
+                        </a>
+                        {% endif %}
+                        {% if enable_youtube %}
+                        <a href="{{ youtube_url }}" target="_blank" rel="noopener" aria-label="YouTube" class="social-icon-link">
+                            <span class="social-icon-wrapper">
+                                <img src="{{ 'assets/images/youtube.svg' | theme }}" alt="YouTube" class="social-icon-svg">
+                            </span>
+                        </a>
+                        {% endif %}
+                        {% if enable_bluesky %}
+                        <a href="{{ bluesky_url }}" target="_blank" rel="noopener" aria-label="BlueSky" class="social-icon-link">
+                            <span class="social-icon-wrapper">
+                                <img src="{{ 'assets/images/bluesky.svg' | theme }}" alt="BlueSky" class="social-icon-svg">
+                            </span>
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Bar (Black) -->
+    <div class="container-fluid footer-bottom">
+        <div class="container black-footer-container">
+            <div class="row">
+                <div class="col-md-12 col-xs-12 footer-bottom-content">
+                    <a href="{{ 'privacy-policy' | page }}" class="privacy-link">Privacy Policy</a>
+                    <span class="powered-by">
+                        Designed and powered by
+                        <a href="https://pensoft.net" target="_blank" rel="noopener" class="pensoft-link">
+                            <img src="{{ 'assets/images/pensoft-logo.svg' | theme }}" alt="Pensoft" class="pensoft-logo">
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
