@@ -7,7 +7,10 @@ secondaryClasses = "dropdown-menu"
 numberOfLevels = 2
 
 ==
-<nav class="navbar fixed" id="headernavbar" aria-label="Main navigation">
+<!-- Skip to main content link for screen readers -->
+<a href="#main-content" class="skip-to-content sr-only sr-only-focusable">Skip to main content</a>
+
+<nav class="navbar fixed" id="headernavbar" aria-label="Main navigation" role="navigation">
 
     <div class="container container-responsive">
         <a href="{{'home'|page}}" class="navbar-brand">
@@ -27,7 +30,7 @@ numberOfLevels = 2
             </button>
 
             <!-- Mobile Hamburger Toggle (animates to X, visible on < 992px) -->
-            <button type="button" id="desktopMenuToggle" aria-label="Toggle navigation">
+            <button type="button" id="desktopMenuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="headerNavbarNav">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -64,19 +67,16 @@ numberOfLevels = 2
     </div>
     
     <!-- Search Overlay (independent of menu) -->
-    <div id="search" class="search-overlay" style="display: none;">
+    <div id="search" class="search-overlay" style="display: none;" role="dialog" aria-modal="true" aria-label="Search the website">
         <div class="container">
             <form class="input-group align-items-start" role="search" action="{{ url('search')}}" method="get">
-                <label for="searchInput" class="sr-only">Search</label>
-                <input id="searchInput" class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search here...">
+                <input id="searchInput" class="form-control search_input" style="color: #000;" name="q" type="text" autocomplete="on" placeholder="Search here..." aria-label="Search">
                 <button class="btn btn-link pr p-search big text-grey-search-btn" type="submit" aria-label="Submit search"></button>
                 <button type="button" class="close-search" onclick="hideSearchForm();" aria-label="Close search">&#10006;</button>
             </form>
         </div>
     </div>
 </nav>
-
-
 
 {% if this.theme.header_image %}
 <div class="header-image {{page_id}}">
@@ -87,6 +87,5 @@ numberOfLevels = 2
             <h1 class="underline white">{%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}</h1>
         </div>
     {%endif%}
-    
 </div>
 {% endif %}
