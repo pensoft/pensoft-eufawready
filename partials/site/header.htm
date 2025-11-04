@@ -6,14 +6,6 @@ primaryClasses = "navbar-nav"
 secondaryClasses = "dropdown-menu"
 numberOfLevels = 2
 
-[menu desktopMenu]
-start = "id-1"
-activeNode = 0
-listItemClasses = "nav-item"
-primaryClasses = "navbar-nav-desktop"
-secondaryClasses = "dropdown-menu"
-numberOfLevels = 2
-
 ==
 <nav class="navbar fixed" id="headernavbar" aria-label="Main navigation">
 
@@ -22,31 +14,33 @@ numberOfLevels = 2
             <img src="{{ this.theme.site_logo.getPath() }}" alt="{{ this.theme.site_name }}">
         </a>
 
-        <!-- Desktop Navigation (visible on >= 992px) -->
-        <div class="navbar-nav-desktop-wrapper">
-            {% component 'desktopMenu' %}
+        <!-- Navigation Menu (responsive: horizontal on desktop, vertical sidebar on mobile) -->
+        <div class="navbar-nav-wrapper">
+            {% component 'menu' %}
         </div>
 
-        <!-- Desktop Search Button (visible on >= 992px) -->
-        <button type="button" id="desktopSearchBtn" aria-label="Search">
-            <img src="{{ 'assets/images/search-icon.svg'|theme }}" alt="Search" aria-hidden="true">
-        </button>
+        <!-- Mobile Actions Wrapper (groups search + hamburger on mobile) -->
+        <div class="mobile-actions-wrapper">
+            <!-- Search Button (visible on all sizes) -->
+            <button type="button" id="desktopSearchBtn" aria-label="Search">
+                <img src="{{ 'assets/images/search-icon.svg'|theme }}" alt="Search" aria-hidden="true">
+            </button>
 
-        <!-- Mobile Hamburger Toggle (visible on < 992px) -->
-        <button type="button" id="desktopMenuToggle" aria-label="Toggle navigation">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </button>
+            <!-- Mobile Hamburger Toggle (animates to X, visible on < 992px) -->
+            <button type="button" id="desktopMenuToggle" aria-label="Toggle navigation">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
     </div>
     
     <div class="navbar-collapse" id="headerNavbarNav">
-        <button type="button" id="closeMenuBtn" aria-label="Close navigation">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <!-- Mobile Menu (same component as desktop, will be repositioned by CSS) -->
+        <div class="navbar-nav-wrapper-mobile">
+            {% component 'menu' %}
+        </div>
 
-        {% component 'menu' %}
-        
         <div class="navbar-bottom-elements">
             
             <!-- <div class="social-icons">

@@ -77,22 +77,15 @@ function hideSearchForm() {
 }
 
 $(document).ready(function() {
-    // $("nav").removeClass("no-transition");
-	/* MENU */
-	$('.navbar-nav').attr('id', 'menu');
+    // Set menu ID for compatibility
+    $('.navbar-nav').attr('id', 'menu');
 
-    // // Initialize partner layout wrapping for larger screens
-    // if(width >= 1024 && $('#partners .key_0').length){
-    //     // First column: items 0, 2, 4, 6, etc. (even numbers)
-    //     $('#partners .key_0, #partners .key_2, #partners .key_4, #partners .key_6, #partners .key_8, #partners .key_10, #partners .key_12, #partners .key_14, #partners .key_16, #partners .key_18').wrapAll('<div class="col-md-6 col-xs-12" />');
-        
-    //     // Second column: items 1, 3, 5, 7, etc. (odd numbers)
-    //     $('#partners .key_1, #partners .key_3, #partners .key_5, #partners .key_7, #partners .key_9, #partners .key_11, #partners .key_13, #partners .key_15, #partners .key_17, #partners .key_19').wrapAll('<div class="col-md-6 col-xs-12" />');
-    // }
-    
+    // Clean up data-toggle attributes (only once)
+    $('.nav-item > a[data-toggle="dropdown"]').removeAttr('data-toggle');
+
     // Initialize hamburger menu dropdown functionality
     initHamburgerMenuDropdowns();
-    
+
     // Search button functionality
     $('#searchToggle').on('click', function(e) {
         e.preventDefault();
@@ -105,64 +98,28 @@ $(document).ready(function() {
         e.stopPropagation();
     });
 
-    // Handle dropdown menu items
-    $('.nav-item').children("a").each(function(){
-        if($(this).attr('data-toggle') == 'dropdown'){
-            $(this).removeAttr('data-toggle');
-            $(this).on('click', function(e) {
-                e.preventDefault();
-                $(this).siblings('.dropdown-menu').toggleClass('show');
-            });
-        }
-    });
-
     $("nav").removeClass("no-transition");
 
     // Responsive Menu System
     // Handles both desktop (hover-based) and mobile (hamburger) menus
     var isDesktop = window.matchMedia('(min-width: 992px)').matches;
 
-    // Mobile Hamburger Menu Toggle
+    // Mobile Hamburger Menu Toggle - Use CSS classes instead of inline styles
     $('#desktopMenuToggle').on('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
 
-        // Open the menu
-        $('#headerNavbarNav').addClass('show').css({
-            'right': '0',
-            'opacity': '1',
-            'visibility': 'visible'
-        });
-
-        // Hide the toggle button
-        $(this).hide();
-
+        // Open the menu using CSS class only
+        $('#headerNavbarNav').addClass('show');
+        $('#desktopMenuToggle').addClass('active');
         $('body').addClass('menu-open');
     });
 
-    // Close mobile menu button
-    $('#closeMenuBtn').on('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Close the menu
-        $('#headerNavbarNav').removeClass('show').css({
-            'right': '-300px',
-            'opacity': '0',
-            'visibility': 'hidden'
-        });
-
-        // Show the toggle button again
-        $('#desktopMenuToggle').show();
-
-        $('body').removeClass('menu-open');
-    });
-
     // Close mobile menu when clicking outside
-    $(document).click(function(event) {
+    $(document).on('click.menuClose', function(event) {
         var $navbarNav = $('#headerNavbarNav');
         var $desktopToggle = $('#desktopMenuToggle');
-        var $closeBtn = $('#closeMenuBtn');
+        var $actionsWrapper = $('.mobile-actions-wrapper');
 
         // Only for mobile menu (hamburger)
         if ($navbarNav.hasClass('show') &&
@@ -170,18 +127,11 @@ $(document).ready(function() {
             $navbarNav.has(event.target).length === 0 &&
             !$desktopToggle.is(event.target) &&
             $desktopToggle.has(event.target).length === 0 &&
-            !$closeBtn.is(event.target) &&
-            $closeBtn.has(event.target).length === 0) {
+            !$actionsWrapper.is(event.target) &&
+            $actionsWrapper.has(event.target).length === 0) {
 
-            $navbarNav.removeClass('show').css({
-                'right': '-300px',
-                'opacity': '0',
-                'visibility': 'hidden'
-            });
-
-            // Show the toggle button again
-            $('#desktopMenuToggle').show();
-
+            $navbarNav.removeClass('show');
+            $desktopToggle.removeClass('active');
             $('body').removeClass('menu-open');
         }
     });
@@ -192,6 +142,7 @@ $(document).ready(function() {
     });
 
     // Mobile menu dropdown handling (click-based, accordion style)
+    // Only applies on mobile (handled by CSS media queries, JS handles the toggle)
     $('.navbar-nav .nav-item.dropdown > a').on('click', function(e) {
         // Only for mobile menu
         if (window.innerWidth < 992) {
@@ -224,12 +175,8 @@ $(document).ready(function() {
 
         // If switched from mobile to desktop, close mobile menu
         if (!isDesktop && nowDesktop) {
-            $('#headerNavbarNav').removeClass('show').css({
-                'right': '-300px',
-                'opacity': '0',
-                'visibility': 'hidden'
-            });
-            $('#desktopMenuToggle').show();
+            $('#headerNavbarNav').removeClass('show');
+            $('#desktopMenuToggle').removeClass('active');
             $('body').removeClass('menu-open');
         }
 
@@ -239,14 +186,6 @@ $(document).ready(function() {
     $('.work_packages .accordion-content, .messages .accordion-toggle').each(function( index, value ) {
         $(value).find('a').attr( "onclick", "window.open(this.href, '_blank');" )
     });
-
-    $('.nav-item').children("a").each(function(){
-        if($(this).attr('data-toggle') == 'dropdown'){
-            $(this).removeAttr('data-toggle')
-        }
-    });
-
-    $("nav").removeClass("no-transition");
 
     if (window.location.hash) {
         var link = window.location.hash;
@@ -734,11 +673,6 @@ function initHamburgerMenuDropdowns() {
         setTimeout(function() {
             autoExpandActiveDropdowns();
         }, 100); // Small delay to ensure menu animation completes
-    }
-    
-    var closeMenuBtn = $('#closeMenuBtn');
-    if (closeMenuBtn.length) {
-        closeMenuBtn.off('click.dropdown').on('click.dropdown', closeAllDropdowns);
     }
     
     // Re-expand dropdowns when menu is opened
