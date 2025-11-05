@@ -1,0 +1,33 @@
+url = "background"
+layout = "default"
+title = "Background"
+is_hidden = 0
+meta_title = "Background"
+meta_description = "Background"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+[jumbotron about-background-section]
+jumbotron = "about-background-section"
+templates = "template2"
+background = transparent
+description_limit = 0
+
+[jumbotron about-objectives]
+jumbotron = "about-objectives"
+templates = "template2"
+background = transparent
+description_limit = 0
+==
+
+{% component 'siteSearchInclude' %}
+
+<section class="container-fluid background-section">
+    {% component 'about-background-section' %}
+</section>
+
+<section class="container-fluid objectives-section">
+    {% component 'about-objectives' %}
+</section>

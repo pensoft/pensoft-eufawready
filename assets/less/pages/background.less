@@ -1,0 +1,294 @@
+// Background Page Styles
+
+.background-section {
+    padding: 80px 0;
+    background: @white-color;
+
+    .breakpoint-large-down({
+        padding: 60px 0;
+    });
+
+    .breakpoint-medium-down({
+        padding: 40px 0;
+    });
+
+    .breakpoint-small-down({
+        padding: 30px 0;
+    });
+
+    .section-header {
+        font-family: 'Satoshi', sans-serif;
+        font-weight: 500;
+        font-size: 30px;
+        color: #09220a;
+        text-align: left;
+        letter-spacing: -0.9px;
+        line-height: 1.2;
+        margin: 0 0 20px 0;
+
+        .breakpoint-medium-down({
+            font-size: 24px;
+            margin-bottom: 15px;
+        });
+
+        .breakpoint-small-down({
+            font-size: 20px;
+            margin-bottom: 12px;
+        });
+    }
+
+    .section-description {
+        font-family: 'Satoshi', sans-serif;
+        font-weight: 500;
+        font-size: 17px;
+        color: #546554;
+        text-align: left;
+        letter-spacing: -0.51px;
+        line-height: 1.6;
+        margin: 0;
+
+        .breakpoint-medium-down({
+            font-size: 16px;
+        });
+
+        .breakpoint-small-down({
+            font-size: 14px;
+            line-height: 1.5;
+        });
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 20px;
+
+        .breakpoint-medium-down({
+            border-radius: 15px;
+        });
+
+        .breakpoint-small-down({
+            border-radius: 12px;
+        });
+
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 120px;
+
+        .breakpoint-large-down({
+            margin-bottom: 80px;
+        });
+
+        .breakpoint-medium-down({
+            flex-direction: column;
+            margin-bottom: 60px;
+            gap: 40px;
+        });
+
+        .breakpoint-small-down({
+            margin-bottom: 40px;
+            gap: 30px;
+        });
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .col-md-6 {
+            padding: 0 30px;
+
+            .breakpoint-large-down({
+                padding: 0 20px;
+            });
+
+            .breakpoint-medium-down({
+                padding: 0;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            });
+
+            &:first-child {
+                .breakpoint-medium-down({
+                    order: 2;
+                });
+            }
+
+            &:last-child {
+                .breakpoint-medium-down({
+                    order: 1;
+                });
+            }
+        }
+
+        // Second row - image on left, text on right
+        &:nth-child(2) {
+            .col-md-6 {
+                &:first-child {
+                    order: 1;
+                    
+                    .breakpoint-medium-down({
+                        order: 1;
+                    });
+                }
+
+                &:last-child {
+                    order: 2;
+                    
+                    .breakpoint-medium-down({
+                        order: 2;
+                    });
+                }
+            }
+        }
+    }
+
+}
+
+// Responsive text alignment
+.background-section {
+    .section-header,
+    .section-description {
+        .breakpoint-medium-down({
+            text-align: center;
+        });
+    }
+}
+
+.objectives-section {
+    background: #00672C;
+    padding: 80px 0;
+
+    .breakpoint-large-down({
+        padding: 60px 0;
+    });
+
+    .breakpoint-medium-down({
+        padding: 50px 0;
+    });
+
+    .breakpoint-small-down({
+        padding: 40px 0;
+    });
+
+    .objectives-header {
+        color: #FFF;
+        font-family: Satoshi;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 120%;
+        letter-spacing: -0.9px;
+
+        .breakpoint-large-down({
+            font-size: 26px;
+            margin-bottom: 40px;
+        });
+
+        .breakpoint-medium-down({
+            font-size: 22px;
+            margin-bottom: 35px;
+        });
+
+        .breakpoint-small-down({
+            font-size: 20px;
+            margin-bottom: 30px;
+        });
+    }
+}
+
+.objective-card {
+    background: #109448;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 20px;
+    min-height: 248px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: left;
+    transition: all 0.3s ease;
+
+    .breakpoint-large-down({
+        padding: 25px;
+        min-height: auto;
+    });
+
+    .breakpoint-medium-down({
+        padding: 20px;
+    });
+
+    .breakpoint-small-down({
+        padding: 18px;
+    });
+
+    &:hover {
+        transform: translateY(-4px);
+        background: #0d7a3a;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.objective-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+    margin-right: 0;
+    flex-shrink: 0;
+
+    .breakpoint-large-down({
+        width: 55px;
+        height: 55px;
+        margin-bottom: 18px;
+    });
+
+    .breakpoint-medium-down({
+        width: 50px;
+        height: 50px;
+        margin-bottom: 15px;
+    });
+
+    .breakpoint-small-down({
+        width: 45px;
+        height: 45px;
+        margin-bottom: 12px;
+    });
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+}
+
+.objective-description {
+    color: #FFF;
+    font-family: Satoshi;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.51px;
+    margin: 0;
+
+    .breakpoint-large-down({
+        font-size: 16px;
+        line-height: 1.4;
+    });
+
+    .breakpoint-medium-down({
+        font-size: 15px;
+        line-height: 1.4;
+    });
+
+    .breakpoint-small-down({
+        font-size: 14px;
+        line-height: 1.3;
+    });
+}
