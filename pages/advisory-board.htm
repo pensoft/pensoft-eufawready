@@ -1,0 +1,79 @@
+url = "advisory-board"
+layout = "default"
+title = "Advisory Board"
+is_hidden = 0
+meta_title = "Advisory Board"
+meta_description = "Advisory Board"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+==
+<?php
+
+use Pensoft\Cardprofiles\Models\Category;
+
+function onStart(){
+    // Fetch advisory board profiles by category slug
+    $category = Category::where('slug', 'advisory-board')->first();
+
+    if ($category) {
+        $this['profiles'] = $category->profiles()
+            ->orderBy('sort_order')
+            ->get();
+    }
+}
+
+?>
+==
+
+{% component 'siteSearchInclude' %}
+
+<section class="container-fluid advisory-board" aria-label="Advisory Board Members">
+    <div class="container">
+        <div class="row">
+            {% if profiles %}
+                {% for profile in profiles %}
+                <div class="col-md-3 col-xs-12 col-sm-6">
+                    <article class="profile-card" role="article" aria-label="Profile of {{ profile.names }}">
+                        {% if profile.avatar %}
+                        <div class="profile-avatar">
+                            <img src="{{ profile.avatar.path }}" alt="Portrait of {{ profile.names }}, {{ profile.position }}" />
+                        </div>
+                        {% endif %}
+
+                        <div class="profile-info">
+                            <h3 class="profile-name" id="profile-name-{{ profile.id }}">{{ profile.names }}</h3>
+
+                            {% if profile.position %}
+                            <p class="profile-position" id="profile-position-{{ profile.id }}">{{ profile.position }}</p>
+                            {% endif %}
+
+                            {% if profile.slug %}
+                            <a href="#" class="read-more"
+                               data-profile-id="{{ profile.id }}"
+                               data-profile-name="{{ profile.names }}"
+                               data-profile-position="{{ profile.position }}"
+                               data-profile-content="{{ profile.content | striptags }}"
+                               data-profile-avatar="{{ profile.avatar.path }}"
+                               aria-label="Read more about {{ profile.names }}, {{ profile.position }}"
+                               aria-describedby="profile-position-{{ profile.id }}">
+                                Read more →
+                            </a>
+                            {% endif %}
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12 col-xs-12">
+                    <p>No advisory board members found.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% partial 'components/advisory-board-popup' %}
+

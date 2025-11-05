@@ -1,0 +1,394 @@
+// Section Container
+// .advisory-board {
+//     margin-top: 100px;
+// }
+
+.advisory-board {
+    margin-top: 60px;
+}
+
+// Profile Card Container
+.profile-card {
+    background: #f7f6f1;
+    border-radius: 20px;
+    padding: 0;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+}
+
+// Avatar Container
+.profile-avatar {
+    width: 100%;
+    aspect-ratio: 240 / 250;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-card:hover & img {
+        transform: scale(1.05);
+    }
+}
+
+// Profile Info Section
+.profile-info {
+    padding: 20px 15px 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+// Profile Name
+.profile-name {
+    font-family: 'Satoshi Medium', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #09220a;
+    letter-spacing: -0.54px;
+    line-height: 1.3;
+    margin: 0 0 4px 0;
+}
+
+// Profile Position
+.profile-position {
+    font-family: 'Satoshi Regular', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(9, 34, 10, 0.5);
+    letter-spacing: -0.48px;
+    line-height: 1.4;
+    margin: 0 0 15px 0;
+}
+
+// Read More Link
+.read-more {
+    font-family: 'Satoshi Medium', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: #009344;
+    letter-spacing: -0.51px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    transition: color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        color: #007A38;
+        text-decoration: none;
+        transform: translateX(3px);
+    }
+}
+
+// Responsive Adjustments - Tablet & Mobile
+.breakpoint-large-down({
+    .profile-card {
+        margin-bottom: 20px;
+    }
+
+    .profile-info {
+        padding: 18px 12px 20px;
+    }
+
+    .profile-name {
+        font-size: 17px;
+    }
+
+    .profile-position {
+        font-size: 15px;
+    }
+
+    .read-more {
+        font-size: 16px;
+    }
+});
+
+// Responsive Adjustments - Tablet & Mobile
+.breakpoint-large-down({
+    .profile-card {
+        margin-bottom: 20px;
+    }
+
+    .profile-info {
+        padding: 18px 12px 20px;
+    }
+
+    .profile-name {
+        font-size: 17px;
+    }
+
+    .profile-position {
+        font-size: 15px;
+    }
+
+    .read-more {
+        font-size: 16px;
+    }
+
+    // Modal adjustments for tablet
+    .modal-container.advisory-board-modal-container {
+        width: 90vw;
+        max-width: 600px;
+        max-height: 90vh;
+        padding: 0;
+    }
+});
+
+// Responsive Adjustments - Mobile Only
+.breakpoint-small-down({
+    .advisory-board {
+        .row {
+            gap: 15px 0;
+        }
+    }
+
+    .profile-card {
+        margin-bottom: 15px;
+    }
+
+    .profile-avatar {
+        aspect-ratio: 1 / 1;
+    }
+
+    .profile-info {
+        padding: 15px 10px 18px;
+    }
+
+    .profile-name {
+        font-size: 16px;
+    }
+
+    .profile-position {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    // Modal adjustments for mobile
+    .modal-container.advisory-board-modal-container {
+        width: 95vw;
+        max-height: 95vh;
+        margin: 20px;
+        padding: 0;
+    }
+
+    .modal-content.advisory-board-modal-content {
+        padding: 40px 25px 30px;
+    }
+
+    .advisory-popup-avatar {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 20px;
+    }
+
+    .advisory-popup-info {
+        padding: 20px 15px;
+    }
+
+    .advisory-popup-name {
+        font-size: 16px;
+    }
+
+    .advisory-popup-position {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .advisory-popup-content {
+        font-size: 14px;
+        max-width: 100%;
+    }
+});
+
+// ============================================
+// ADVISORY BOARD MODAL POPUP STYLES
+// ============================================
+
+// Modal Overlay (Background)
+.modal-overlay.advisory-board-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 20px;
+
+    &.show {
+        display: flex;
+    }
+}
+
+// Modal Container
+.modal-container.advisory-board-modal-container {
+    position: relative;
+    background: white;
+    border-radius: 10px;
+    width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: -3px 0px 25px 10px rgba(185, 185, 185, 0.25);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+// Modal Animation
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+// Close Button
+.modal-close.advisory-board-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: transform 0.2s ease;
+
+    .close-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+// Modal Content Wrapper
+.modal-content.advisory-board-modal-content {
+    padding: 50px 40px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+// Avatar in Popup
+.advisory-popup-avatar {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+    }
+}
+
+// Profile Info Section in Popup
+.advisory-popup-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+// Name in Popup
+.advisory-popup-name {
+    font-family: 'Satoshi Medium', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #09220a;
+    letter-spacing: -0.54px;
+    line-height: 1.3;
+    margin: 0 0 8px 0;
+    padding: 0;
+}
+
+// Position in Popup
+.advisory-popup-position {
+    font-family: 'Satoshi Regular', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(9, 34, 10, 0.5);
+    letter-spacing: -0.48px;
+    line-height: 1.4;
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+
+// Bio Content in Popup
+.advisory-popup-content {
+    font-family: 'Satoshi Regular', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(9, 34, 10, 0.7);
+    letter-spacing: -0.48px;
+    line-height: 1.4;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0;
+
+    // Ensure inline elements and links are properly styled
+    a {
+        color: #009344;
+        text-decoration: none;
+
+        &:hover {
+            color: #007A38;
+            text-decoration: underline;
+        }
+    }
+
+    p {
+        margin: 0 0 15px 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    br {
+        line-height: 0.5;
+    }
+}

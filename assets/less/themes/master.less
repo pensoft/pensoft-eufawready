@@ -7,3 +7,39 @@ html,body {
     .line-height();
     .letter-spacing();
 }
+
+.jumbotron-item, .jumbotron-item{
+    padding: 0 !important;
+}
+
+.header-image-bar {
+    height: 140.96px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 96px;
+    padding-left: 53px;
+    .breakpoint-large-down({
+        padding-left: 0px;
+        justify-content: center;
+    });
+    
+    .page-header{
+        color: #FFF;
+        font-family: 'Satoshi Regular';
+        font-size: 45px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -1.35px;
+        text-transform: uppercase;
+        margin-bottom: 0 !important;
+        .breakpoint-large-down({
+            font-size: 45px;
+        });
+    }
+}

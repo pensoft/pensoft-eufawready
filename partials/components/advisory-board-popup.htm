@@ -1,0 +1,49 @@
+<div class="modal-overlay advisory-board-modal"
+     id="advisoryBoardModal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="advisoryPopupName"
+     aria-describedby="advisoryPopupContent"
+     aria-hidden="true">
+    <div class="modal-container advisory-board-modal-container" role="document">
+        <!-- Close Button -->
+        <button class="modal-close advisory-board-modal-close"
+                id="advisoryBoardModalClose"
+                aria-label="Close modal"
+                type="button">
+            <img src="{{ 'assets/images/close-icon.svg' | theme }}"
+                 alt="Close"
+                 class="close-icon"
+                 aria-hidden="true" />
+        </button>
+
+        <!-- Modal Content -->
+        <div class="modal-content advisory-board-modal-content">
+            <!-- Avatar -->
+            <div class="advisory-popup-avatar" id="advisoryPopupAvatar">
+                <img src=""
+                     alt=""
+                     id="advisoryPopupAvatarImg"
+                     class="advisory-popup-avatar-img" />
+            </div>
+
+            <!-- Profile Info -->
+            <div class="advisory-popup-info">
+                <!-- Name -->
+                <h2 class="advisory-popup-name"
+                    id="advisoryPopupName"
+                    tabindex="-1"></h2>
+
+                <!-- Position -->
+                <p class="advisory-popup-position"
+                   id="advisoryPopupPosition"
+                   role="doc-subtitle"></p>
+
+                <!-- Bio Content -->
+                <div class="advisory-popup-content"
+                     id="advisoryPopupContent"
+                     role="doc-introduction"></div>
+            </div>
+        </div>
+    </div>
+</div>

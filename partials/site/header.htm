@@ -7,9 +7,6 @@ secondaryClasses = "dropdown-menu"
 numberOfLevels = 2
 
 ==
-<!-- Skip to main content link for screen readers -->
-<a href="#main-content" class="skip-to-content sr-only sr-only-focusable">Skip to main content</a>
-
 <nav class="navbar fixed" id="headernavbar" aria-label="Main navigation" role="navigation">
 
     <div class="container container-responsive">
@@ -54,7 +51,7 @@ numberOfLevels = 2
             {% component 'menu' %}
         </div>
 
-        <div class="navbar-bottom-elements">
+        <!-- <div class="navbar-bottom-elements">
             <div class="bottom-row">
                 <div id="google_translate_element"></div>
                 <div class="search-container">
@@ -63,7 +60,7 @@ numberOfLevels = 2
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     
     <!-- Search Overlay (independent of menu) -->
@@ -83,8 +80,10 @@ numberOfLevels = 2
     {% if page_id == 'home' %}
         {% partial 'components/hero' %}
     {% else %}
-        <div class="header-image-bar">
-            <h1 class="underline white">{%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}</h1>
+        <div class="container">
+            <div class="header-image-bar" style="background-image: url('{{this.theme.header_image.getPath()}}');">
+                <h1 class="page-header">{%if page_title%} {{page_title}} {%else%} {{site_name}} {%endif%}</h1>
+            </div>
         </div>
     {%endif%}
 </div>

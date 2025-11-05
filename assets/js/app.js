@@ -76,15 +76,128 @@ function hideSearchForm() {
     $('#search input.search_input').off('keydown.searchSubmit');
 }
 
+/**
+ * Initialize Advisory Board Popup functionality
+ * Handles modal open/close with profile data population
+ */
+function initAdvisoryBoardPopup() {
+    var $modal = $('#advisoryBoardModal');
+    var $closeBtn = $('#advisoryBoardModalClose');
+    var $readMoreLinks = $('.advisory-board .read-more');
+    var lastFocusedElement = null;
+
+    // Show popup when "Read more" is clicked
+    $readMoreLinks.off('click.advisoryPopup').on('click.advisoryPopup', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Store the element that triggered the modal for focus restoration
+        lastFocusedElement = this;
+
+        // Get profile data from data attributes
+        var profileName = $(this).data('profile-name');
+        var profilePosition = $(this).data('profile-position');
+        var profileContent = $(this).data('profile-content');
+        var profileAvatar = $(this).data('profile-avatar');
+
+        // Populate modal with profile data
+        $('#advisoryPopupName').text(profileName);
+        $('#advisoryPopupPosition').text(profilePosition);
+        $('#advisoryPopupContent').html(profileContent);
+        $('#advisoryPopupAvatarImg').attr('src', profileAvatar).attr('alt', 'Portrait of ' + profileName);
+
+        // Show modal
+        showAdvisoryBoardPopup();
+    });
+
+    // Close button click
+    $closeBtn.off('click.advisoryClose').on('click.advisoryClose', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        hideAdvisoryBoardPopup();
+    });
+
+    // Close on overlay click (clicking outside the modal)
+    $modal.off('click.advisoryOverlay').on('click.advisoryOverlay', function(e) {
+        if ($(e.target).is($modal)) {
+            hideAdvisoryBoardPopup();
+        }
+    });
+
+    // Close on Escape key
+    $(document).off('keydown.advisoryEscape').on('keydown.advisoryEscape', function(e) {
+        if (e.key === 'Escape' && $modal.hasClass('show')) {
+            hideAdvisoryBoardPopup();
+        }
+    });
+
+    // Store reference to last focused element for accessibility
+    $readMoreLinks.data('lastFocused', lastFocusedElement);
+}
+
+/**
+ * Show Advisory Board Popup
+ * Manages focus, ARIA attributes, and body scroll
+ */
+function showAdvisoryBoardPopup() {
+    var $modal = $('#advisoryBoardModal');
+
+    // Add show class to display modal
+    $modal.addClass('show');
+
+    // Update ARIA attributes
+    $modal.attr('aria-hidden', 'false');
+
+    // Prevent body scroll
+    $('body').css('overflow', 'hidden');
+
+    // Set focus to modal title for screen reader announcement
+    // Add small delay to ensure DOM is ready
+    setTimeout(function() {
+        $('#advisoryPopupName').focus();
+    }, 100);
+}
+
+/**
+ * Hide Advisory Board Popup
+ * Restores focus, ARIA attributes, and body scroll
+ */
+function hideAdvisoryBoardPopup() {
+    var $modal = $('#advisoryBoardModal');
+    var $lastFocused = $('a.read-more').filter(function() {
+        return this === this; // Will be set by the click handler
+    }).eq(-1);
+
+    // Remove show class to hide modal
+    $modal.removeClass('show');
+
+    // Update ARIA attributes
+    $modal.attr('aria-hidden', 'true');
+
+    // Restore body scroll
+    $('body').css('overflow', '');
+
+    // Return focus to the triggering element
+    // Add small delay to ensure animation completes
+    setTimeout(function() {
+        if ($lastFocused.length) {
+            $lastFocused.focus();
+        }
+    }, 100);
+}
+
 $(document).ready(function() {
     // Set menu ID for compatibility
     $('.navbar-nav').attr('id', 'menu');
 
-    // Clean up data-toggle attributes (only once)
-    $('.nav-item > a[data-toggle="dropdown"]').removeAttr('data-toggle');
+    // Clean up data-toggle attributes to prevent Bootstrap interference (only once)
+    $('#headerNavbarNav .nav-item > a[data-toggle="dropdown"], #headerNavbarNav .dropdown > a[data-toggle="dropdown"]').removeAttr('data-toggle');
 
     // Initialize hamburger menu dropdown functionality
     initHamburgerMenuDropdowns();
+
+    // Initialize Advisory Board Popup functionality
+    initAdvisoryBoardPopup();
 
     // Wrap nav-item text in span for roulette animation (desktop only)
     if (window.matchMedia('(min-width: 992px)').matches) {
@@ -131,6 +244,7 @@ $(document).ready(function() {
         // Open the menu using CSS class only
         $('#headerNavbarNav').addClass('show');
         $('#desktopMenuToggle').addClass('active');
+        $('#desktopMenuToggle').attr('aria-expanded', 'true');
         $('body').addClass('menu-open');
     });
 
@@ -141,6 +255,7 @@ $(document).ready(function() {
 
         $('#headerNavbarNav').removeClass('show');
         $('#desktopMenuToggle').removeClass('active');
+        $('#desktopMenuToggle').attr('aria-expanded', 'false');
         $('body').removeClass('menu-open');
     });
 
@@ -161,6 +276,7 @@ $(document).ready(function() {
 
             $navbarNav.removeClass('show');
             $desktopToggle.removeClass('active');
+            $desktopToggle.attr('aria-expanded', 'false');
             $('body').removeClass('menu-open');
         }
     });
@@ -170,27 +286,8 @@ $(document).ready(function() {
         e.stopPropagation();
     });
 
-    // Mobile menu dropdown handling (click-based, accordion style)
-    // Only applies on mobile (handled by CSS media queries, JS handles the toggle)
-    $('.navbar-nav .nav-item.dropdown > a').on('click', function(e) {
-        // Only for mobile menu
-        if (window.innerWidth < 992) {
-            e.preventDefault();
-            var $dropdownMenu = $(this).siblings('.dropdown-menu');
-            var $parentItem = $(this).parent();
-
-            if ($dropdownMenu.hasClass('show')) {
-                $dropdownMenu.removeClass('show');
-                $parentItem.removeClass('active');
-            } else {
-                // Close all other open dropdowns first (accordion behavior)
-                $('.navbar-nav .dropdown-menu.show').removeClass('show');
-                $('.navbar-nav .nav-item.dropdown.active').removeClass('active');
-                $dropdownMenu.addClass('show');
-                $parentItem.addClass('active');
-            }
-        }
-    });
+    // Mobile menu dropdown handling is now handled by initHamburgerMenuDropdowns()
+    // This ensures proper accordion behavior within the mobile menu
 
     // Desktop Search Button
     $('#desktopSearchBtn').on('click', function(e) {
@@ -206,6 +303,7 @@ $(document).ready(function() {
         if (!isDesktop && nowDesktop) {
             $('#headerNavbarNav').removeClass('show');
             $('#desktopMenuToggle').removeClass('active');
+            $('#desktopMenuToggle').attr('aria-expanded', 'false');
             $('body').removeClass('menu-open');
         }
 
@@ -629,95 +727,148 @@ function initNewsCategoryTabs() {
 /**
  * Initialize hamburger menu dropdown functionality
  * Handles dropdown menu toggles, auto-expand, and menu state management
+ * Works specifically for mobile menu (inside #headerNavbarNav)
  */
 function initHamburgerMenuDropdowns() {
     // Auto-expand dropdowns that contain the current active page
     function autoExpandActiveDropdowns() {
-        var activeSubItems = $('#headerNavbarNav .dropdown-menu .nav-item.active');
+        // Check mobile menu for active items
+        var $mobileMenu = $('#headerNavbarNav');
+        var activeSubItems = $mobileMenu.find('ul.dropdown-menu li.active, ul.dropdown-menu .nav-item.active');
         
         activeSubItems.each(function() {
             // Find the parent dropdown
-            var parentDropdown = $(this).closest('.nav-item.dropdown');
+            var parentDropdown = $(this).closest('li.dropdown, li.nav-item.dropdown');
             if (parentDropdown.length) {
-                var dropdownMenu = parentDropdown.find('.dropdown-menu');
+                var dropdownMenu = parentDropdown.children('ul.dropdown-menu');
+                if (!dropdownMenu.length) {
+                    dropdownMenu = parentDropdown.next('ul.dropdown-menu');
+                }
+                if (!dropdownMenu.length) {
+                    dropdownMenu = parentDropdown.find('ul.dropdown-menu').first();
+                }
                 
                 // Expand the parent dropdown
-                parentDropdown.addClass('active');
                 if (dropdownMenu.length) {
+                    parentDropdown.addClass('active');
                     dropdownMenu.addClass('show');
+                    // Update ARIA
+                    parentDropdown.find('> a').attr('aria-expanded', 'true');
                 }
             }
         });
     }
     
-    // Run auto-expand on page load
-    autoExpandActiveDropdowns();
-    
-    // Handle dropdown menu toggles
-    var dropdownItems = $('#headerNavbarNav .nav-item.dropdown > a');
-    
-    dropdownItems.each(function() {
-        $(this).off('click.dropdown').on('click.dropdown', function(e) {
-            e.preventDefault();
+    // Initialize ARIA attributes for dropdowns
+    function initializeAriaAttributes() {
+        $('#headerNavbarNav li.dropdown > a, #headerNavbarNav li.nav-item.dropdown > a').each(function() {
+            var $link = $(this);
+            var $parentItem = $link.closest('li.dropdown, li.nav-item.dropdown');
             
-            var parentItem = $(this).parent();
-            var dropdownMenu = parentItem.find('.dropdown-menu');
+            // Find the dropdown menu
+            var $dropdownMenu = $parentItem.children('ul.dropdown-menu');
+            if (!$dropdownMenu.length) {
+                $dropdownMenu = $parentItem.next('ul.dropdown-menu');
+            }
+            if (!$dropdownMenu.length) {
+                $dropdownMenu = $parentItem.find('ul.dropdown-menu').first();
+            }
             
-            if (dropdownMenu.length) {
-                // Toggle active state on parent item
-                parentItem.toggleClass('active');
-                
-                // Toggle show state on dropdown menu
-                dropdownMenu.toggleClass('show');
-                
-                // Optional: Close other open dropdowns (accordion behavior)
-                var otherDropdowns = $('#headerNavbarNav .nav-item.dropdown');
-                otherDropdowns.each(function() {
-                    if (this !== parentItem[0]) {
-                        $(this).removeClass('active');
-                        var otherMenu = $(this).find('.dropdown-menu');
-                        if (otherMenu.length) {
-                            otherMenu.removeClass('show');
-                        }
-                    }
-                });
+            if ($dropdownMenu.length) {
+                // Set initial ARIA attributes
+                if (!$link.attr('aria-expanded')) {
+                    $link.attr('aria-expanded', 'false');
+                }
+                $link.attr('aria-haspopup', 'true');
+                $dropdownMenu.attr('role', 'menu');
             }
         });
+    }
+    
+    // Run auto-expand on page load (only for mobile menu)
+    // Use setTimeout to ensure menu is rendered
+    setTimeout(function() {
+        if (window.innerWidth < 992) {
+            initializeAriaAttributes();
+            autoExpandActiveDropdowns();
+            // Update ARIA attributes after auto-expand
+            $('#headerNavbarNav li.dropdown.active > a, #headerNavbarNav li.nav-item.dropdown.active > a').attr('aria-expanded', 'true');
+        }
+    }, 100);
+    
+    // Handle dropdown menu toggles for mobile menu
+    function setupMobileDropdownHandlers() {
+        // Remove existing handlers to prevent duplicates
+        $('#headerNavbarNav').off('click.mobileDropdown');
+        
+        // Add click handlers for mobile menu dropdowns using event delegation
+        // This catches all dropdown links including those loaded dynamically
+        $('#headerNavbarNav').on('click.mobileDropdown', 'li.dropdown > a, li.nav-item.dropdown > a', function(e) {
+            // Only handle on mobile screens
+            if (window.innerWidth < 992) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var $link = $(this);
+                var $parentItem = $link.closest('li.dropdown, li.nav-item.dropdown');
+                
+                // Find the dropdown menu - it's a sibling <ul> with class dropdown-menu
+                var $dropdownMenu = $parentItem.children('ul.dropdown-menu');
+                
+                // If not found, try next sibling
+                if (!$dropdownMenu.length) {
+                    $dropdownMenu = $parentItem.next('ul.dropdown-menu');
+                }
+                
+                // If still not found, search within the parent
+                if (!$dropdownMenu.length) {
+                    $dropdownMenu = $parentItem.find('ul.dropdown-menu').first();
+                }
+                
+                if ($dropdownMenu.length) {
+                    var isExpanded = $dropdownMenu.hasClass('show');
+                    
+                    // Close all other dropdowns first (accordion behavior)
+                    $('#headerNavbarNav ul.dropdown-menu.show').not($dropdownMenu).removeClass('show');
+                    $('#headerNavbarNav li.dropdown.active, #headerNavbarNav li.nav-item.dropdown.active').not($parentItem).removeClass('active');
+                    // Update ARIA attributes for closed dropdowns
+                    $('#headerNavbarNav li.dropdown.active > a, #headerNavbarNav li.nav-item.dropdown.active > a').not($link).attr('aria-expanded', 'false');
+                    
+                    // Toggle current dropdown
+                    if (isExpanded) {
+                        $dropdownMenu.removeClass('show');
+                        $parentItem.removeClass('active');
+                        $link.attr('aria-expanded', 'false');
+                    } else {
+                        $dropdownMenu.addClass('show');
+                        $parentItem.addClass('active');
+                        $link.attr('aria-expanded', 'true');
+                    }
+                }
+            }
+        });
+    }
+    
+    // Setup handlers on page load
+    initializeAriaAttributes();
+    setupMobileDropdownHandlers();
+    
+    // Re-setup handlers when menu is opened (in case menu content is dynamically loaded)
+    $('#desktopMenuToggle').off('click.setupDropdowns').on('click.setupDropdowns', function() {
+        setTimeout(function() {
+            initializeAriaAttributes();
+            setupMobileDropdownHandlers();
+            autoExpandActiveDropdowns();
+            // Update ARIA attributes after auto-expand
+            $('#headerNavbarNav li.dropdown.active > a, #headerNavbarNav li.nav-item.dropdown.active > a').attr('aria-expanded', 'true');
+        }, 200);
     });
     
-    // Close all dropdowns when menu is closed (but preserve auto-expanded state)
-    function closeAllDropdowns() {
-        var activeDropdowns = $('#headerNavbarNav .nav-item.dropdown.active');
-        activeDropdowns.each(function() {
-            $(this).removeClass('active');
-            var menu = $(this).find('.dropdown-menu');
-            if (menu.length) {
-                menu.removeClass('show');
-            }
-        });
-    }
-    
-    function handleMenuToggle() {
-        // When menu is opened, auto-expand dropdowns with active items
-        setTimeout(function() {
+    // Re-setup handlers when window is resized
+    $(window).on('resize.setupDropdowns', function() {
+        if (window.innerWidth < 992) {
+            setupMobileDropdownHandlers();
             autoExpandActiveDropdowns();
-        }, 100); // Small delay to ensure menu animation completes
-    }
-    
-    // Re-expand dropdowns when menu is opened
-    var menuToggleBtn = $('#desktopMenuToggle');
-    if (menuToggleBtn.length) {
-        menuToggleBtn.off('click.dropdown').on('click.dropdown', handleMenuToggle);
-    }
-    
-    // Close dropdowns when clicking outside
-    $(document).off('click.dropdownOutside').on('click.dropdownOutside', function(e) {
-        var navbar = $('#headerNavbarNav');
-        var menuToggle = $('#desktopMenuToggle');
-        
-        if (navbar.length && !navbar.is(e.target) && navbar.has(e.target).length === 0 && 
-            !menuToggle.is(e.target) && menuToggle.has(e.target).length === 0) {
-            closeAllDropdowns();
         }
     });
 }

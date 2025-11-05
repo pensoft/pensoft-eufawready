@@ -18,15 +18,16 @@ templates = "template2"
 background = transparent
 description_limit = 0
 ==
+
 {% component 'cookieConsent' %}
 
 <footer class="site-footer">
     <!-- Main Footer Section (Dark Green) -->
     <div class="container-fluid footer-main">
         <div class="container">
-            <div class="row">
+            <div class="row footer-row">
                 <!-- Left Column: Logo + Newsletter -->
-                <div class="col-md-5 col-xs-12 footer-left">
+                <div class="footer-left">
                     {% if this.theme.site_logo %}
                     <img src="{{ this.theme.site_logo.getPath() }}"
                          alt="{{ this.theme.site_name }}"
@@ -45,7 +46,7 @@ description_limit = 0
                 </div>
 
                 <!-- Right Column: EU Badge + Social Icons -->
-                <div class="col-md-7 col-xs-12 footer-right">
+                <div class="footer-right">
                     {% component 'menu' %}
                     <!-- EU Funding Badge -->
                     {% if footer_funds_flag %}
