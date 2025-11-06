@@ -1,0 +1,57 @@
+url = "partners"
+layout = "default"
+title = "Partners"
+is_hidden = 0
+meta_title = "Partners"
+meta_description = "Partners"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+==
+<?php
+function onStart(){
+    use Pensoft\Partners\Models\Partners as Partner;
+
+    $this['partners'] = Partner::where('type', 1)
+        ->with(['cardprofiles' => function($q){
+            $q->whereHas('category', function($cq){
+                $cq->where('slug', 'partners');
+            })->orderBy('sort_order');
+        }])
+        ->get();
+}
+?>
+==
+
+{% component 'siteSearchInclude' %}
+
+<section class="container-fluid partners-section" aria-label="Partners">
+    <div class="container">
+        <div class="row">
+            {% for partner in partners %}
+            <div class="col-md-2 col-sm-3 col-xs-6">
+                <div class="partner-card partner-card-clickable"
+                     role="button"
+                     tabindex="0"
+                     data-partner-id="{{ partner.id }}"
+                     aria-label="View details about {{ partner.title }}">
+                    {% if partner.cover %}
+                    <img src="{{ partner.cover.path }}" alt="{{ partner.title }}" class="partner-logo">
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# Hidden pre-rendered popup content for each partner #}
+<div class="partners-popup-data" style="display: none;" aria-hidden="true">
+    {% for partner in partners %}
+        {% partial 'components/partners-popup' item=partner %}
+    {% endfor %}
+</div>
+
+{% partial 'components/partners-popup-modal' %}

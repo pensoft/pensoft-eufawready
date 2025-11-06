@@ -1,0 +1,76 @@
+<div class="partner-content" data-partner-id="{{ item.id }}">
+    <div class="partners-popup-main">
+        {# Left Side: Logo + Website Button #}
+        <div class="partners-popup-logo-container">
+            {% if item.cover %}
+            <div class="partners-popup-logo-box">
+                <img src="{{ item.cover.path }}" alt="{{ item.title }}">
+            </div>
+            {% endif %}
+
+            {% if item.instituion %}
+            <a href="{{ item.instituion }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-primary visit-website-btn">
+                Visit website
+            </a>
+            {% endif %}
+        </div>
+
+        {# Right Side: Info + Team #}
+        <div class="partners-popup-info">
+            <h2 class="partners-popup-name" tabindex="-1">{{ item.title }}</h2>
+
+            {% if item.content %}
+            <div class="partners-popup-content-wrapper">
+                <div class="partners-popup-content">{{ item.content | striptags }}</div>
+                <a href="#" 
+                class="partners-popup-read-more" 
+                aria-label="Read more about {{ item.title }}" 
+                rel="noopener noreferrer" 
+                role="button"
+                target="_blank">
+                    Read more
+                    <img src="{{ 'assets/images/chevron-down-green.svg' | theme }}"
+                         alt="Read more about {{ item.title }}"
+                         class="read-more-icon"
+                         aria-hidden="true">
+                </a>
+            </div>
+            {% endif %}
+
+            {% if item.cardprofiles and item.cardprofiles | length > 0 %}
+            <div class="partners-popup-team">
+                <h3 class="partners-popup-team-title">Team Lead</h3>
+
+                {% for profile in item.cardprofiles %}
+                <div class="partner-team-member">
+                    {% if profile.avatar %}
+                    <div class="partner-team-avatar">
+                        <img src="{{ profile.avatar.path }}" alt="{{ profile.names }}">
+                    </div>
+                    {% endif %}
+
+                    <div class="partner-team-info">
+                        <p class="partner-team-name">{{ profile.names }}</p>
+                        {% if profile.content %}
+                        <a href="#" class="partner-team-bio" data-profile-id="{{ profile.id }}">
+                            Biography
+                            <img src="{{ 'assets/images/chevron-down-green.svg' | theme }}"
+                                 alt=""
+                                 class="bio-icon"
+                                 aria-hidden="true">
+                        </a>
+                        <div class="partner-team-bio-content" style="display: none;">
+                            {{ profile.content | raw }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

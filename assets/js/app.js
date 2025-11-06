@@ -78,13 +78,13 @@ function hideSearchForm() {
 
 /**
  * Initialize Advisory Board Popup functionality
- * Handles modal open/close with profile data population
+ * Handles modal open/close with pre-rendered content from Twig
  */
 function initAdvisoryBoardPopup() {
     var $modal = $('#advisoryBoardModal');
+    var $modalContent = $('#advisoryModalContent');
     var $closeBtn = $('#advisoryBoardModalClose');
     var $readMoreLinks = $('.advisory-board .read-more');
-    var lastFocusedElement = null;
 
     // Show popup when "Read more" is clicked
     $readMoreLinks.off('click.advisoryPopup').on('click.advisoryPopup', function(e) {
@@ -92,22 +92,17 @@ function initAdvisoryBoardPopup() {
         e.stopPropagation();
 
         // Store the element that triggered the modal for focus restoration
-        lastFocusedElement = this;
+        $modal.data('lastFocusedElement', this);
 
-        // Get profile data from data attributes
-        var profileName = $(this).data('profile-name');
-        var profilePosition = $(this).data('profile-position');
-        var profileContent = $(this).data('profile-content');
-        var profileAvatar = $(this).data('profile-avatar');
+        // Get profile ID and find pre-rendered content
+        var profileId = $(this).data('profile-id');
+        var $content = $('.profile-content[data-profile-id="' + profileId + '"]');
 
-        // Populate modal with profile data
-        $('#advisoryPopupName').text(profileName);
-        $('#advisoryPopupPosition').text(profilePosition);
-        $('#advisoryPopupContent').html(profileContent);
-        $('#advisoryPopupAvatarImg').attr('src', profileAvatar).attr('alt', 'Portrait of ' + profileName);
-
-        // Show modal
-        showAdvisoryBoardPopup();
+        // Clone and insert content into modal
+        if ($content.length) {
+            $modalContent.html($content.html());
+            showAdvisoryBoardPopup();
+        }
     });
 
     // Close button click
@@ -130,9 +125,6 @@ function initAdvisoryBoardPopup() {
             hideAdvisoryBoardPopup();
         }
     });
-
-    // Store reference to last focused element for accessibility
-    $readMoreLinks.data('lastFocused', lastFocusedElement);
 }
 
 /**
@@ -154,7 +146,7 @@ function showAdvisoryBoardPopup() {
     // Set focus to modal title for screen reader announcement
     // Add small delay to ensure DOM is ready
     setTimeout(function() {
-        $('#advisoryPopupName').focus();
+        $('#advisoryModalContent .advisory-popup-name').focus();
     }, 100);
 }
 
@@ -164,9 +156,7 @@ function showAdvisoryBoardPopup() {
  */
 function hideAdvisoryBoardPopup() {
     var $modal = $('#advisoryBoardModal');
-    var $lastFocused = $('a.read-more').filter(function() {
-        return this === this; // Will be set by the click handler
-    }).eq(-1);
+    var lastFocusedElement = $modal.data('lastFocusedElement');
 
     // Remove show class to hide modal
     $modal.removeClass('show');
@@ -177,13 +167,237 @@ function hideAdvisoryBoardPopup() {
     // Restore body scroll
     $('body').css('overflow', '');
 
-    // Return focus to the triggering element
-    // Add small delay to ensure animation completes
-    setTimeout(function() {
-        if ($lastFocused.length) {
-            $lastFocused.focus();
+    // Return focus to the triggering element without scrolling
+    if (lastFocusedElement) {
+        setTimeout(function() {
+            // Prevent scroll by using preventScroll option
+            if (lastFocusedElement.focus) {
+                lastFocusedElement.focus({ preventScroll: true });
+            }
+        }, 100);
+    }
+}
+
+/**
+ * Initialize Partners Popup functionality
+ * Handles modal open/close with pre-rendered content from Twig
+ */
+function initPartnersPopup() {
+    var $modal = $('#partnersModal');
+    var $modalContent = $('#partnersModalContent');
+    var $closeBtn = $('#partnersModalClose');
+    var $partnerCards = $('.partner-card-clickable');
+
+    // Show popup when partner card is clicked
+    $partnerCards.off('click.partnersPopup').on('click.partnersPopup', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Store the element that triggered the modal for focus restoration
+        $modal.data('lastFocusedElement', this);
+
+        // Get partner ID and find pre-rendered content
+        var partnerId = $(this).data('partner-id');
+        var $content = $('.partner-content[data-partner-id="' + partnerId + '"]');
+
+        // Clone and insert content into modal
+        if ($content.length) {
+            $modalContent.html($content.html());
+
+            // Initialize read more functionality for this content
+            initPartnersReadMore();
+
+            // Initialize biography toggle functionality (always, not dependent on read-more)
+            initPartnersBiographyToggle();
+
+            showPartnersPopup();
         }
+    });
+
+    // Handle keyboard enter/space on partner cards
+    $partnerCards.off('keydown.partnersPopup').on('keydown.partnersPopup', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            $(this).trigger('click');
+        }
+    });
+
+    // Close button click
+    $closeBtn.off('click.partnersClose').on('click.partnersClose', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        hidePartnersPopup();
+    });
+
+    // Close on overlay click (clicking outside the modal)
+    $modal.off('click.partnersOverlay').on('click.partnersOverlay', function(e) {
+        if ($(e.target).is($modal)) {
+            hidePartnersPopup();
+        }
+    });
+
+    // Close on Escape key
+    $(document).off('keydown.partnersEscape').on('keydown.partnersEscape', function(e) {
+        if (e.key === 'Escape' && $modal.hasClass('show')) {
+            hidePartnersPopup();
+        }
+    });
+}
+
+/**
+ * Initialize "Read more" toggle for Partners popup content
+ * Called after content is cloned into modal
+ */
+function initPartnersReadMore() {
+    var $content = $('#partnersModalContent .partners-popup-content');
+    var $readMore = $('#partnersModalContent .partners-popup-read-more');
+
+    if (!$readMore.length) return;
+
+    var fullText = $content.text().trim();
+    var truncatedText = fullText.substring(0, 300);
+
+    // Only show read more if text is longer than 300 characters
+    if (fullText.length <= 300) {
+        $readMore.hide();
+        return;
+    }
+
+    truncatedText += '...';
+
+    // Initially show truncated text
+    $content.text(truncatedText);
+    $content.data('full-text', fullText);
+    $content.data('expanded', false);
+    $readMore.show();
+
+    // Toggle on click
+    $readMore.off('click').on('click', function(e) {
+        e.preventDefault();
+        var isExpanded = $content.data('expanded');
+        var $icon = $(this).find('.read-more-icon');
+
+        if (isExpanded) {
+            // Collapse
+            $content.text(truncatedText);
+            $content.data('expanded', false);
+            $(this).contents().filter(function() {
+                return this.nodeType === 3;
+            }).first().replaceWith('Read more ');
+            $icon.css('transform', 'rotate(0deg)');
+        } else {
+            // Expand
+            $content.text(fullText);
+            $content.data('expanded', true);
+            $(this).contents().filter(function() {
+                return this.nodeType === 3;
+            }).first().replaceWith('Read less ');
+            $icon.css('transform', 'rotate(180deg)');
+        }
+    });
+}
+
+/**
+ * Initialize Biography toggle for team members in Partners popup
+ * Shows/hides team member biography content
+ */
+function initPartnersBiographyToggle() {
+    var $bioLinks = $('#partnersModalContent .partner-team-bio');
+
+    // Remove any existing handlers
+    $bioLinks.off('click.biographyToggle');
+
+    // Attach new handlers
+    $bioLinks.on('click.biographyToggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var $link = $(this);
+        var $teamInfo = $link.closest('.partner-team-info');
+        var $bioContent = $teamInfo.find('.partner-team-bio-content');
+        var $icon = $link.find('.bio-icon');
+
+        // Check if content exists
+        if ($bioContent.length === 0) {
+            return;
+        }
+
+        // Toggle visibility
+        if ($bioContent.is(':visible')) {
+            // Hide biography
+            $bioContent.slideUp(300);
+            // Update text node (the text before the icon)
+            var textNode = $link.contents().filter(function() {
+                return this.nodeType === 3; // Text node
+            })[0];
+            if (textNode) {
+                textNode.nodeValue = 'Biography ';
+            }
+            $icon.css('transform', 'rotate(0deg)');
+        } else {
+            // Show biography
+            $bioContent.slideDown(300);
+            // Update text node
+            var textNode = $link.contents().filter(function() {
+                return this.nodeType === 3; // Text node
+            })[0];
+            if (textNode) {
+                textNode.nodeValue = 'Hide Biography ';
+            }
+            $icon.css('transform', 'rotate(180deg)');
+        }
+    });
+}
+
+/**
+ * Show Partners Popup
+ * Manages focus, ARIA attributes, and body scroll
+ */
+function showPartnersPopup() {
+    var $modal = $('#partnersModal');
+
+    // Add show class to display modal
+    $modal.addClass('show');
+
+    // Update ARIA attributes
+    $modal.attr('aria-hidden', 'false');
+
+    // Prevent body scroll
+    $('body').css('overflow', 'hidden');
+
+    // Set focus to modal title for screen reader announcement
+    // Add small delay to ensure DOM is ready
+    setTimeout(function() {
+        $('#partnersModalContent .partners-popup-name').focus();
     }, 100);
+}
+
+/**
+ * Hide Partners Popup
+ * Restores focus, ARIA attributes, and body scroll
+ */
+function hidePartnersPopup() {
+    var $modal = $('#partnersModal');
+    var lastFocusedElement = $modal.data('lastFocusedElement');
+
+    // Remove show class to hide modal
+    $modal.removeClass('show');
+
+    // Update ARIA attributes
+    $modal.attr('aria-hidden', 'true');
+
+    // Restore body scroll
+    $('body').css('overflow', '');
+
+    // Return focus to the triggering element without scrolling
+    if (lastFocusedElement) {
+        setTimeout(function() {
+            // Prevent scroll by using preventScroll option
+            if (lastFocusedElement.focus) {
+                lastFocusedElement.focus({ preventScroll: true });
+            }
+        }, 100);
+    }
 }
 
 $(document).ready(function() {
@@ -198,6 +412,9 @@ $(document).ready(function() {
 
     // Initialize Advisory Board Popup functionality
     initAdvisoryBoardPopup();
+
+    // Initialize Partners Popup functionality
+    initPartnersPopup();
 
     // Wrap nav-item text in span for roulette animation (desktop only)
     if (window.matchMedia('(min-width: 992px)').matches) {

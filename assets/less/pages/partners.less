@@ -1,0 +1,508 @@
+.partners-section {
+    padding: 60px 0;
+    background-color: #ffffff;
+
+    .row {
+        margin: 0 -10px;
+    }
+
+    [class*="col-"] {
+        padding: 0 10px;
+        margin-bottom: 20px;
+    }
+
+    .partner-card {
+        background-color: #f7f6f1;
+        border-radius: 20px;
+        // padding: 42px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 140px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        &.partner-card-clickable {
+            cursor: pointer;
+
+            &:focus {
+                outline: 2px solid #009344;
+                outline-offset: 2px;
+            }
+        }
+
+        .partner-logo {
+            max-width: 100%;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+    }
+
+    // .breakpoint-large-down({
+    //     padding: 40px 0;
+
+    //     .partner-card {
+    //         padding: 30px 20px;
+    //         min-height: 120px;
+
+    //         .partner-logo {
+    //             max-height: 60px;
+    //         }
+    //     }
+    // });
+
+    .breakpoint-large-down({
+        padding: 40px 0;
+
+        .partner-card {
+            padding: 30px 20px;
+            min-height: 120px;
+
+            .partner-logo {
+                max-height: 60px;
+            }
+        }
+    });
+
+    .breakpoint-small-down({
+        padding: 30px 0;
+
+        [class*="col-"] {
+            margin-bottom: 15px;
+        }
+
+        .partner-card {
+            padding: 20px 15px;
+            min-height: 100px;
+
+            .partner-logo {
+                max-height: 50px;
+            }
+        }
+    });
+}
+
+// ============================================
+// PARTNERS MODAL POPUP STYLES
+// ============================================
+
+// Modal Overlay (Background)
+.modal-overlay.partners-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 20px;
+
+    &.show {
+        display: flex;
+    }
+}
+
+// Modal Container
+.modal-container.partners-modal-container {
+    position: relative;
+    background: white;
+    border-radius: 10px;
+    width: 90vw;
+    max-width: 1042px;
+    max-height: 85vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-shadow: -3px 0px 25px 10px rgba(185, 185, 185, 0.25);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+// Modal Animation
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+// Close Button
+.modal-close.partners-modal-close {
+    position: absolute;
+    top: 18px;
+    right: 14px;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: transform 0.2s ease;
+
+    .close-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    &:focus {
+        outline: 2px solid #009344;
+        outline-offset: 2px;
+    }
+}
+
+// Modal Content Wrapper
+.modal-content.partners-modal-content {
+    padding: 50px 60px 40px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+// Main Layout (Logo on left, Info on right)
+.partners-popup-main {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+}
+
+// Logo Container (Left Side)
+.partners-popup-logo-container {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    width: 349px;
+    max-width: 40%;
+    min-width: 280px;
+}
+
+// Logo Box
+.partners-popup-logo-box {
+    background-color: #f7f6f1;
+    border-radius: 20px;
+    // padding: 101px 91px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 236px;
+
+    img {
+        max-width: 100%;
+        max-height: 167px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
+.visit-website-btn{
+    max-width: 100%;
+}
+
+// Partner Info Section (Right Side)
+.partners-popup-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+}
+
+// Partner Name
+.partners-popup-name {
+    font-family: 'Satoshi Medium', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #09220a;
+    letter-spacing: -0.66px;
+    line-height: 1.3;
+    margin: 0;
+    padding: 0;
+}
+
+// Content Wrapper
+.partners-popup-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+// Partner Description Content
+.partners-popup-content {
+    font-family: 'Satoshi Regular', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(9, 34, 10, 0.7);
+    letter-spacing: -0.48px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+}
+
+// Read More Link
+.partners-popup-read-more {
+    font-family: 'Satoshi Medium', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: #009344;
+    letter-spacing: -0.51px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    align-self: flex-start;
+    transition: color 0.3s ease;
+    cursor: pointer;
+
+    .read-more-icon {
+        width: 12px;
+        height: 6px;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        color: #007A38;
+        text-decoration: none;
+    }
+}
+
+// Team Lead Section
+.partners-popup-team {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(9, 34, 10, 0.1);
+}
+
+.partners-popup-team-title {
+    font-family: 'Satoshi Medium', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #09220a;
+    letter-spacing: -0.54px;
+    margin: 0 0 20px 0;
+}
+
+// Team Member Card
+.partner-team-member {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 15px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// Team Member Avatar
+.partner-team-avatar {
+    width: 115px;
+    height: 105.8px;
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: #f7f6f1;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+    }
+}
+
+// Team Member Info
+.partner-team-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.partner-team-name {
+    font-family: 'Satoshi Bold', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #546554;
+    letter-spacing: -0.48px;
+    margin: 0;
+}
+
+.partner-team-bio {
+    font-family: 'Satoshi Medium', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: #009344;
+    letter-spacing: -0.51px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: color 0.3s ease;
+    cursor: pointer;
+
+    .bio-icon {
+        width: 12px;
+        height: 6px;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        color: #007A38;
+        text-decoration: none;
+    }
+}
+
+// Biography Content (Expandable)
+.partner-team-bio-content {
+    margin-top: 10px;
+    padding-top: 10px;
+    font-family: 'Satoshi Regular', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(9, 34, 10, 0.7);
+    letter-spacing: -0.45px;
+    line-height: 1.4;
+}
+
+// Responsive Adjustments - Tablet
+.breakpoint-large-down({
+    .modal-container.partners-modal-container {
+        width: 95vw;
+        max-width: 800px;
+    }
+
+    .modal-content.partners-modal-content {
+        padding: 40px 30px 30px;
+    }
+
+    .partners-popup-main {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .partners-popup-logo-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .partners-popup-logo-box {
+        padding: 60px 40px;
+        min-height: 180px;
+
+        img {
+            max-height: 120px;
+        }
+    }
+
+    .partners-popup-info {
+        max-height: 65vh;
+    }
+});
+
+// Responsive Adjustments - Mobile
+.breakpoint-small-down({
+    .modal-container.partners-modal-container {
+        width: 95vw;
+        margin: 10px;
+        max-height: 95vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .modal-content.partners-modal-content {
+        padding: 30px 20px 25px;
+    }
+
+    .modal-close.partners-modal-close {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .partners-popup-main {
+        gap: 25px;
+    }
+
+    .partners-popup-logo-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .partners-popup-logo-box {
+        padding: 40px 30px;
+        min-height: 150px;
+
+        img {
+            max-height: 80px;
+        }
+    }
+
+    .partners-popup-info {
+        max-height: none;
+        padding-right: 5px;
+    }
+
+    // .partners-popup-website-btn {
+    //     font-size: 16px;
+    //     padding: 10px 18px;
+    //     min-height: 44px;
+    // }
+
+    .partners-popup-name {
+        font-size: 20px;
+    }
+
+    .partners-popup-content {
+        font-size: 15px;
+    }
+
+    .partners-popup-read-more {
+        font-size: 16px;
+    }
+
+    .partners-popup-team-title {
+        font-size: 17px;
+    }
+
+    .partner-team-avatar {
+        width: 80px;
+        height: 75px;
+    }
+
+    .partner-team-name {
+        font-size: 15px;
+    }
+
+    .partner-team-bio {
+        font-size: 16px;
+    }
+});
