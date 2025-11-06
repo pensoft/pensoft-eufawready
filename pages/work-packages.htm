@@ -1,0 +1,103 @@
+url = "work-packages"
+layout = "default"
+title = "Work Packages"
+is_hidden = 0
+meta_title = "Work Packages"
+meta_description = "Work Packages"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+==
+<?php
+use Pensoft\Accordions\Models\Item;
+use Pensoft\Accordions\Models\Category;
+
+function onStart(){
+    $this['work_packages_title'] = Category::where('slug', 'wp')->first();
+    $this['work_packages_records'] = Item::with('profiles')->whereHas('accordion', function($query) {
+        $query->where('slug', 'wp');
+    })->orderBy('sort_order', 'asc')->get();
+}
+
+?>
+==
+
+{% component 'siteSearchInclude' %}
+
+<section class="container-fluid wp-schema" aria-label="Work Packages">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12 wp-schema-image">
+                <img src="{{ 'assets/images/wp-schema.svg' | theme }}" alt="Work Packages Schema" class="img-responsive" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container-fluid work-packages" aria-label="Work Packages">
+    <div class="container wp-container">
+        <div class="row wp-item">
+            <div class="col-md-12 col-xs-12">
+                {% for item in work_packages_records %}
+                <div class="wp-accordion" data-wp-id="{{ item.id }}">
+                    {# Accordion Header #}
+                    <div class="accordion-toggle">
+                        <div class="wp-number-box">
+                            <span class="wp-number">{{ item.prefix }}</span>
+                        </div>
+                        <div class="wp-title">
+                            <span>{{ item.title }}</span>
+                        </div>
+                        <div class="wp-toggle-btn">
+                            <div class="toggle-icon"></div>
+                        </div>
+                    </div>
+
+                    {# Accordion Content (Hidden by Default) #}
+                    <div class="accordion-content" style="display: none;">
+                        {% if item.profiles|length > 0 %}
+                        {# Lead Section #}
+                        <div class="wp-lead-section">
+                            <h4 class="lead-header">Lead</h4>
+
+                            {% set lead = item.profiles|first %}
+                            <div class="lead-profile-card">
+                                <div class="lead-avatar">
+                                    {% if lead.avatar %}
+                                    <img src="{{ lead.avatar.path }}" alt="{{ lead.names }}" />
+                                    {% endif %}
+                                </div>
+                                <div class="lead-info">
+                                    <h5 class="lead-name">{{ lead.names }}</h5>
+                                </div>
+                                <div class="lead-bio-toggle">
+                                    {% if lead.content %}
+                                    <button class="biography-toggle" type="button">
+                                        <span class="bio-text">Biography</span>
+                                        <img class="bio-arrow" src="{{ 'assets/images/chevron-right-green.svg' | theme }}" alt="toggle biography" />
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            {% if lead.content %}
+                            <div class="lead-biography" style="display: none;">
+                                {{ lead.content|raw }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        {# Work Package Body Content #}
+                        <div class="wp-body-content">
+                            {{ item.body|raw }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

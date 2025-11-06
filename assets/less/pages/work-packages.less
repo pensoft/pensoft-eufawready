@@ -1,0 +1,547 @@
+.wp-schema {
+    .wp-schema-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+    }
+}
+
+.work-packages{
+    margin-top: 50px;
+    .wp-container{
+        display: flex;
+        justify-content: center;
+    }
+
+    .wp-item{
+        width: 960px;
+    }
+    
+    // Accordion Container
+    .work-packages .wp-accordion {
+        background: #f5f5f5;
+        border-radius: 12px;
+        margin: 16px 0;
+        padding: 0;
+        width: 100%;
+        cursor: default;
+        transition: all 0.3s ease;
+    
+        .breakpoint-large-down({
+            margin: 12px 0;
+        });
+    
+        .breakpoint-small-down({
+            margin: 10px 0;
+        });
+    }
+    
+    // Accordion Toggle Header
+    .work-packages .wp-accordion .accordion-toggle {
+        display: flex;
+        align-items: center;
+        padding: 16px 0 !important;
+        cursor: pointer;
+        background: @white-color !important;
+        border: none;
+        transition: all 0.3s ease;
+    
+        .breakpoint-large-down({
+            padding: 12px 16px;
+            flex-wrap: nowrap;
+        });
+    
+        .breakpoint-small-down({
+            padding: 10px 12px;
+        });
+    
+        &:hover {
+            opacity: 0.9;
+        }
+    
+        &:focus {
+            outline: none;
+        }
+    }
+    
+    // WP Number Box (Left)
+    .work-packages .wp-number-box {
+        width: 90px;
+        height: 90px;
+        background: #0a612b;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    
+        .breakpoint-large-down({
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+        });
+    
+        .breakpoint-small-down({
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+        });
+    
+        .wp-number {
+            font-family: 'Satoshi', 'Gilroy', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: #ffffff;
+            letter-spacing: -0.84px;
+    
+            .breakpoint-large-down({
+                font-size: 24px;
+            });
+    
+            .breakpoint-small-down({
+                font-size: 20px;
+            });
+        }
+    }
+    
+    // WP Title (Center)
+    .work-packages .wp-title {
+        flex: 1;
+        padding: 0 24px;
+    
+        .breakpoint-large-down({
+            padding: 0 16px;
+        });
+    
+        .breakpoint-small-down({
+            padding: 0 12px;
+        });
+    
+        span {
+            font-family: 'Satoshi', 'Gilroy', sans-serif;
+            font-weight: 500;
+            font-size: 22px;
+            color: #09220a;
+            letter-spacing: -0.66px;
+            line-height: 1.3;
+    
+            .breakpoint-large-down({
+                font-size: 18px;
+            });
+    
+            .breakpoint-small-down({
+                font-size: 16px;
+            });
+        }
+    }
+    
+    // WP Toggle Button (Right)
+    .work-packages .wp-toggle-btn {
+        width: 40px;
+        height: 40px;
+        background: #006a31;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    
+        .breakpoint-large-down({
+            width: 36px;
+            height: 36px;
+        });
+    
+        .breakpoint-small-down({
+            width: 32px;
+            height: 32px;
+        });
+    
+        &:hover {
+            background: #005528;
+        }
+    
+        .toggle-icon {
+            width: 16px;
+            height: 16px;
+            position: relative;
+            transition: transform 0.3s ease;
+    
+            .breakpoint-small-down({
+                width: 14px;
+                height: 14px;
+            });
+    
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                background: #ffffff;
+                border-radius: 2px;
+            }
+    
+            // Horizontal line
+            &::before {
+                width: 16px;
+                height: 2px;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+    
+                .breakpoint-small-down({
+                    width: 14px;
+                });
+            }
+    
+            // Vertical line
+            &::after {
+                width: 2px;
+                height: 16px;
+                left: 50%;
+                top: 0;
+                transform: translateX(-50%);
+                transition: transform 0.3s ease, opacity 0.3s ease;
+    
+                .breakpoint-small-down({
+                    height: 14px;
+                });
+            }
+        }
+    }
+    
+    // When accordion is open, rotate the icon to X
+    .work-packages .wp-accordion.active {
+        .wp-toggle-btn .toggle-icon {
+            transform: rotate(45deg);
+        }
+    }
+    
+    // ============================================
+    // Accordion Content Area
+    // ============================================
+    
+    .work-packages .wp-accordion .accordion-content {
+        padding: 24px 0;
+        background: #ffffff;
+        border-radius: 0 0 12px 12px;
+        border-top: 1px solid #e5e5e5;
+    
+        .breakpoint-large-down({
+            padding: 20px 106px;
+        });
+    
+        .breakpoint-small-down({
+            padding: 16px 0;
+        });
+    }
+    
+    // ============================================
+    // Lead Section
+    // ============================================
+    
+    .work-packages .wp-lead-section {
+        margin-bottom: 24px;
+    
+        .breakpoint-large-down({
+            margin-bottom: 20px;
+        });
+    
+        .breakpoint-small-down({
+            margin-bottom: 16px;
+        });
+    
+        .lead-header {
+            font-family: 'Satoshi', 'Gilroy', sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            color: #09220a;
+            margin: 0 0 13px 0;
+            letter-spacing: -0.54px;
+    
+            .breakpoint-large-down({
+                font-size: 17px;
+                margin-bottom: 12px;
+            });
+    
+            .breakpoint-small-down({
+                font-size: 16px;
+                margin-bottom: 10px;
+            });
+        }
+    }
+    
+    // Lead Profile Card
+    .work-packages .lead-profile-card {
+        display: flex;
+        align-items: center;
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+        margin-bottom: 16px;
+        gap: 20px;
+    
+        .breakpoint-large-down({
+            flex-wrap: wrap;
+            gap: 16px;
+        });
+    
+        .breakpoint-small-down({
+            gap: 12px;
+        });
+    
+        .lead-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #f7f6f1;
+    
+            .breakpoint-large-down({
+                width: 90px;
+                height: 90px;
+            });
+    
+            .breakpoint-small-down({
+                width: 70px;
+                height: 70px;
+            });
+    
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    
+        .lead-info {
+            flex: 1;
+            padding: 0;
+    
+            .breakpoint-small-down({
+                flex-basis: 100%;
+                order: 3;
+            });
+    
+            .lead-name {
+                font-family: 'Satoshi', 'Gilroy', sans-serif;
+                font-weight: 700;
+                font-size: 18px;
+                color: #546554;
+                margin: 0;
+                letter-spacing: -0.54px;
+                line-height: 1.33;
+    
+                .breakpoint-large-down({
+                    font-size: 17px;
+                });
+    
+                .breakpoint-small-down({
+                    font-size: 16px;
+                });
+            }
+        }
+    
+        .lead-bio-toggle {
+            flex-shrink: 0;
+            margin-left: auto;
+    
+            .breakpoint-small-down({
+                order: 2;
+                margin-left: 0;
+            });
+        }
+    }
+    
+    // ============================================
+    // Biography Toggle Button
+    // ============================================
+    
+    .work-packages .biography-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        font-family: 'Satoshi', 'Gilroy', sans-serif;
+        font-weight: 500;
+        font-size: 17px;
+        color: #009344;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        letter-spacing: -0.51px;
+    
+        .breakpoint-large-down({
+            font-size: 16px;
+            gap: 6px;
+        });
+    
+        .breakpoint-small-down({
+            font-size: 15px;
+            gap: 5px;
+        });
+    
+        &:hover {
+            opacity: 0.8;
+        }
+    
+        &:focus {
+            outline: 2px solid #009344;
+            outline-offset: 2px;
+        }
+    
+        .bio-text {
+            line-height: 1.47;
+        }
+    
+        .bio-arrow {
+            width: 22px;
+            height: 22px;
+            line-height: 1;
+            transition: transform 0.3s ease;
+            display: inline-block;
+            vertical-align: middle;
+            transform: rotate(90deg);
+            flex-shrink: 0;
+    
+            .breakpoint-small-down({
+                width: 20px;
+                height: 20px;
+            });
+        }
+    
+        &.active .bio-arrow {
+            transform: rotate(270deg);
+        }
+    }
+    
+    // Lead Biography Content
+    .work-packages .lead-biography {
+        color: #546554;
+        font-family: Satoshi;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.54px;
+    
+        .breakpoint-large-down({
+            font-size: 17px;
+        });
+    
+        .breakpoint-small-down({
+            font-size: 16px;
+        });
+    
+        p {
+            margin: 0 0 12px 0;
+    
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    
+        h3, h4, h5, h6 {
+            font-weight: 500;
+            color: #09220a;
+            margin: 0 0 13px 0;
+    
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    
+        ul, ol {
+            margin: 13px 0;
+            padding-left: 27px;
+    
+            .breakpoint-small-down({
+                margin: 12px 0;
+                padding-left: 24px;
+            });
+    
+            li {
+                margin-bottom: 8px;
+    
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    
+    // ============================================
+    // Work Package Body Content
+    // ============================================
+    
+    .work-packages .wp-body-content {
+        color: #546554;
+        font-family: Satoshi;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.54px;
+    
+        .breakpoint-large-down({
+            font-size: 17px;
+        });
+    
+        .breakpoint-small-down({
+            font-size: 16px;
+        });
+    
+        p {
+            margin: 0 0 12px 0;
+    
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    
+        ol, ul {
+            margin: 13px 0;
+            padding-left: 27px;
+    
+            .breakpoint-small-down({
+                margin: 12px 0;
+                padding-left: 24px;
+            });
+    
+            li {
+                margin-bottom: 8px;
+    
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    
+        ol {
+            list-style-type: decimal;
+        }
+    
+        ul {
+            list-style-type: disc;
+        }
+    
+        h3, h4, h5, h6 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #09220a;
+            margin: 0 0 13px 0;
+    
+            .breakpoint-large-down({
+                font-size: 17px;
+            });
+    
+            .breakpoint-small-down({
+                font-size: 16px;
+                margin: 12px 0 10px 0;
+            });
+        }
+    }
+    
+}

@@ -416,6 +416,12 @@ $(document).ready(function() {
     // Initialize Partners Popup functionality
     initPartnersPopup();
 
+    // Initialize Work Packages Accordion functionality
+    initWorkPackagesAccordion();
+
+    // Initialize Biography Toggle functionality
+    initBiographyToggle();
+
     // Wrap nav-item text in span for roulette animation (desktop only)
     if (window.matchMedia('(min-width: 992px)').matches) {
         $('.navbar-nav-wrapper .nav-item > a').each(function() {
@@ -939,6 +945,65 @@ function initNewsCategoryTabs() {
     // Set the correct active tab based on URL
     $('.news-category-tabs .tab-link').removeClass('active');
     $('.news-category-tabs .tab-link[data-category="' + currentCategoryId + '"]').addClass('active');
+}
+
+/**
+ * Initialize Work Packages Accordion functionality
+ * Handles accordion toggle for new wp-accordion structure with Figma design
+ */
+function initWorkPackagesAccordion() {
+    // Target new wp-accordion structure
+    $('.work-packages .wp-accordion .accordion-toggle').off('click.wpAccordion');
+
+    $('.work-packages .wp-accordion .accordion-toggle').on('click.wpAccordion', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var $accordion = $(this).closest('.wp-accordion');
+        var $content = $accordion.find('.accordion-content');
+        var isActive = $accordion.hasClass('active');
+
+        if (isActive) {
+            // Close accordion
+            $content.slideUp(300);
+            $accordion.removeClass('active');
+        } else {
+            // Open accordion
+            $content.slideDown(300);
+            $accordion.addClass('active');
+        }
+    });
+}
+
+/**
+ * Initialize Biography Toggle functionality
+ * Handles show/hide of biography content within lead profile cards
+ */
+function initBiographyToggle() {
+    $('.work-packages .biography-toggle').off('click.bioToggle');
+
+    $('.work-packages .biography-toggle').on('click.bioToggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var $button = $(this);
+        var $leadSection = $button.closest('.wp-lead-section');
+        var $biography = $leadSection.find('.lead-biography');
+        var $bioText = $button.find('.bio-text');
+        var isActive = $button.hasClass('active');
+
+        if (isActive) {
+            // Hide biography
+            $biography.slideUp(300);
+            $button.removeClass('active');
+            $bioText.text('Biography');
+        } else {
+            // Show biography
+            $biography.slideDown(300);
+            $button.addClass('active');
+            $bioText.text('Hide Biography');
+        }
+    });
 }
 
 /**

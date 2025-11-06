@@ -1,158 +1,119 @@
 
-.ui-icon {
-    &.small, &.large, &.huge {
-        .line-height;
-        vertical-align: middle;
-    }
-    &.small {
-        .font-size(0.80);
-    }
-    &.normal {
-        font-size: 20px;
-        float: left;
-        margin-right: 5px;
-        height: 20px;
-    }
-    &.big {
-        .font-size(2);
-    }
-    &.large {
-        .font-size(3);
-    }
-    &.huge {
-        .font-size(5);
-    }
-}
+// .ui-icon {
+//     &.small, &.large, &.huge {
+//         .line-height;
+//         vertical-align: middle;
+//     }
+//     &.small {
+//         .font-size(0.80);
+//     }
+//     &.normal {
+//         font-size: 20px;
+//         float: left;
+//         margin-right: 5px;
+//         height: 20px;
+//     }
+//     &.big {
+//         .font-size(2);
+//     }
+//     &.large {
+//         .font-size(3);
+//     }
+//     &.huge {
+//         .font-size(5);
+//     }
+// }
 
-.file_container{
-    padding: 10px;
-    line-height: 20px;
-    border-bottom: 1px solid #d8d8d8!important;
-}
+// .file_container{
+//     padding: 10px;
+//     line-height: 20px;
+//     border-bottom: 1px solid #d8d8d8!important;
+// }
 
 
-.work_packages{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
+// // LEGACY ACCORDION STYLES - KEPT FOR MISSION PAGE ONLY
+// // Work packages now use dedicated styles in pages/work-packages.less
 
-.work_packages .accordion-border, .mission .accordion-border{
-    border: none;
-    padding: 8px;
-    margin: 20px 0;
-    font-size: 1em;
-    cursor: pointer;
-    width: 98%;
-    background: @secondary-color;
-    border-radius: 7px;
-}
+// .work_packages{
+//     list-style-type: none;
+//     padding: 0;
+//     margin: 0;
+// }
 
-.mission .accordion-border{
-    margin: 7px 0 8px 0;
-}
+// // Only apply legacy styles to .mission, exclude .work_packages to avoid conflicts
+// .mission .accordion-border{
+//     border: none;
+//     padding: 8px;
+//     margin: 7px 0 8px 0;
+//     font-size: 1em;
+//     cursor: pointer;
+//     width: 98%;
+//     background: @secondary-color;
+//     border-radius: 7px;
+// }
 
-.work_packages .accordion-toggle, .mission .accordion-toggle{
-    background: none;
-    border: none;
-    border-radius: unset;
-    padding: 30px;
-    color: #010F21;
-    font-size: 23px;
-    font-weight: 500;
-    .col-xs.start-xs{
-        .breakpoint-large-down({
-            padding: 10px;
-        });
-    }
-    &:focus{
-        outline: none;
-    }
-}
+// .mission .accordion-toggle{
+//     background: none;
+//     border: none;
+//     border-radius: unset;
+//     padding: 30px;
+//     color: #010F21;
+//     font-size: 23px;
+//     font-weight: 500;
+//     .col-xs.start-xs{
+//         .breakpoint-large-down({
+//             padding: 10px;
+//         });
+//     }
+//     &:focus{
+//         outline: none;
+//     }
+// }
 
-.work_packages .accordion-toggle{
-    padding: 0px;
-    font-size: 18px;
-    line-height: 1.2em;
+// .mission .accordion-content{
+//     padding: 30px;
+//     line-height: 1.5em!important;
+//     font-size: 18px;
+//     ol{
+//         list-style-type: decimal;
+//         padding-left: 40px;
+//     }
+// }
 
-    .col-xs.start-xs{
-        padding: 0 20px;
-    }
-
-    .green_bullet{
-        width: 85px;
-        height: 85px;
-        /* UI Properties */
-        background: transparent linear-gradient(226deg, #25BDD2 0%, #2D7252 100%) 0% 0% no-repeat padding-box;
-        border-radius: 10px;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 25px;
-        font-weight: 600;
-        transition: all 0.5s ease-in-out;
-    }
-
-    .green_bullet.toggled{
-        height: 57px;
-    }
-}
-
-.mission .accordion-content{
-    padding: 30px;
-    line-height: 1.5em!important;
-    font-size: 18px;
-    ol{
-        list-style-type: decimal;
-        padding-left: 40px;
-    }
-}
-
-.work_packages .accordion-content{
-    padding: 20px 8px;
-    line-height: 1.5em!important;
-    font-size: 18px;
-    ol{
-        list-style-type: decimal;
-        padding-left: 40px;
-    }
-}
-
-.work_packages .plusminus, .mission .plusminus{
-    flex-basis: 10%;
-    width: 29px;
-    height: 29px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: end;
-    .breakpoint-large-down({
-        position: relative;
-    });
-    .plus, .minus{
-        width: 23px;
-        height: 11px;
-        text-align: right;
-        vertical-align: middle;
-        color: @default-color;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: url("../../assets/images/arrow-down.svg") center no-repeat;
-        background-size: contain!important;
-        .breakpoint-large-down({
-            position: absolute;
-            right: 5px;
-        });
-    }
-    .plus{
-        background: url("../../assets/images/arrow-down.svg") center no-repeat;
-    }
-    .minus{
-        background: url("../../assets/images/arrow-down.svg") center no-repeat;
-        transform: rotate(180deg);
-    }
-}
+// .mission .plusminus{
+//     flex-basis: 10%;
+//     width: 29px;
+//     height: 29px;
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//     justify-content: end;
+//     .breakpoint-large-down({
+//         position: relative;
+//     });
+//     .plus, .minus{
+//         width: 23px;
+//         height: 11px;
+//         text-align: right;
+//         vertical-align: middle;
+//         color: @default-color;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         background: url("../../assets/images/arrow-down.svg") center no-repeat;
+//         background-size: contain!important;
+//         .breakpoint-large-down({
+//             position: absolute;
+//             right: 5px;
+//         });
+//     }
+//     .plus{
+//         background: url("../../assets/images/arrow-down.svg") center no-repeat;
+//     }
+//     .minus{
+//         background: url("../../assets/images/arrow-down.svg") center no-repeat;
+//         transform: rotate(180deg);
+//     }
+// }
 
 
