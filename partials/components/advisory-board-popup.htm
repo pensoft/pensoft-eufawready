@@ -1,49 +1,21 @@
-<div class="modal-overlay advisory-board-modal"
-     id="advisoryBoardModal"
-     role="dialog"
-     aria-modal="true"
-     aria-labelledby="advisoryPopupName"
-     aria-describedby="advisoryPopupContent"
-     aria-hidden="true">
-    <div class="modal-container advisory-board-modal-container" role="document">
-        <!-- Close Button -->
-        <button class="modal-close advisory-board-modal-close"
-                id="advisoryBoardModalClose"
-                aria-label="Close modal"
-                type="button">
-            <img src="{{ 'assets/images/close-icon.svg' | theme }}"
-                 alt="Close"
-                 class="close-icon"
-                 aria-hidden="true" />
-        </button>
+<div class="profile-content" data-profile-id="{{ item.id }}">
+    {% if item.avatar %}
+    <div class="advisory-popup-avatar">
+        <img src="{{ item.avatar.path }}"
+             alt="Portrait of {{ item.names }}, {{ item.position }}"
+             class="advisory-popup-avatar-img" />
+    </div>
+    {% endif %}
 
-        <!-- Modal Content -->
-        <div class="modal-content advisory-board-modal-content">
-            <!-- Avatar -->
-            <div class="advisory-popup-avatar" id="advisoryPopupAvatar">
-                <img src=""
-                     alt=""
-                     id="advisoryPopupAvatarImg"
-                     class="advisory-popup-avatar-img" />
-            </div>
+    <div class="advisory-popup-info">
+        <h2 class="advisory-popup-name" tabindex="-1">{{ item.names }}</h2>
 
-            <!-- Profile Info -->
-            <div class="advisory-popup-info">
-                <!-- Name -->
-                <h2 class="advisory-popup-name"
-                    id="advisoryPopupName"
-                    tabindex="-1"></h2>
+        {% if item.position %}
+        <p class="advisory-popup-position">{{ item.position }}</p>
+        {% endif %}
 
-                <!-- Position -->
-                <p class="advisory-popup-position"
-                   id="advisoryPopupPosition"
-                   role="doc-subtitle"></p>
-
-                <!-- Bio Content -->
-                <div class="advisory-popup-content"
-                     id="advisoryPopupContent"
-                     role="doc-introduction"></div>
-            </div>
-        </div>
+        {% if item.content %}
+        <div class="advisory-popup-content">{{ item.content | raw }}</div>
+        {% endif %}
     </div>
 </div>

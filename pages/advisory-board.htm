@@ -53,10 +53,6 @@ function onStart(){
                             {% if profile.slug %}
                             <a href="#" class="read-more"
                                data-profile-id="{{ profile.id }}"
-                               data-profile-name="{{ profile.names }}"
-                               data-profile-position="{{ profile.position }}"
-                               data-profile-content="{{ profile.content | striptags }}"
-                               data-profile-avatar="{{ profile.avatar.path }}"
                                aria-label="Read more about {{ profile.names }}, {{ profile.position }}"
                                aria-describedby="profile-position-{{ profile.id }}">
                                 Read more →
@@ -75,5 +71,14 @@ function onStart(){
     </div>
 </section>
 
-{% partial 'components/advisory-board-popup' %}
+{# Hidden pre-rendered popup content for each profile #}
+<div class="advisory-popup-data" style="display: none;" aria-hidden="true">
+    {% if profiles %}
+        {% for profile in profiles %}
+            {% partial 'components/advisory-board-popup' item=profile %}
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% partial 'components/advisory-board-popup-modal' %}
 
