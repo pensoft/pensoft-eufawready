@@ -1,0 +1,112 @@
+// IPM ToolBox Page Styles
+
+.ipm-toolbox-section {
+    padding: 80px 0;
+    display: flex;
+    align-items: center;
+    .col-md-6 {
+        padding: 0 30px;
+
+        // .breakpoint-large-down({
+        //     padding: 0 20px;
+        // });
+
+        // .breakpoint-medium-down({
+        //     padding: 0;
+        //     width: 100%;
+        //     display: flex;
+        //     flex-direction: column;
+        //     justify-content: center;
+        // });
+
+        &:first-child {
+            .breakpoint-large-down({
+                order: 1;
+            });
+        }
+
+        &:last-child {
+            .breakpoint-large-down({
+                order: 2;
+            });
+        }
+    }
+    
+    .section-header {
+        color: #09220A;
+        font-family: 'Satoshi', sans-serif;
+        font-size: 35px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .section-description {
+        color: #546554;
+        font-family: 'Satoshi', sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.6;
+        letter-spacing: -0.54px;
+        margin-bottom: 20px;
+        text-align: justify;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+    }
+
+    .ipm-toolbox-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 20px;
+    }
+
+    // Responsive adjustments
+    .breakpoint-large-down({
+        padding: 60px 0;
+
+        .section-header {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .section-description {
+            font-size: 16px;
+        }
+    });
+
+    .breakpoint-small-down({
+        padding: 40px 0;
+
+        .section-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .section-description {
+            font-size: 15px;
+            letter-spacing: -0.45px;
+        }
+    });
+
+    .breakpoint-large-down({
+        .row {
+            flex-direction: column;
+        }
+
+        .ipm-toolbox-image {
+            margin-top: 40px;
+            max-width: 100%;
+        }
+    })
+}
