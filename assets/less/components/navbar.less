@@ -475,7 +475,7 @@
                 color: #009344;
 
                 @media (max-width: 991.98px) {
-                    background-color: rgba(76, 175, 80, 0.1);
+                    background-color: rgba(255, 255, 255, 0.05);
                     color: white;
                 }
             }
@@ -484,10 +484,10 @@
                 color: #009344;
 
                 @media (max-width: 991.98px) {
-                    background-color: rgba(76, 175, 80, 0.15);
-                    border-left: 4px solid #4caf50;
+                    background-color: rgba(255, 255, 255, 0.08);
+                    border-left: 2px solid #4caf50;
                     color: white;
-                    padding-left: 26px;
+                    padding-left: 28px;
                 }
             }
 
@@ -635,7 +635,7 @@
 
                             &:hover {
                                 color: rgba(255, 255, 255, 0.95);
-                                background-color: rgba(76, 175, 80, 0.08);
+                                background-color: rgba(255, 255, 255, 0.04);
                             }
                         }
                     }
@@ -649,10 +649,10 @@
 
                         // Mobile
                         @media (max-width: 991.98px) {
-                            background-color: rgba(76, 175, 80, 0.12);
+                            background-color: rgba(255, 255, 255, 0.06);
                             color: white;
-                            border-left: 4px solid #4caf50;
-                            padding-left: 52px;
+                            border-left: 2px solid #4caf50;
+                            padding-left: 54px;
                         }
                     }
                 }
@@ -722,34 +722,38 @@
                             display: block;
                             position: absolute;
                             right: 15px;
-                            width: 0;
-                            height: 0;
-                            border-top: 5px solid rgba(255, 255, 255, 0.7);
-                            border-left: 4px solid transparent;
-                            border-right: 4px solid transparent;
-                            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-top-color 0.3s ease;
-                            z-index: 1;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            width: 12px;
+                            height: 8px;
+                            background-image: url('/themes/pensoft-eufawready/assets/images/chevron-down-white.svg');
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            opacity: 0.85;
+                            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+                            z-index: 10;
                             flex-shrink: 0;
                         }
 
                         &:hover:after,
                         &:active:after {
-                            border-top-color: rgba(255, 255, 255, 0.95);
+                            opacity: 1;
                         }
                     }
 
                     // Active dropdown (expanded)
                     &.active {
-                        background-color: rgba(76, 175, 80, 0.1);
-                        border-left: 4px solid #4caf50;
+                        background-color: rgba(255, 255, 255, 0.06);
+                        border-left: 2px solid #4caf50;
 
                         > a {
                             color: white;
-                            padding-left: 26px !important;
+                            padding-left: 28px !important;
 
                             &:after {
-                                transform: rotate(180deg);
-                                border-top-color: white;
+                                transform: translateY(-50%) rotate(180deg);
+                                opacity: 1;
                             }
                         }
                     }
