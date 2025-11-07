@@ -1,35 +1,23 @@
-// IPM ToolBox Page Styles
-
 .ipm-toolbox-section {
     padding: 80px 0;
     display: flex;
     align-items: center;
-    .col-md-6 {
-        padding: 0 30px;
 
-        // .breakpoint-large-down({
-        //     padding: 0 20px;
-        // });
+    .text-column {
+        padding-right: 30px;
+        .breakpoint-large-down({
+            padding-right: 10px;
+            order: 2;
+        });
+    }
 
-        // .breakpoint-medium-down({
-        //     padding: 0;
-        //     width: 100%;
-        //     display: flex;
-        //     flex-direction: column;
-        //     justify-content: center;
-        // });
-
-        &:first-child {
-            .breakpoint-large-down({
-                order: 1;
-            });
-        }
-
-        &:last-child {
-            .breakpoint-large-down({
-                order: 2;
-            });
-        }
+    .video-column {
+        padding-left: 30px;
+        .breakpoint-large-down({
+            padding-left: 10px;
+            order: 1;
+            margin-bottom: 40px;
+        });
     }
     
     .section-header {
@@ -64,14 +52,23 @@
         align-items: center;
     }
 
-    .ipm-toolbox-image {
-        width: 100%;
-        height: auto;
-        display: block;
+    .ipm-toolbox-video-container {
+        padding: 80px 0 0 0;
+        display: flex;
+        align-items: end;
+        justify-content: center;
         border-radius: 20px;
+        overflow: hidden;
+        background-color: #f5f5f5;
     }
 
-    // Responsive adjustments
+    .ipm-toolbox-image {
+        width: 100%;
+        height: 40%;
+        display: block;
+        object-fit: cover;
+    }
+
     .breakpoint-large-down({
         padding: 60px 0;
 
@@ -104,9 +101,8 @@
             flex-direction: column;
         }
 
-        .ipm-toolbox-image {
+        .ipm-toolbox-video-container {
             margin-top: 40px;
-            max-width: 100%;
         }
-    })
+    });
 }

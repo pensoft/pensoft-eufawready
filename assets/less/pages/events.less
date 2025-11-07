@@ -1,0 +1,638 @@
+// ============================================
+// EVENTS PAGE STYLES
+// ============================================
+
+// Events Section
+.events {
+    margin-bottom: 50px;
+    
+    .container {
+        .breakpoint-medium-down({
+            padding-right: 20px;
+            padding-left: 20px;
+        });
+        
+        .breakpoint-small-down({
+            padding-right: 15px;
+            padding-left: 15px;
+        });
+    }
+}
+
+// Events List Container
+.events-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 48px;
+
+    .breakpoint-large-down({
+        gap: 25px;
+        margin-bottom: 40px;
+    });
+
+    .breakpoint-medium-down({
+        gap: 22px;
+        margin-bottom: 32px;
+    });
+
+    .breakpoint-small-down({
+        gap: 24px;
+        margin-bottom: 32px;
+    });
+}
+
+// Event Item Card
+.entry-item {
+    display: grid;
+    grid-template-columns: 91px 188px 1fr 50px;
+    grid-template-areas: "date image content action";
+    column-gap: 30px;
+    align-items: center;
+    width: 100%;
+    min-height: 120px;
+
+    .breakpoint-large-down({
+        grid-template-columns: 91px 1fr 50px;
+        grid-template-areas: 
+            "date content action"
+            "image image image";
+        column-gap: 20px;
+        row-gap: 20px;
+    });
+
+    .breakpoint-medium-down({
+        grid-template-columns: 80px 1fr 44px;
+        grid-template-areas: 
+            "date content action"
+            "image image image";
+        column-gap: 16px;
+        row-gap: 16px;
+    });
+
+    .breakpoint-small-down({
+        grid-template-columns: 1fr auto;
+        grid-template-areas: 
+            "content content"
+            "image image"
+            "date action";
+        column-gap: 12px;
+        row-gap: 16px;
+        min-height: auto;
+    });
+}
+
+// Date Container
+.date-container {
+    grid-area: date;
+    background: #d5e8dd;
+    border-radius: 15px;
+    width: 91px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    flex-shrink: 0;
+    align-self: center;
+
+    .breakpoint-medium-down({
+        width: 80px;
+        height: 100px;
+        border-radius: 12px;
+    });
+
+    .breakpoint-small-down({
+        width: auto;
+        height: auto;
+        min-width: 70px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        align-self: start;
+    });
+}
+
+.date-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0;
+    line-height: 1.1;
+}
+
+.date-day,
+.date-month,
+.date-year {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #009344;
+    letter-spacing: -0.66px;
+    line-height: 1.1;
+    margin: 0;
+    padding: 0;
+    display: block;
+
+    .breakpoint-medium-down({
+        font-size: 19px;
+        letter-spacing: -0.57px;
+    });
+
+    .breakpoint-small-down({
+        font-size: 16px;
+        letter-spacing: -0.48px;
+        line-height: 1.2;
+    });
+}
+
+.date-month {
+    text-transform: uppercase;
+}
+
+// Event Image
+.event-image-wrapper {
+    grid-area: image;
+    width: 188px;
+    height: 120px;
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+    align-self: center;
+
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+    }
+
+    .breakpoint-large-down({
+        width: 100%;
+        max-width: 188px;
+        align-self: start;
+    });
+
+    .breakpoint-medium-down({
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 188 / 120;
+        border-radius: 16px;
+    });
+
+    .breakpoint-small-down({
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 10;
+        border-radius: 12px;
+        margin-bottom: 0;
+    });
+
+    &:hover {
+        .event-image {
+            transform: scale(1.05);
+        }
+    }
+}
+
+.event-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+// Event Content
+.event-content {
+    grid-area: content;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding-right: 20px;
+
+    .breakpoint-large-down({
+        padding-right: 10px;
+    });
+
+    .breakpoint-medium-down({
+        padding-right: 8px;
+    });
+
+    .breakpoint-small-down({
+        align-items: flex-start;
+        padding-right: 0;
+        padding-bottom: 12px;
+    });
+}
+
+.event-title {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #09220a;
+    letter-spacing: -0.66px;
+    line-height: 1.36;
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.3s ease;
+    max-width: 480px;
+    margin: 0;
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    .breakpoint-large-down({
+        max-width: 100%;
+    });
+
+    .breakpoint-medium-down({
+        font-size: 19px;
+        letter-spacing: -0.57px;
+    });
+
+    .breakpoint-small-down({
+        font-size: 17px;
+        letter-spacing: -0.51px;
+        line-height: 1.4;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+    });
+}
+
+// Event Action (Arrow Button)
+.event-action {
+    grid-area: action;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+
+    .breakpoint-small-down({
+        justify-content: flex-end;
+        align-items: flex-start;
+    });
+}
+
+.read-more {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #009344;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+
+    .arrow-icon {
+        width: 20px;
+        height: 17px;
+        display: block;
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        background: darken(#009344, 8%);
+        transform: translateX(3px);
+    }
+
+    .breakpoint-medium-down({
+        width: 44px;
+        height: 44px;
+
+        .arrow-icon {
+            width: 18px;
+            height: 15px;
+        }
+    });
+
+    .breakpoint-small-down({
+        width: 40px;
+        height: 40px;
+
+        .arrow-icon {
+            width: 16px;
+            height: 14px;
+        }
+    });
+}
+
+// Subtitle for Past Events
+.events {
+    .subtitle {
+        font-family: 'Satoshi', sans-serif;
+        font-weight: 700;
+        font-size: 32px;
+        color: #09220a;
+        letter-spacing: -0.96px;
+        line-height: normal;
+        margin: 48px 0 32px 0;
+
+        .breakpoint-large-down({
+            font-size: 28px;
+            letter-spacing: -0.84px;
+            margin: 40px 0 28px 0;
+        });
+
+        .breakpoint-medium-down({
+            font-size: 26px;
+            letter-spacing: -0.78px;
+            margin: 36px 0 24px 0;
+        });
+
+        .breakpoint-small-down({
+            font-size: 22px;
+            letter-spacing: -0.66px;
+            margin: 32px 0 20px 0;
+        });
+    }
+}
+
+// Pagination
+.events-pagination {
+    margin: 48px 0;
+    
+    .breakpoint-large-down({
+        margin: 40px 0;
+    });
+
+    .breakpoint-medium-down({
+        margin: 32px 0;
+    });
+
+    .breakpoint-small-down({
+        margin: 24px 0;
+    });
+}
+
+// ============================================
+// EVENT DETAIL PAGE STYLES
+// ============================================
+
+// Back Navigation
+.event-detail-back {
+    margin-bottom: 32px;
+    padding-top: 40px;
+
+    .breakpoint-large-down({
+        padding-top: 32px;
+        margin-bottom: 28px;
+    });
+
+    .breakpoint-small-down({
+        padding-top: 24px;
+        margin-bottom: 24px;
+    });
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #009344;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+
+    .back-icon {
+        width: 8px;
+        height: 14px;
+        display: block;
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    .breakpoint-small-down({
+        font-size: 15px;
+    });
+}
+
+// Event Detail Image
+.event-detail-image-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+
+    .breakpoint-large-down({
+        margin-bottom: 32px;
+    });
+
+    .breakpoint-medium-down({
+        border-radius: 16px;
+        margin-bottom: 28px;
+    });
+
+    .breakpoint-small-down({
+        border-radius: 12px;
+        margin-bottom: 24px;
+    });
+}
+
+.event-detail-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+// Event Detail Content
+.event-detail-content {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 64px;
+
+    .breakpoint-large-down({
+        padding-bottom: 48px;
+    });
+
+    .breakpoint-small-down({
+        padding-bottom: 40px;
+    });
+}
+
+// Event Detail Date Badge
+.event-detail-date-badge {
+    display: inline-block;
+    background: #d5e8dd;
+    padding: 9px 15px;
+    border-radius: 12px;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #009344;
+    letter-spacing: -0.42px;
+    text-align: center;
+    margin-bottom: 20px;
+    width: fit-content;
+
+    .breakpoint-medium-down({
+        font-size: 13px;
+        padding: 8px 13px;
+        margin-bottom: 18px;
+    });
+
+    .breakpoint-small-down({
+        font-size: 12px;
+        padding: 7px 12px;
+        margin-bottom: 16px;
+    });
+}
+
+// Event Detail Title
+.event-detail-title {
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    color: #09220a;
+    letter-spacing: -1.26px;
+    line-height: 1.2;
+    margin: 0 0 28px 0;
+
+    .breakpoint-large-down({
+        font-size: 36px;
+        letter-spacing: -1.08px;
+        margin-bottom: 24px;
+    });
+
+    .breakpoint-medium-down({
+        font-size: 32px;
+        letter-spacing: -0.96px;
+        margin-bottom: 20px;
+    });
+
+    .breakpoint-small-down({
+        font-size: 26px;
+        letter-spacing: -0.78px;
+        margin-bottom: 18px;
+    });
+}
+
+// Event Detail Description
+.event-detail-description {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 18px;
+    color: #09220a;
+    line-height: 1.7;
+    letter-spacing: -0.36px;
+
+    p {
+        margin-bottom: 20px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    h2, h3, h4, h5, h6 {
+        font-weight: 700;
+        margin-top: 32px;
+        margin-bottom: 16px;
+        line-height: 1.3;
+    }
+
+    h2 {
+        font-size: 32px;
+        letter-spacing: -0.96px;
+    }
+
+    h3 {
+        font-size: 24px;
+        letter-spacing: -0.72px;
+    }
+
+    ul, ol {
+        margin-bottom: 20px;
+        padding-left: 24px;
+
+        li {
+            margin-bottom: 8px;
+        }
+    }
+
+    a {
+        color: #009344;
+        text-decoration: underline;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    strong, b {
+        font-weight: 700;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin: 24px 0;
+    }
+
+    blockquote {
+        border-left: 4px solid #009344;
+        padding-left: 20px;
+        margin: 24px 0;
+        font-style: italic;
+        color: #717171;
+    }
+
+    .breakpoint-medium-down({
+        font-size: 17px;
+        letter-spacing: -0.34px;
+
+        h2 {
+            font-size: 28px;
+            letter-spacing: -0.84px;
+            margin-top: 28px;
+        }
+
+        h3 {
+            font-size: 22px;
+            letter-spacing: -0.66px;
+            margin-top: 24px;
+        }
+    });
+
+    .breakpoint-small-down({
+        font-size: 16px;
+        letter-spacing: -0.32px;
+
+        h2 {
+            font-size: 24px;
+            letter-spacing: -0.72px;
+            margin-top: 24px;
+        }
+
+        h3 {
+            font-size: 20px;
+            letter-spacing: -0.6px;
+            margin-top: 20px;
+        }
+
+        img {
+            margin: 20px 0;
+        }
+    });
+}
+
