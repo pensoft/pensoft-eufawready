@@ -1,0 +1,45 @@
+.stakeholder-community{
+
+    .stakeholder-community-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .section-header{
+        .breakpoint-large-down({
+            text-align: center;
+            margin: 20px 0;
+        });
+    }
+    
+    .stakeholder-community-row {
+        width: 80%;
+        margin: 50px 0;
+
+        .stakeholder-community-content{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            
+            .breakpoint-large-down({
+                text-align: center;
+                align-items: center;
+                order: 1;
+            });
+        }
+
+        &:first-of-type{
+            .stakeholder-community-image{
+                display: flex;
+                justify-content: end;
+            }
+        }
+
+        img{
+            width: 100%;
+        }
+    }
+}
