@@ -57,8 +57,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {% framework extras %}
     {% styles %}
     {% scripts %}
-    <!-- Matomo -->
-<script>
+
+<!-- Matomo -->
+<!-- <script>
   var _paq = window._paq = window._paq || [];
   / tracker methods like "setCustomDimension" should be called before "trackPageView" /
   _paq.push(['trackPageView']);
@@ -66,11 +67,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   (function() {
     var u="//matomo.pensoft.net/";
     _paq.push(['setTrackerUrl', u+'matomo.php']);
-    _paq.push(['setSiteId', '52']);
+    _paq.push(['setSiteId', '0']);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
-</script>
+</script> -->
 <!-- End Matomo Code -->
 
 </head>
@@ -100,7 +101,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </header>
 
     <!-- Content -->
-    <main id="layout-content" class="{{this.page.id}}">
+    <main id="layout-content" class="{{this.page.id}}" lang="en">
         {% page %}
     </main>
 </div>
