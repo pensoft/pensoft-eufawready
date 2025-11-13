@@ -1049,6 +1049,163 @@
         });
     }
 
+    // =================================================================
+    // LIBRARY FILTERING & SEARCH
+    // =================================================================
+
+    /**
+     * Initialize Library filtering, search, and pagination functionality
+     * Public API - exposed globally
+     */
+    function initLibraryFilters() {
+        const $container = $('.library-page');
+        if (!$container.length) return;
+
+        // State management object
+        const state = {
+            page: 1,
+            perPage: 15,
+            type: '0',
+            sort: 'year desc'  // Fixed default sort
+        };
+
+        let isLoading = false;
+
+        /**
+         * Show loading state
+         * @private
+         */
+        function showLoading() {
+            isLoading = true;
+            $container.addClass('loading');
+            // Add opacity to results while loading
+            $('.library-item').css('opacity', '0.5');
+        }
+
+        /**
+         * Hide loading state
+         * @private
+         */
+        function hideLoading() {
+            isLoading = false;
+            $container.removeClass('loading');
+            $('.library-item').css('opacity', '1');
+        }
+
+        /**
+         * Fetch records via AJAX and update DOM
+         * @private
+         */
+        function fetchAndRender() {
+            if (isLoading) return;
+
+            const $recordsContainer = $('#recordsContainer');
+
+            // Fade out current results
+            $recordsContainer.css('opacity', '0');
+            showLoading();
+
+            $.ajax({
+                url: window.location.href,
+                type: 'POST',
+                dataType: 'json',
+                data: $.param({
+                    ...state,
+                    _handler: 'onFilter'
+                }),
+                headers: {
+                    'X-OCTOBER-REQUEST-HANDLER': 'LibraryHandler::onFilter',
+                    'X-OCTOBER-REQUEST-PARTIALS': '',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function(response) {
+                    hideLoading();
+
+                    // Inject the HTML from response
+                    if (response.html) {
+                        $recordsContainer.html(response.html);
+                    }
+
+                    // Inject pagination if provided
+                    if (response.pagination) {
+                        $('#libPagination').html(response.pagination);
+                    }
+
+                    // Fade in new results
+                    $recordsContainer.animate({ opacity: 1 }, CONFIG.ANIMATION_SPEEDS.slide);
+
+                    // Attach pagination handlers
+                    attachPaginationHandlers();
+
+                    // Scroll to top
+                    smoothScrollTo($container, CONFIG.SCROLL_OFFSET, CONFIG.ANIMATION_SPEEDS.slide);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    hideLoading();
+                    console.error('Library filter error:', textStatus, errorThrown);
+                    console.error('Response:', xhr.responseText);
+
+                    $recordsContainer.html(
+                        '<div class="no-records error-message">' +
+                        'Sorry, there was an error loading the library. Please try again.' +
+                        '</div>'
+                    ).css('opacity', '1');
+                }
+            });
+        }
+
+        /**
+         * Attach click handlers to pagination links
+         * @private
+         */
+        function attachPaginationHandlers() {
+            $('.library-pagination a').off('click.libPagination').on('click.libPagination', function(e) {
+                e.preventDefault();
+
+                const href = $(this).attr('href');
+                const match = href ? href.match(/page=(\d+)/) : null;
+
+                if (match && match[1]) {
+                    state.page = parseInt(match[1], 10);
+                    fetchAndRender();
+                }
+            });
+        }
+
+        /**
+         * Handle tab click (horizontal tabs)
+         * @private
+         */
+        function handleTabChange(e) {
+            e.preventDefault();
+
+            const $tab = $(e.currentTarget);
+            const value = $tab.data('type').toString();
+
+            // Remove active class and aria-selected from all tabs
+            $('.lib-tab').removeClass('active').attr('aria-selected', 'false');
+
+            // Add active class and aria-selected to clicked tab
+            $tab.addClass('active').attr('aria-selected', 'true');
+
+            // Update state
+            state.type = value;
+            state.page = 1;
+
+            fetchAndRender();
+        }
+
+        // =================================================================
+        // EVENT LISTENERS
+        // =================================================================
+
+        // Tab navigation
+        $('.lib-tab').off('click.libTab').on('click.libTab', handleTabChange);
+
+        // Attach pagination handlers for initial page load
+        attachPaginationHandlers();
+    }
+
     /**
      * Force external links in certain sections to open in new tab
      * @private
@@ -1113,6 +1270,7 @@
         initSearch();
         initMobileMenu();
         initHeroCarousel();
+        initLibraryFilters();
         handleHashNavigation();
         handleDropdownAnchors();
         forceExternalLinks();
@@ -1136,6 +1294,7 @@
     window.initWorkPackagesAccordion = initWorkPackagesAccordion;
     window.initBiographyToggle = initBiographyToggle;
     window.initHamburgerMenuDropdowns = initHamburgerMenuDropdowns;
+    window.initLibraryFilters = initLibraryFilters;
     window.documentHasScroll = documentHasScroll;
     window.isBreakpointLarge = isBreakpointLarge;
     window.scrollDown = scrollDown;

@@ -13,26 +13,35 @@ no_records_message = "Items will follow soon. Keep posted!"
 redirect_to_download_page = 1
 milestones_filter = 1
 
-[jumbotron rio-library]
-jumbotron = "rio-library"
-title = 0
-background = "transperant"
-templates = "template1"
-description_limit = 0
-
+[LibraryHandler]
+milestones_filter = 1
 ==
 ==
 
-<div class="container-fluid library-page library">
-    <!-- <div class="explore-rio">
-        {% component 'rio-library' %}
-    </div> -->
+<section class="container-fluid resources-page library-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="external-links">
+                    {% component 'library-external-links' %}
+                </div>
 
-    <div class="container mb-2">
-        {% component 'LibraryPage' %}
+                <div class="library-header">
+                    {% partial 'components/library/library-tabs' %}
+
+                    <div class="library-actions">
+                        <a href="/resources/library/download" class="btn btn-primary btn-library" id="libDownloadAll" aria-label="Download all library items">
+                            Download all
+                        </a>
+                    </div>
+                </div>
+
+                <div id="recordsContainer" class="library-items">
+                    {% partial 'components/library/library-list' records=records %}
+                </div>
+
+                <div id="libPagination"></div>
+            </div>
+        </div>
     </div>
-</div>
-
-<!-- <script type="text/javascript">
-    initButtonStyle();
-</script>     -->
+</section>

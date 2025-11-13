@@ -1,0 +1,14 @@
+is_link=false
+==
+{% if value %}
+<div>
+    {% if label %}
+    <span class="text-bold">{{label}}</span>
+    {% endif %}
+    {% if is_link %}
+        <span class="text-ligth"><a target="_blank" href="{{value}}" class="break-word" aria-label="{{label}} {{value}} (opens in new tab)">{{value}}</a></span>
+    {% else %}
+        <span class="text-ligth">{{value|replace({",": ", "})}}</span>
+    {% endif %}
+</div>
+{% endif %}

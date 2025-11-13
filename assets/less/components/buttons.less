@@ -246,3 +246,42 @@ button:not(:disabled) {
         animation: none !important;
     }
 }
+
+.btn-library {
+    color: @white-color;
+    background-color: #009344;
+    border-color: #009344;
+    border-radius: 16px;
+    box-shadow: none;
+    padding: 11px 21px;
+    font-size: 17px;
+    font-family: 'Satoshi Medium';
+    letter-spacing: -0.51px;
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+
+    .breakpoint-large-down({
+        max-width: 100%;
+    });
+
+    &:before {
+        content: '';
+        display: inline-block;
+        width: 26px;
+        height: 26px;
+        background-image: url('../../assets/images/download-icon.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-right: 3px;
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        background-color: #007A38;
+        border-color: #007A38;
+        transform: translateY(-1px) scale(1.01);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+}

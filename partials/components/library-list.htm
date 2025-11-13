@@ -1,0 +1,149 @@
+{% if records|length %}
+<div class="row">
+    {% for record in records %}
+    <div class="col-md-6 col-xs-12">
+        <div class="library-item">
+            <div class="library-item-header">
+                <h3 class="library-item-title">
+                    {% if record.type == 5 and record.deliverable_number %}
+                    <span class="deliverable-prefix">{{ record.deliverable_number }}</span>
+                    {% endif %}
+                    {% if record.type == 11 and record.milestone_number %}
+                    <span class="deliverable-prefix">{{ record.milestone_number }}</span>
+                    {% endif %}
+                    {{ record.title }}
+                </h3>
+
+                {% if (record.type == 5 and record.deliverable_number) or (record.type == 11 and record.milestone_number) %}
+                <div class="library-item-badge">
+                    {% if record.type == 5 %}{{ record.deliverable_number }}{% endif %}
+                    {% if record.type == 11 %}{{ record.milestone_number }}{% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="library-separator"></div>
+
+            <div class="library-meta">
+                {% if record.authors %}
+                <div class="library-meta-item authors">
+                    <img src="{{ 'assets/images/authors-icon.svg'|theme }}" alt="" class="library-meta-icon" />
+                    <span class="library-meta-text">{{ record.authors|replace({',': ', '}) }}</span>
+                </div>
+                {% endif %}
+
+                <div class="library-meta-row">
+                    {% if record.type == 5 %}
+                        {% set status = record.status == 1 ? 'Approved' : 'Subject to change' %}
+                    {% else %}
+                        {% set status = record.status_attr %}
+                    {% endif %}
+                    {% if status %}
+                    <div class="library-meta-item status">
+                        <img src="{{ 'assets/images/status-icon.svg'|theme }}" alt="" class="library-meta-icon" />
+                        <span class="library-meta-text">{{ status }}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if record.pages %}
+                    <div class="library-meta-item pages">
+                        <img src="{{ 'assets/images/pages-icon.svg'|theme }}" alt="" class="library-meta-icon" />
+                        <span class="library-meta-text">{{ record.pages }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if record.journal_title %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'Journal:'|_ }}</span>
+                    <span class="library-meta-text">{{ record.journal_title }}</span>
+                </div>
+                {% endif %}
+
+                {% if record.proceedings_title %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'Proceedings:'|_ }}</span>
+                    <span class="library-meta-text">{{ record.proceedings_title }}</span>
+                </div>
+                {% endif %}
+
+                {% if record.monograph_title %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'Monograph:'|_ }}</span>
+                    <span class="library-meta-text">{{ record.monograph_title }}</span>
+                </div>
+                {% endif %}
+
+                {% if record.deliverable_title %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'Deliverable number:'|_ }}</span>
+                    <span class="library-meta-text">{{ record.deliverable_title }}</span>
+                </div>
+                {% endif %}
+
+                {% if record.project_title %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'Project:'|_ }}</span>
+                    <span class="library-meta-text">{{ record.project_title }}</span>
+                </div>
+                {% endif %}
+
+                {% if record.volume_issue %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'Volume/Issue:'|_ }}</span>
+                    <span class="library-meta-text">{{ record.volume_issue }}</span>
+                </div>
+                {% endif %}
+
+                {% if record.publisher %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'Publisher:'|_ }}</span>
+                    <span class="library-meta-text">{{ record.publisher }}</span>
+                </div>
+                {% endif %}
+
+                {% if record.place %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'Place:'|_ }}</span>
+                    <span class="library-meta-text">{{ record.place }}</span>
+                </div>
+                {% endif %}
+
+                {% if record.city %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'City:'|_ }}</span>
+                    <span class="library-meta-text">{{ record.city }}</span>
+                </div>
+                {% endif %}
+
+                {% if record.doi %}
+                <div class="library-meta-item">
+                    <span class="library-meta-label">{{ 'URL/DOI:'|_ }}</span>
+                    <span class="library-meta-text"><a href="{{ record.doi }}" target="_blank" class="library-meta-link">{{ record.doi }}</a></span>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if record.file %}
+            <div class="library-download">
+                <a href="{{ record.file.path }}#file_name={{ record.file.file_name }}"
+                   class="btn btn-primary btn-library"
+                   target="_blank"
+                   aria-label="Download {{ record.title }} ({{ (record.file.file_size / 1024 / 1024)|round(2) }} MB, opens in new tab)">
+                    Download
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <div class="no-records">{{ __SELF__.property('no_records_message') ?: 'Items will follow soon. Keep posted!' }}</div>
+{% endif %}
+
+{% if records|length %}
+<div class="library-pagination">
+    {{ records.render|raw }}
+</div>
+{% endif %}

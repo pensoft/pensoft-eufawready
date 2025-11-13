@@ -1,0 +1,22 @@
+<div class="library-tabs-wrapper">
+    <div class="library-tabs">
+        <a href="#" class="lib-tab active" data-type="0" role="tab" aria-selected="true">
+            All documents
+        </a>
+        {% if __SELF__.property('milestones_filter') %}
+        <a href="#" class="lib-tab" data-type="4" role="tab" aria-selected="false">
+            Deliverables &amp; milestones
+        </a>
+        {% else %}
+        <a href="#" class="lib-tab" data-type="1" role="tab" aria-selected="false">
+            Deliverables
+        </a>
+        {% endif %}
+        <a href="#" class="lib-tab" data-type="3" role="tab" aria-selected="false">
+            {{ this.theme.site_name }} publications
+        </a>
+        <a href="#" class="lib-tab" data-type="2" role="tab" aria-selected="false">
+            Relevant publications
+        </a>
+    </div>
+</div>
