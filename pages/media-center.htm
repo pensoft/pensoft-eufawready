@@ -4,5 +4,57 @@ title = "Media Center"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
+
+[siteSearchInclude]
+
 ==
 ==
+
+{% component 'siteSearchInclude' %}
+
+<section class="container-fluid media-center-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <a href="#" class="media-center-item brand-kit">
+                    <div class="media-center-item-background">
+                        <div class="media-center-item-image">
+                            <img src="{{ 'assets/images/brand-kit.png' | theme }}" alt="Brand Kit" />
+                        </div>
+                        <div class="media-center-item-gradient"></div>
+                    </div>
+                    <h3 class="media-center-item-title">Brand Kit</h3>
+                </a>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <a href="#" class="media-center-item promotional-materials">
+                    <div class="media-center-item-background">
+                        <div class="media-center-item-image">
+                            <img src="{{ 'assets/images/promotional-materials.png' | theme }}" alt="Promotional Materials" />
+                        </div>
+                        <div class="media-center-item-gradient"></div>
+                    </div>
+                    <h3 class="media-center-item-title">Promotional Materials</h3>
+                </a>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <a href="#" class="media-center-item newsletters">
+                    <div class="media-center-item-background"></div>
+                    <h3 class="media-center-item-title">Newsletters</h3>
+                </a>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <a href="#" class="media-center-item videos">
+                    <div class="media-center-item-background"></div>
+                    <h3 class="media-center-item-title">Videos</h3>
+                </a>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <a href="#" class="media-center-item podcasts">
+                    <div class="media-center-item-background"></div>
+                    <h3 class="media-center-item-title">Podcasts</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
