@@ -1,0 +1,121 @@
+url = "/media-center/brand-kit"
+layout = "default"
+title = "Brand Kit"
+is_hidden = 0
+meta_description = "brand kit page"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+==
+<?php
+use Pensoft\Media\Models\MediaLogos;
+use System\Models\File;
+
+function onStart(){
+	$this['logos'] = MediaLogos::orderBy('id', 'asc')->get();
+
+	// Handle file download
+	if(get('download')){
+		$file = File::find((int)get('download'));
+		if($file) {
+			$file_name = $file->getLocalPath();
+			$recordName = get('file_name') ? get('file_name') : 'EUFAWREADY_logo';
+			$ext = $file->getExtension();
+
+			if (file_exists($file_name)) {
+				header('Content-Description: File Transfer');
+				header('Content-Type: application/octet-stream');
+				header('Content-Type: application/force-download');
+				header('Content-Disposition: attachment; filename='.$recordName .'.'. $ext);
+				header('Content-Transfer-Encoding: binary');
+				header('Expires: 0');
+				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+				header('Pragma: public');
+				header('Content-Length: ' . filesize($file_name));
+				ob_clean();
+				flush();
+				readfile($file_name);
+				exit();
+			}
+		}
+		return Redirect::to('/media-center/brand-kit');
+	}
+}
+?>
+==
+
+{% component 'siteSearchInclude' %}
+
+<section class="container-fluid brand-kit-page">
+    <div class="container">
+        <!-- Back Navigation -->
+        <div class="media-center-back">
+            <a href="/media-center" class="back-link">
+                <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="Back" class="back-icon">
+                Back to Media Center
+            </a>
+        </div>
+        {% if logos.count() %}
+        <div class="row">
+            {% for logo in logos %}
+            <div class="col-md-4 col-xs-12">
+                <div class="media-card-3d brand-kit">
+                    <div class="media-card-3d-container">
+                        <div class="media-card-3d-background">
+                            {% if logo.logo_image %}
+                                <div class="media-card-3d-image">
+                                    <img src="{{ logo.logo_image.path }}" alt="{{ logo.name }}" />
+                                </div>
+                            {% endif %}
+                            <div class="media-card-3d-gradient"></div>
+                        </div>
+                        <h3 class="media-card-3d-title">{{ logo.name }}</h3>
+                    </div>
+                    <div class="media-card-3d-actions">
+                        <div class="download-dropdown">
+                            <button class="btn-download-toggle">Download</button>
+                            <div class="download-dropdown-menu">
+                                {% if logo.file_jpg %}
+                                    <a href="?download={{ logo.file_jpg.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
+                                        <span class="format-label">JPG</span>
+                                    </a>
+                                {% endif %}
+                                {% if logo.file_png %}
+                                    <a href="?download={{ logo.file_png.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
+                                        <span class="format-label">PNG</span>
+                                    </a>
+                                {% endif %}
+                                {% if logo.file_eps %}
+                                    <a href="?download={{ logo.file_eps.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
+                                        <span class="format-label">EPS</span>
+                                    </a>
+                                {% endif %}
+                                {% if logo.file_pdf %}
+                                    <a href="?download={{ logo.file_pdf.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
+                                        <span class="format-label">PDF</span>
+                                    </a>
+                                {% endif %}
+                                {% if logo.file_zip %}
+                                    <a href="?download={{ logo.file_zip.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
+                                        <span class="format-label">ZIP Package</span>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <h2 class="center-xs coming-soon">No logos available yet.</h2>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>

@@ -1050,6 +1050,93 @@
     }
 
     // =================================================================
+    // DOWNLOAD DROPDOWNS
+    // =================================================================
+
+    /**
+     * Initialize download dropdown functionality for Media Center pages
+     * Handles click-based toggle with accordion behavior and outside-click-to-close
+     * Public API - exposed globally
+     */
+    function initDownloadDropdowns() {
+        const $dropdowns = $('.download-dropdown');
+
+        if (!$dropdowns.length) return;
+
+        /**
+         * Close all dropdowns
+         * @private
+         */
+        function closeAllDropdowns() {
+            $dropdowns.removeClass('active');
+        }
+
+        /**
+         * Toggle dropdown on button click
+         * @private
+         */
+        function handleDropdownToggle(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const $button = $(this);
+            const $dropdown = $button.closest('.download-dropdown');
+            const isActive = $dropdown.hasClass('active');
+
+            // Close all other dropdowns (accordion behavior)
+            closeAllDropdowns();
+
+            // Toggle current dropdown
+            if (!isActive) {
+                $dropdown.addClass('active');
+            }
+        }
+
+        /**
+         * Close dropdown when clicking outside
+         * @private
+         */
+        function handleOutsideClick(e) {
+            const $target = $(e.target);
+
+            // Check if click is outside all dropdowns
+            if (!$target.closest('.download-dropdown').length) {
+                closeAllDropdowns();
+            }
+        }
+
+        /**
+         * Close dropdown on Escape key
+         * @private
+         */
+        function handleEscapeKey(e) {
+            if (e.key === 'Escape') {
+                closeAllDropdowns();
+            }
+        }
+
+        /**
+         * Close dropdown after selecting a download option
+         * @private
+         */
+        function handleDownloadSelect() {
+            // Close dropdown after a short delay to allow download to start
+            setTimeout(closeAllDropdowns, 100);
+        }
+
+        // Attach event handlers
+        $('.btn-download-toggle').off('click.downloadDropdown').on('click.downloadDropdown', handleDropdownToggle);
+        $('.download-option').off('click.downloadOption').on('click.downloadOption', handleDownloadSelect);
+
+        // Delay outside click handler to prevent immediate closure
+        setTimeout(function() {
+            $(document).off('click.downloadDropdown').on('click.downloadDropdown', handleOutsideClick);
+        }, CONFIG.DELAYS.clickClose);
+
+        $(document).off('keydown.downloadDropdown').on('keydown.downloadDropdown', handleEscapeKey);
+    }
+
+    // =================================================================
     // LIBRARY FILTERING & SEARCH
     // =================================================================
 
@@ -1271,6 +1358,7 @@
         initMobileMenu();
         initHeroCarousel();
         initLibraryFilters();
+        initDownloadDropdowns();
         handleHashNavigation();
         handleDropdownAnchors();
         forceExternalLinks();
@@ -1295,6 +1383,7 @@
     window.initBiographyToggle = initBiographyToggle;
     window.initHamburgerMenuDropdowns = initHamburgerMenuDropdowns;
     window.initLibraryFilters = initLibraryFilters;
+    window.initDownloadDropdowns = initDownloadDropdowns;
     window.documentHasScroll = documentHasScroll;
     window.isBreakpointLarge = isBreakpointLarge;
     window.scrollDown = scrollDown;

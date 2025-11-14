@@ -1,0 +1,96 @@
+url = "/media-center/promotional-materials"
+layout = "default"
+title = "Promotional Materials"
+is_hidden = 0
+meta_description = "promotional materials page"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+==
+<?php
+use Pensoft\Media\Models\Flyers;
+use System\Models\File;
+
+function onStart(){
+	$this['flyers'] = Flyers::orderBy('sort_order', 'asc')->get();
+
+	// Handle file download
+	if(get('download')){
+		$file = File::find((int)get('download'));
+		if($file) {
+			$file_name = $file->getLocalPath();
+			$recordName = get('file_name') ? get('file_name') : 'EUFAWREADY_flyer';
+			$ext = $file->getExtension();
+
+			if (file_exists($file_name)) {
+				header('Content-Description: File Transfer');
+				header('Content-Type: application/octet-stream');
+				header('Content-Type: application/force-download');
+				header('Content-Disposition: attachment; filename='.$recordName .'.'. $ext);
+				header('Content-Transfer-Encoding: binary');
+				header('Expires: 0');
+				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+				header('Pragma: public');
+				header('Content-Length: ' . filesize($file_name));
+				ob_clean();
+				flush();
+				readfile($file_name);
+				exit();
+			}
+		}
+		return Redirect::to('/media-center/promotional-materials');
+	}
+}
+?>
+==
+
+{% component 'siteSearchInclude' %}
+
+<section class="container-fluid promotional-materials-page">
+    <div class="container">
+        <!-- Back Navigation -->
+        <div class="media-center-back">
+            <a href="/media-center" class="back-link">
+                <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="Back" class="back-icon">
+                Back to Media Center
+            </a>
+        </div>
+        {% if flyers.count() %}
+        <div class="row">
+            {% for flyer in flyers %}
+            <div class="col-md-4 col-xs-12">
+                <div class="media-card-3d promotional">
+                    <div class="media-card-3d-container">
+                        <div class="media-card-3d-background">
+                            {% if flyer.flyer_image %}
+                                <div class="media-card-3d-image">
+                                    <img src="{{ flyer.flyer_image.path }}" alt="{{ flyer.name }}" />
+                                </div>
+                            {% endif %}
+                            <div class="media-card-3d-gradient"></div>
+                        </div>
+                        <h3 class="media-card-3d-title">{{ flyer.name }}</h3>
+                    </div>
+                    <div class="media-card-3d-actions">
+                        {% if flyer.file %}
+                            <a href="?download={{ flyer.file.id }}&file_name={{ flyer.name | url_encode }}" class="btn btn-library">
+                                Download
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <h2 class="center-xs coming-soon">No promotional materials available yet.</h2>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
