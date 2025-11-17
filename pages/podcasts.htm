@@ -79,23 +79,24 @@ function onStart(){
                                         loading="lazy"
                                         frameborder="0"
                                         allow="autoplay; clipboard-write; encrypted-media"
+                                        height="234"
                                         allowfullscreen>
                                     </iframe>
                                 </div>
                             {% endif %}
 
                             {# Fallback icon (hidden behind iframe) #}
-                            <div class="media-card-3d-image">
+                            <!-- <div class="media-card-3d-image">
                                 <span class="podcast-icon">🎙️</span>
                             </div>
-                            <div class="media-card-3d-gradient"></div>
+                            <div class="media-card-3d-gradient"></div> -->
                         </div>
-                        <h3 class="media-card-3d-title">{{ record.title }}</h3>
+                        <!-- <h3 class="media-card-3d-title">{{ record.title }}</h3> -->
                     </div>
                     <div class="media-card-3d-actions">
-                        {% if record.url %}
+                        <!-- {% if record.url %}
                             <button class="btn btn-library video-modal-trigger" data-video-url="{{ record.url }}" data-video-title="{{ record.title }}">Listen Now</button>
-                        {% endif %}
+                        {% endif %} -->
                         {% if record.file %}
                             <a href="?download={{ record.file.id }}&file_name={{ record.title | url_encode }}" class="btn btn-library">Download Audio</a>
                         {% endif %}

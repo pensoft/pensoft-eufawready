@@ -29,7 +29,7 @@
             text-decoration: none;
 
             .media-center-item-image img{
-                transform: scale(1.15);
+                transform: scale(1.05);
             }
         }
 
@@ -49,7 +49,7 @@
             left: 50%;
             width: 100%;
             height: 100%;
-            transform: translate(-50%, -50%) rotate(47.07deg);
+            transform: translate(-50%, -50%);
             transform-origin: center center;
 
             img{
@@ -65,19 +65,19 @@
         // Individual image positioning for Brand Kit
         &.brand-kit{
             .media-center-item-image{
-                transform: translate(-50%, -50%) rotate(47deg);
-                width: 120%;
-                height: 120%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 100%;
 
                 img{
-                    transform: scale(1.3);
-                    object-position: 30% 40%;
+                    transform: scale(1);
+                    object-position: center;
                 }
             }
 
             &:hover, &:focus{
                 .media-center-item-image img{
-                    transform: scale(1.5);
+                    transform: scale(1.05);
                 }
             }
         }
@@ -85,20 +85,19 @@
         // Individual image positioning for Promotional Materials
         &.promotional-materials{
             .media-center-item-image{
-                transform: translate(-40%, -42%) rotate(18deg);
-                width: 85%;
-                height: 130%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 100%;
 
                 img{
-                    transform: scale(1.2);
-                    object-position: center 35%;
-                    filter: drop-shadow(0 10px 20px rgba(10, 97, 43, 0.15));
+                    transform: scale(1);
+                    object-position: center center;
                 }
             }
 
             &:hover, &:focus{
                 .media-center-item-image img{
-                    transform: scale(1.35);
+                    transform: scale(1.05);
                 }
             }
 
@@ -485,6 +484,12 @@
     });
 }
 
+.podcasts-page{
+    .media-card-3d-container{
+        background: transparent !important; // Preserve transparent background for podcasts
+    }
+}
+
 // Media Center Back Navigation
 .media-center-back{
     margin-bottom: 32px;
@@ -585,7 +590,6 @@
                 height: 100%;
                 object-fit: cover;
                 object-position: center;
-                filter: drop-shadow(0 4px 8px rgba(10, 97, 43, 0.1));
             }
         }
 
@@ -628,6 +632,18 @@
         }
 
         &.video{
+            .media-card-3d-image{
+                // Extend image beyond container with horizontal overflow
+                left: -8.72%;
+                right: -8.72%;
+                width: 117.44%;
+
+                img{
+                    object-fit: contain;
+                    object-position: center;
+                }
+            }
+
             .video-play-overlay{
                 position: absolute;
                 top: 50%;
@@ -667,6 +683,18 @@
         }
 
         &.newsletter{
+            .media-card-3d-image{
+                // Extend image beyond container with horizontal overflow
+                left: -8.72%;
+                right: -8.72%;
+                width: 117.44%;
+
+                img{
+                    object-fit: contain;
+                    object-position: center;
+                }
+            }
+
             .media-card-3d-date{
                 position: absolute;
                 top: 15px;
@@ -695,17 +723,10 @@
             left: 0;
             width: 100%;
             height: 50%;
-            background: linear-gradient(to top, #F7F6F1 20%, rgba(247, 246, 241, 0.8) 60%, rgba(247, 246, 241, 0) 100%);
+            background: linear-gradient(to top, #F7F6F1 0%, rgba(247, 246, 241, 0) 100%);
+            backdrop-filter: blur(0.5px);
             pointer-events: none;
             z-index: 3;
-        }
-
-        // Hide gradient for video and podcast cards with inline embeds
-        &.video,
-        &.podcast{
-            .media-card-3d-gradient{
-                display: none;
-            }
         }
 
         .media-card-3d-title{
@@ -741,41 +762,14 @@
     // Content-type specific adjustments for image fit
     &.brand-kit{
         .media-card-3d-image{
-            // Add rotated radial gradient shadow effect
-            &::before{
-                content: '';
-                position: absolute;
-                left: 25.26px;
-                top: 34.63px;
-                width: 308px;
-                height: 121px;
-                border-radius: 35px;
-                background: radial-gradient(ellipse at center,
-                            rgba(131, 131, 131, 0.15) 0%,
-                            rgba(160, 160, 160, 0) 70%);
-                transform: rotate(47.07deg);
-                z-index: 0;
-                pointer-events: none;
-
-                .breakpoint-large-down({
-                    left: 20px;
-                    top: 28px;
-                    width: 246px;
-                    height: 97px;
-                });
-
-                .breakpoint-small-down({
-                    left: 18px;
-                    top: 25px;
-                    width: 225px;
-                    height: 88px;
-                });
-            }
+            // Extend image beyond container with horizontal overflow
+            left: -8.72%;
+            right: -8.72%;
+            width: 117.44%;
 
             img{
                 object-fit: contain;
                 object-position: center;
-                z-index: 1;
             }
         }
     }

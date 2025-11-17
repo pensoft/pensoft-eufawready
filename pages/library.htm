@@ -29,11 +29,13 @@ milestones_filter = 1
                 <div class="library-header">
                     {% partial 'components/library/library-tabs' %}
 
+                    {% if total_file_size_bites > 0 %}
                     <div class="library-actions">
                         <a href="/resources/library/download" class="btn btn-primary btn-library" id="libDownloadAll" aria-label="Download all library items">
                             Download all
                         </a>
                     </div>
+                    {% endif %}
                 </div>
 
                 <div id="recordsContainer" class="library-items">

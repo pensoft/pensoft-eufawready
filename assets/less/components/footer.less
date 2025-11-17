@@ -1,5 +1,7 @@
 .site-footer {
     width: 100%;
+    position: relative;
+    overflow: visible;
 
     // Main Footer Section (Dark Green)
     .footer-main {
@@ -10,26 +12,93 @@
         background-size: auto 100%;
         position: relative;
         padding: 60px 0;
+        overflow: visible;
+
+        // // Left shadow using ::before pseudo-element
+        // &::before {
+        //     content: '';
+        //     position: absolute;
+        //     right: 0;
+        //     height: 160px;
+        //     width: 400px;
+        //     // left: -291px;
+        //     // top: 48px;
+        //     background: radial-gradient(50% 50% at 50% 50%, rgba(244, 191, 25, 0.14) 0%, rgba(244, 191, 25, 0.00) 100%);
+        //     filter: blur(40px);
+        //     z-index: 0;
+        //     pointer-events: none;
+        // }
+
+        // // Right shadow using ::after pseudo-element
+        // &::after {
+        //     content: '';
+        //     position: absolute;
+        //     left: 0;
+        //     height: 160px;
+        //     width: 400px;
+        //     // right: -316px;
+        //     // top: 197px;
+        //     background: radial-gradient(50% 50% at 50% 50%, rgba(244, 191, 25, 0.14) 0%, rgba(244, 191, 25, 0.00) 100%);
+        //     filter: blur(40px);
+        //     z-index: 0;
+        //     pointer-events: none;
+        // }
 
         .footer-row {
             width: 100%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 80px;
+            position: relative;
+            z-index: 1;
 
             .breakpoint-large-down({
                 flex-direction: column;
                 align-items: center;
+                gap: 40px;
             });
         }
         .breakpoint-large-down({
             padding: 60px 0 40px;
             background-size: auto 80%;
+
+            // Adjust shadow sizes for tablet/smaller screens
+            &::before {
+                width: 550px;
+                height: 440px;
+                left: -250px;
+                top: 40px;
+            }
+
+            &::after {
+                width: 600px;
+                height: 550px;
+                right: -280px;
+                top: 150px;
+            }
         });
 
         .breakpoint-small-down({
             padding: 40px 0 30px;
             background-size: auto 60%;
+
+            // Further reduce shadow sizes for mobile
+            &::before {
+                width: 400px;
+                height: 320px;
+                left: -200px;
+                top: 30px;
+                background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 25%, rgba(0, 0, 0, 0.15) 50%, transparent 80%);
+            }
+
+            &::after {
+                width: 450px;
+                height: 400px;
+                right: -250px;
+                top: 100px;
+                background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 25%, rgba(0, 0, 0, 0.15) 50%, transparent 80%);
+            }
         });
 
         // Left Column: Logo + Newsletter
@@ -86,30 +155,6 @@
                     });
                 }
 
-                .btn-subscribe {
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 10px;
-                    width: 239px;
-                    height: 52px;
-
-                    .breakpoint-large-down({
-                        width: 220px;
-                        height: 48px;
-                    });
-
-                    .breakpoint-small-down({
-                        width: 100%;
-                        max-width: 280px;
-                    });
-
-                    .bell-icon {
-                        width: 16px;
-                        height: 21px;
-                        flex-shrink: 0;
-                    }
-                }
             }
         }
 
@@ -117,12 +162,28 @@
         .footer-right {
             display: flex;
             flex-direction: column;
-            gap: 54px;
+            gap: 40px;
+            width: 100%;
+            max-width: 720px;
+            align-items: flex-start;
+            text-align: left;
 
             .breakpoint-large-down({
                 gap: 40px;
                 align-items: center;
+                text-align: center;
+                max-width: 100%;
             });
+
+            .footer-nav-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+
+                .breakpoint-large-down({
+                    justify-content: center;
+                });
+            }
 
             // Navigation Menu
             .footer-navbar-nav {
@@ -133,6 +194,7 @@
                 flex-wrap: wrap;
                 gap: 25px;
                 align-items: center;
+                justify-content: flex-start;
 
                 .breakpoint-large-down({
                     flex-direction: column;
@@ -167,6 +229,8 @@
                 flex-direction: column;
                 gap: 20px;
                 align-items: flex-start;
+                width: 100%;
+                max-width: 640px;
 
                 .breakpoint-large-down({
                     align-items: center;

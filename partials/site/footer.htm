@@ -45,9 +45,11 @@ description_limit = 0
                     </div>
                 </div>
 
-                <!-- Right Column: EU Badge + Social Icons -->
+                <!-- Right Column: Navigation + EU Badge + Social Icons -->
                 <div class="footer-right">
-                    {% component 'menu' %}
+                    <div class="footer-nav-wrapper">
+                        {% component 'menu' %}
+                    </div>
                     <!-- EU Funding Badge -->
                     {% if footer_funds_flag %}
                     <div class="eu-funding">

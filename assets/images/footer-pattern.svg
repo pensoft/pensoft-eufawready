@@ -1,19 +1,17 @@
-<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 1440 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Mask group">
-<mask id="mask0_343_225" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1440" height="600">
-<rect id="Rectangle 11" width="1440" height="600" fill="var(--fill-0, #061B07)"/>
+<svg width="1440" height="600" viewBox="0 0 1440 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_281_1468" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1440" height="600">
+<rect width="1440" height="600" fill="#061B07"/>
 </mask>
-<g mask="url(#mask0_343_225)">
-<ellipse id="Ellipse 38" opacity="0.7" cx="1359.4" cy="457.883" rx="342.844" ry="306.785" transform="rotate(-7.15842 1359.4 457.883)" fill="url(#paint0_radial_343_225)"/>
-<ellipse id="Ellipse 39" opacity="0.7" cx="59.9078" cy="246.285" rx="323.363" ry="241.265" transform="rotate(-7.15842 59.9078 246.285)" fill="url(#paint1_radial_343_225)"/>
-</g>
+<g mask="url(#mask0_281_1468)">
+<ellipse opacity="0.7" cx="1359.4" cy="457.883" rx="342.844" ry="306.785" transform="rotate(-7.15842 1359.4 457.883)" fill="url(#paint0_radial_281_1468)"/>
+<ellipse opacity="0.7" cx="59.9078" cy="246.285" rx="323.363" ry="241.265" transform="rotate(-7.15842 59.9078 246.285)" fill="url(#paint1_radial_281_1468)"/>
 </g>
 <defs>
-<radialGradient id="paint0_radial_343_225" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1359.4 457.883) rotate(90) scale(306.785 342.844)">
+<radialGradient id="paint0_radial_281_1468" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1359.4 457.883) rotate(90) scale(306.785 342.844)">
 <stop stop-color="#F4BF19" stop-opacity="0.14"/>
 <stop offset="1" stop-color="#F4BF19" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="paint1_radial_343_225" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(59.9078 246.285) rotate(90) scale(241.265 323.363)">
+<radialGradient id="paint1_radial_281_1468" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(59.9078 246.285) rotate(90) scale(241.265 323.363)">
 <stop stop-color="#F4BF19" stop-opacity="0.14"/>
 <stop offset="1" stop-color="#F4BF19" stop-opacity="0"/>
 </radialGradient>
