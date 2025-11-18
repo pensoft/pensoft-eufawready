@@ -53,6 +53,38 @@
             position: relative;
             z-index: 1;
 
+            // Left shadow
+            &::before {
+                content: '';
+                position: absolute;
+                left: -200px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 400px;
+                height: 400px;
+                border-radius: 400px;
+                opacity: 0.7;
+                background: radial-gradient(50% 50% at 50% 50%, rgba(244, 191, 25, 0.14) 0%, rgba(244, 191, 25, 0.00) 100%);
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            // Right shadow
+            &::after {
+                content: '';
+                position: absolute;
+                right: -200px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 400px;
+                height: 400px;
+                border-radius: 400px;
+                opacity: 0.7;
+                background: radial-gradient(50% 50% at 50% 50%, rgba(244, 191, 25, 0.14) 0%, rgba(244, 191, 25, 0.00) 100%);
+                z-index: 0;
+                pointer-events: none;
+            }
+
             .breakpoint-large-down({
                 flex-direction: column;
                 align-items: center;
