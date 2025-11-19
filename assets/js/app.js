@@ -1050,6 +1050,54 @@
     }
 
     // =================================================================
+    // BUBBLE ANIMATIONS
+    // =================================================================
+
+    /**
+     * Initialize bubble pop-up animations on scroll
+     * Uses Intersection Observer to trigger animations when bubbles come into view
+     * Public API - exposed globally
+     */
+    function initBubbleAnimations() {
+        const $missionImage = $('.mission-image');
+        if (!$missionImage.length) return;
+
+        // Check if Intersection Observer is supported
+        if (!('IntersectionObserver' in window)) {
+            // Fallback: animate immediately if Intersection Observer not supported
+            $missionImage.find('.bubble-image').addClass('animate');
+            return;
+        }
+
+        // Create Intersection Observer with enhanced visibility detection
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50px 0px -50px 0px', // Buffer zone to ensure element is well into viewport
+            threshold: 0.5 // Trigger when 50% of the element is visible (increased from 20%)
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    const $container = $(entry.target);
+                    const $bubbles = $container.find('.bubble-image');
+
+                    // Add animate class to all bubbles - CSS animation-delay will handle staggering
+                    $bubbles.addClass('animate');
+
+                    // Stop observing after animation is triggered
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Delay observer initialization to ensure page layout is stable
+        setTimeout(function() {
+            observer.observe($missionImage[0]);
+        }, 100);
+    }
+
+    // =================================================================
     // DOWNLOAD DROPDOWNS
     // =================================================================
 
@@ -1359,6 +1407,7 @@
         initHeroCarousel();
         initLibraryFilters();
         initDownloadDropdowns();
+        initBubbleAnimations();
         handleHashNavigation();
         handleDropdownAnchors();
         forceExternalLinks();
@@ -1384,6 +1433,7 @@
     window.initHamburgerMenuDropdowns = initHamburgerMenuDropdowns;
     window.initLibraryFilters = initLibraryFilters;
     window.initDownloadDropdowns = initDownloadDropdowns;
+    window.initBubbleAnimations = initBubbleAnimations;
     window.documentHasScroll = documentHasScroll;
     window.isBreakpointLarge = isBreakpointLarge;
     window.scrollDown = scrollDown;
