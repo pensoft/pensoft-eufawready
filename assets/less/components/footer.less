@@ -14,36 +14,6 @@
         padding: 60px 0;
         overflow: visible;
 
-        // // Left shadow using ::before pseudo-element
-        // &::before {
-        //     content: '';
-        //     position: absolute;
-        //     right: 0;
-        //     height: 160px;
-        //     width: 400px;
-        //     // left: -291px;
-        //     // top: 48px;
-        //     background: radial-gradient(50% 50% at 50% 50%, rgba(244, 191, 25, 0.14) 0%, rgba(244, 191, 25, 0.00) 100%);
-        //     filter: blur(40px);
-        //     z-index: 0;
-        //     pointer-events: none;
-        // }
-
-        // // Right shadow using ::after pseudo-element
-        // &::after {
-        //     content: '';
-        //     position: absolute;
-        //     left: 0;
-        //     height: 160px;
-        //     width: 400px;
-        //     // right: -316px;
-        //     // top: 197px;
-        //     background: radial-gradient(50% 50% at 50% 50%, rgba(244, 191, 25, 0.14) 0%, rgba(244, 191, 25, 0.00) 100%);
-        //     filter: blur(40px);
-        //     z-index: 0;
-        //     pointer-events: none;
-        // }
-
         .footer-row {
             width: 100%;
             display: flex;
@@ -86,6 +56,9 @@
             }
 
             .breakpoint-large-down({
+                &::before, &::after {
+                    display: none;
+                }
                 flex-direction: column;
                 align-items: center;
                 gap: 40px;
