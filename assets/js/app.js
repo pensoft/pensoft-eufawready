@@ -1142,6 +1142,38 @@
     }
 
     // =================================================================
+    // OBJECTIVE CARD ANIMATIONS
+    // =================================================================
+
+    /**
+     * Initialize AOS animations for objective cards
+     * Adds data-aos attributes dynamically with staggered delays
+     * Public API - exposed globally
+     */
+    function initObjectiveCardAnimations() {
+        const $objectiveCards = $('.objective-card');
+
+        if (!$objectiveCards.length) return;
+
+        // Add AOS attributes to each card with staggered delay
+        $objectiveCards.each(function(index) {
+            const delay = index * 100; // 100ms delay between each card
+
+            $(this).attr({
+                'data-aos': 'fade-up',
+                'data-aos-duration': '600',
+                'data-aos-delay': delay.toString(),
+                'data-aos-once': 'true' // Animate only once
+            });
+        });
+
+        // Refresh AOS to apply new attributes
+        if (typeof AOS !== 'undefined' && AOS.refresh) {
+            AOS.refresh();
+        }
+    }
+
+    // =================================================================
     // BUBBLE ANIMATIONS
     // =================================================================
 
@@ -1499,6 +1531,7 @@
         initHeroCarousel();
         initLibraryFilters();
         initDownloadDropdowns();
+        initObjectiveCardAnimations();
         initBubbleAnimations();
         initVideoModal();
         handleHashNavigation();
@@ -1526,6 +1559,7 @@
     window.initHamburgerMenuDropdowns = initHamburgerMenuDropdowns;
     window.initLibraryFilters = initLibraryFilters;
     window.initDownloadDropdowns = initDownloadDropdowns;
+    window.initObjectiveCardAnimations = initObjectiveCardAnimations;
     window.initBubbleAnimations = initBubbleAnimations;
     window.initVideoModal = initVideoModal;
     window.documentHasScroll = documentHasScroll;
