@@ -49,73 +49,78 @@ function onStart(){
 
 {% component 'siteSearchInclude' %}
 
-<section class="container-fluid brand-kit-page">
-    <div class="container">
-        <!-- Back Navigation -->
-        <div class="media-center-back">
-            <a href="/media-center" class="back-link">
-                <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="Back" class="back-icon">
-                Back to Media Center
-            </a>
-        </div>
-        {% if logos.count() %}
-        <div class="row">
-            {% for logo in logos %}
-            <div class="col-md-4 col-xs-12">
-                <div class="media-card-3d brand-kit">
-                    <div class="media-card-3d-container">
-                        <div class="media-card-3d-background">
-                            {% if logo.logo_image %}
-                                <div class="media-card-3d-image">
-                                    <img src="{{ logo.logo_image.path }}" alt="{{ logo.name }}" />
-                                </div>
-                            {% endif %}
-                            <div class="media-card-3d-gradient"></div>
+<main>
+    <section class="container-fluid brand-kit-page">
+        <div class="container">
+            <!-- Back Navigation -->
+            <nav aria-label="Breadcrumb">
+                <div class="media-center-back">
+                    <a href="/media-center" class="back-link" aria-label="Back to Media Center">
+                        <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="" class="back-icon" aria-hidden="true">
+                        Back to Media Center
+                    </a>
+                </div>
+            </nav>
+            <h1 class="sr-only">Brand Kit</h1>
+            {% if logos.count() %}
+            <div class="row">
+                {% for logo in logos %}
+                <div class="col-md-4 col-xs-12">
+                    <article class="media-card-3d brand-kit">
+                        <div class="media-card-3d-container">
+                            <div class="media-card-3d-background">
+                                {% if logo.logo_image %}
+                                    <div class="media-card-3d-image">
+                                        <img src="{{ logo.logo_image.path }}" alt="{{ logo.name }} logo preview" />
+                                    </div>
+                                {% endif %}
+                                <div class="media-card-3d-gradient"></div>
+                            </div>
+                            <h2 class="media-card-3d-title">{{ logo.name }}</h2>
                         </div>
-                        <h3 class="media-card-3d-title">{{ logo.name }}</h3>
-                    </div>
-                    <div class="media-card-3d-actions">
-                        <div class="download-dropdown">
-                            <button class="btn-download-toggle">Download</button>
-                            <div class="download-dropdown-menu">
-                                {% if logo.file_jpg %}
-                                    <a href="?download={{ logo.file_jpg.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
-                                        <span class="format-label">JPG</span>
-                                    </a>
-                                {% endif %}
-                                {% if logo.file_png %}
-                                    <a href="?download={{ logo.file_png.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
-                                        <span class="format-label">PNG</span>
-                                    </a>
-                                {% endif %}
-                                {% if logo.file_eps %}
-                                    <a href="?download={{ logo.file_eps.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
-                                        <span class="format-label">EPS</span>
-                                    </a>
-                                {% endif %}
-                                {% if logo.file_pdf %}
-                                    <a href="?download={{ logo.file_pdf.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
-                                        <span class="format-label">PDF</span>
-                                    </a>
-                                {% endif %}
-                                {% if logo.file_zip %}
-                                    <a href="?download={{ logo.file_zip.id }}&file_name={{ logo.name | url_encode }}" class="download-option">
-                                        <span class="format-label">ZIP Package</span>
-                                    </a>
-                                {% endif %}
+                        <div class="media-card-3d-actions">
+                            <div class="download-dropdown">
+                                <button type="button" class="btn-download-toggle" aria-label="Download {{ logo.name }} logo in multiple formats" aria-expanded="false" aria-haspopup="menu">Download</button>
+                                <div class="download-dropdown-menu" role="menu">
+                                    {% if logo.file_jpg %}
+                                        <a href="?download={{ logo.file_jpg.id }}&file_name={{ logo.name | url_encode }}" class="download-option" role="menuitem" aria-label="Download {{ logo.name }} in JPG format">
+                                            <span class="format-label">JPG</span>
+                                        </a>
+                                    {% endif %}
+                                    {% if logo.file_png %}
+                                        <a href="?download={{ logo.file_png.id }}&file_name={{ logo.name | url_encode }}" class="download-option" role="menuitem" aria-label="Download {{ logo.name }} in PNG format">
+                                            <span class="format-label">PNG</span>
+                                        </a>
+                                    {% endif %}
+                                    {% if logo.file_eps %}
+                                        <a href="?download={{ logo.file_eps.id }}&file_name={{ logo.name | url_encode }}" class="download-option" role="menuitem" aria-label="Download {{ logo.name }} in EPS format">
+                                            <span class="format-label">EPS</span>
+                                        </a>
+                                    {% endif %}
+                                    {% if logo.file_pdf %}
+                                        <a href="?download={{ logo.file_pdf.id }}&file_name={{ logo.name | url_encode }}" class="download-option" role="menuitem" aria-label="Download {{ logo.name }} in PDF format">
+                                            <span class="format-label">PDF</span>
+                                        </a>
+                                    {% endif %}
+                                    {% if logo.file_zip %}
+                                        <a href="?download={{ logo.file_zip.id }}&file_name={{ logo.name | url_encode }}" class="download-option" role="menuitem" aria-label="Download {{ logo.name }} ZIP package with all formats">
+                                            <span class="format-label">ZIP Package</span>
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <h2 class="center-xs coming-soon">No logos available yet.</h2>
                 </div>
             </div>
-            {% endfor %}
+            {% endif %}
         </div>
-        {% else %}
-        <div class="row">
-            <div class="col-md-12 col-xs-12">
-                <h2 class="center-xs coming-soon">No logos available yet.</h2>
-            </div>
-        </div>
-        {% endif %}
-    </div>
-</section>
+    </section>
+</main>

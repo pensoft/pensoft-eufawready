@@ -55,47 +55,51 @@ function onStart(){
 
 {% set records = mediaNewslettersList %}
 
-<section class="container-fluid newsletters-page">
-    <div class="container">
-        <!-- Back Navigation -->
-        <div class="media-center-back">
-            <a href="/media-center" class="back-link">
-                <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="Back" class="back-icon">
-                Back to Media Center
-            </a>
-        </div>
+<main>
+    <section class="container-fluid newsletters-page">
+        <div class="container">
+            <!-- Back Navigation -->
+            <nav aria-label="Breadcrumb">
+                <div class="media-center-back">
+                    <a href="/media-center" class="back-link" aria-label="Back to Media Center">
+                        <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="" class="back-icon" aria-hidden="true">
+                        Back to Media Center
+                    </a>
+                </div>
+            </nav>
+            <h1 class="sr-only">Newsletters</h1>
         {% if records.count() %}
         <div class="row">
             {% for record in records %}
             <div class="col-md-4 col-xs-12">
-                <div class="media-card-3d newsletter">
+                <article class="media-card-3d newsletter">
                     <div class="media-card-3d-container">
                         <div class="media-card-3d-background">
                             {% if record.newsletter_image %}
                                 <div class="media-card-3d-image">
-                                    <img src="{{ record.newsletter_image.path }}" alt="{{ record.name }}" />
+                                    <img src="{{ record.newsletter_image.path }}" alt="Newsletter cover - {{ record.name }}" />
                                 </div>
                             {% endif %}
                             <div class="media-card-3d-gradient"></div>
                         </div>
                         {% if record.date %}
-                            <div class="media-card-3d-date">{{ record.date|date('d.m.Y') }}</div>
+                            <div class="media-card-3d-date" aria-label="Published on {{ record.date|date('F j, Y') }}">{{ record.date|date('d.m.Y') }}</div>
                         {% endif %}
-                        <h3 class="media-card-3d-title">{{ record.name }}</h3>
+                        <h2 class="media-card-3d-title">{{ record.name }}</h2>
                     </div>
                     <div class="media-card-3d-actions">
                         {% if record.file %}
-                            <a href="?download={{ record.file.id }}&file_name={{ record.name | url_encode }}" class="btn btn-library">Download</a>
+                            <a href="?download={{ record.file.id }}&file_name={{ record.name | url_encode }}" class="btn btn-library" aria-label="Download {{ record.name }} newsletter PDF">Download</a>
                         {% endif %}
                         {% if record.url %}
-                            <a href="{{ record.url }}" target="_blank" class="btn btn-library btn-read-more">Read More</a>
+                            <a href="{{ record.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-library btn-read-more" aria-label="Read {{ record.name }} newsletter online (opens in new tab)">Read More</a>
                         {% endif %}
                         {% if record.file_lang_versions %}
                             <div class="download-dropdown lang-versions">
-                                <button class="btn-download-toggle">Other Languages</button>
-                                <div class="download-dropdown-menu">
+                                <button type="button" class="btn-download-toggle" aria-label="Download {{ record.name }} in other languages" aria-expanded="false" aria-haspopup="menu">Other Languages</button>
+                                <div class="download-dropdown-menu" role="menu">
                                     {% for lang_file in record.file_lang_versions %}
-                                        <a href="?download={{ lang_file.id }}&file_name={{ record.name | url_encode }}_lang" class="download-option">
+                                        <a href="?download={{ lang_file.id }}&file_name={{ record.name | url_encode }}_lang" class="download-option" role="menuitem" aria-label="Download {{ record.name }} alternative language version">
                                             <span class="format-label">Alternative Version</span>
                                         </a>
                                     {% endfor %}
@@ -103,7 +107,7 @@ function onStart(){
                             </div>
                         {% endif %}
                     </div>
-                </div>
+                </article>
             </div>
             {% endfor %}
         </div>
@@ -114,5 +118,6 @@ function onStart(){
             </div>
         </div>
         {% endif %}
-    </div>
-</section>
+        </div>
+    </section>
+</main>

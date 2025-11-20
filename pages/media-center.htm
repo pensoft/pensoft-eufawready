@@ -12,49 +12,52 @@ robot_follow = "follow"
 
 {% component 'siteSearchInclude' %}
 
-<section class="container-fluid media-center-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-xs-12">
-                <a href="/media-center/brand-kit" class="media-center-item brand-kit">
-                    <div class="media-center-item-background">
-                        <div class="media-center-item-image">
-                            <img src="{{ 'assets/images/brand-kit.png' | theme }}" alt="Brand Kit" />
+<main>
+    <section class="container-fluid media-center-page">
+        <div class="container">
+            <h1 class="sr-only">Media Center</h1>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <a href="/media-center/brand-kit" class="media-center-item brand-kit" aria-label="View Brand Kit - Download logos and brand assets">
+                        <div class="media-center-item-background">
+                            <div class="media-center-item-image">
+                                <img src="{{ 'assets/images/brand-kit.png' | theme }}" alt="EUFAWREADY brand kit preview showing logos and design assets" />
+                            </div>
+                            <div class="media-center-item-gradient"></div>
                         </div>
-                        <div class="media-center-item-gradient"></div>
-                    </div>
-                    <h3 class="media-center-item-title">Brand Kit</h3>
-                </a>
-            </div>
-            <div class="col-md-4 col-xs-12">
-                <a href="/media-center/promotional-materials" class="media-center-item promotional-materials">
-                    <div class="media-center-item-background">
-                        <div class="media-center-item-image">
-                            <img src="{{ 'assets/images/promotional-materials.png' | theme }}" alt="Promotional Materials" />
+                        <h2 class="media-center-item-title">Brand Kit</h2>
+                    </a>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <a href="/media-center/promotional-materials" class="media-center-item promotional-materials" aria-label="View Promotional Materials - Download flyers and posters">
+                        <div class="media-center-item-background">
+                            <div class="media-center-item-image">
+                                <img src="{{ 'assets/images/promotional-materials.png' | theme }}" alt="Promotional materials preview showing flyers and marketing content" />
+                            </div>
+                            <div class="media-center-item-gradient"></div>
                         </div>
-                        <div class="media-center-item-gradient"></div>
-                    </div>
-                    <h3 class="media-center-item-title">Promotional Materials</h3>
-                </a>
-            </div>
-            <div class="col-md-4 col-xs-12">
-                <a href="/media-center/newsletters" class="media-center-item newsletters">
-                    <div class="media-center-item-background"></div>
-                    <h3 class="media-center-item-title">Newsletters</h3>
-                </a>
-            </div>
-            <div class="col-md-4 col-xs-12">
-                <a href="/media-center/videos" class="media-center-item videos">
-                    <div class="media-center-item-background"></div>
-                    <h3 class="media-center-item-title">Videos</h3>
-                </a>
-            </div>
-            <div class="col-md-4 col-xs-12">
-                <a href="/media-center/podcasts" class="media-center-item podcasts">
-                    <div class="media-center-item-background"></div>
-                    <h3 class="media-center-item-title">Podcasts</h3>
-                </a>
+                        <h2 class="media-center-item-title">Promotional Materials</h2>
+                    </a>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <a href="/media-center/newsletters" class="media-center-item newsletters" aria-label="View Newsletters - Read and download project newsletters">
+                        <div class="media-center-item-background"></div>
+                        <h2 class="media-center-item-title">Newsletters</h2>
+                    </a>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <a href="/media-center/videos" class="media-center-item videos" aria-label="View Videos - Watch project videos and presentations">
+                        <div class="media-center-item-background"></div>
+                        <h2 class="media-center-item-title">Videos</h2>
+                    </a>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <a href="/media-center/podcasts" class="media-center-item podcasts" aria-label="View Podcasts - Listen to project podcasts and audio content">
+                        <div class="media-center-item-background"></div>
+                        <h2 class="media-center-item-title">Podcasts</h2>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>

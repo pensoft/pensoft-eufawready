@@ -55,20 +55,24 @@ function onStart(){
 
 {% set records = mediaVideosList %}
 
-<section class="container-fluid videos-page">
-    <div class="container">
-        <!-- Back Navigation -->
-        <div class="media-center-back">
-            <a href="/media-center" class="back-link">
-                <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="Back" class="back-icon">
-                Back to Media Center
-            </a>
-        </div>
+<main>
+    <section class="container-fluid videos-page">
+        <div class="container">
+            <!-- Back Navigation -->
+            <nav aria-label="Breadcrumb">
+                <div class="media-center-back">
+                    <a href="/media-center" class="back-link" aria-label="Back to Media Center">
+                        <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="" class="back-icon" aria-hidden="true">
+                        Back to Media Center
+                    </a>
+                </div>
+            </nav>
+            <h1 class="sr-only">Videos</h1>
         {% if records.count() %}
         <div class="row">
             {% for record in records %}
             <div class="col-md-4 col-xs-12">
-                <div class="media-card-3d video">
+                <article class="media-card-3d video">
                     <div class="media-card-3d-container">
                         <div class="media-card-3d-background">
                             {# Inline video embed #}
@@ -76,6 +80,7 @@ function onStart(){
                                 <div class="media-card-inline-video">
                                     <iframe
                                         src="{{ record.youtube_url }}?modestbranding=1"
+                                        title="{{ record.name }} - Video player"
                                         loading="lazy"
                                         frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -86,6 +91,7 @@ function onStart(){
                                 <div class="media-card-inline-video">
                                     <iframe
                                         src="{{ record.vimeo_url }}"
+                                        title="{{ record.name }} - Video player"
                                         loading="lazy"
                                         frameborder="0"
                                         allow="autoplay; fullscreen; picture-in-picture"
@@ -99,33 +105,33 @@ function onStart(){
                                 {# Extract YouTube thumbnail #}
                                 {% set youtubeId = record.youtube_url | replace({'https://www.youtube.com/embed/': '', '?': '&'}) | split('&') | first %}
                                 <div class="media-card-3d-image">
-                                    <img src="https://img.youtube.com/vi/{{ youtubeId }}/hqdefault.jpg" alt="{{ record.name }}" />
+                                    <img src="https://img.youtube.com/vi/{{ youtubeId }}/hqdefault.jpg" alt="Video thumbnail for {{ record.name }}" />
                                 </div>
-                                <div class="video-play-overlay">
-                                    <span class="play-icon">▶</span>
+                                <div class="video-play-overlay" aria-hidden="true">
+                                    <span class="play-icon" aria-label="Play video">▶</span>
                                 </div>
                             {% elseif record.vimeo_url or record.file %}
                                 <div class="media-card-3d-image">
-                                    <span class="video-icon">🎬</span>
+                                    <span class="video-icon" role="img" aria-label="Video icon">🎬</span>
                                 </div>
-                                <div class="video-play-overlay">
-                                    <span class="play-icon">▶</span>
+                                <div class="video-play-overlay" aria-hidden="true">
+                                    <span class="play-icon" aria-label="Play video">▶</span>
                                 </div>
                             {% endif %}
                             <!-- <div class="media-card-3d-gradient"></div> -->
                         </div>
-                        <!-- <h3 class="media-card-3d-title">{{ record.name }}</h3> -->
+                        <!-- <h2 class="media-card-3d-title">{{ record.name }}</h2> -->
                     </div>
                     <div class="media-card-3d-actions">
                         {% if record.youtube_url %}
-                            <button class="btn btn-library video-modal-trigger" data-video-url="{{ record.youtube_url }}" data-video-title="{{ record.name }}">Watch Video</button>
+                            <button type="button" class="btn btn-library video-modal-trigger" data-video-url="{{ record.youtube_url }}" data-video-title="{{ record.name }}" aria-label="Watch video: {{ record.name }}">Watch Video</button>
                         {% elseif record.vimeo_url %}
-                            <button class="btn btn-library video-modal-trigger" data-video-url="{{ record.vimeo_url }}" data-video-title="{{ record.name }}">Watch Video</button>
+                            <button type="button" class="btn btn-library video-modal-trigger" data-video-url="{{ record.vimeo_url }}" data-video-title="{{ record.name }}" aria-label="Watch video: {{ record.name }}">Watch Video</button>
                         {% elseif record.file %}
-                            <a href="?download={{ record.file.id }}&file_name={{ record.name | url_encode }}" class="btn btn-library">Download Video</a>
+                            <a href="?download={{ record.file.id }}&file_name={{ record.name | url_encode }}" class="btn btn-library" aria-label="Download {{ record.name }} video file">Download Video</a>
                         {% endif %}
                     </div>
-                </div>
+                </article>
             </div>
             {% endfor %}
         </div>
@@ -136,16 +142,18 @@ function onStart(){
             </div>
         </div>
         {% endif %}
-    </div>
-</section>
+        </div>
+    </section>
+</main>
 
 <!-- Video Modal -->
-<div id="videoModal" class="video-modal">
+<div id="videoModal" class="video-modal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle" aria-hidden="true">
     <div class="video-modal-overlay"></div>
     <div class="video-modal-content">
-        <button class="video-modal-close">&times;</button>
+        <button type="button" class="video-modal-close" aria-label="Close video player">&times;</button>
+        <h2 id="videoModalTitle" class="sr-only">Video Player</h2>
         <div class="video-modal-wrapper">
-            <iframe id="videoFrame" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+            <iframe id="videoFrame" title="Video player" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 </div>

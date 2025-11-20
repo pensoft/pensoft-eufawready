@@ -55,73 +55,80 @@ function onStart(){
 
 {% set records = mediaPodcastsList %}
 
-<section class="container-fluid podcasts-page">
-    <div class="container">
-        <!-- Back Navigation -->
-        <div class="media-center-back">
-            <a href="/media-center" class="back-link">
-                <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="Back" class="back-icon">
-                Back to Media Center
-            </a>
-        </div>
-        {% if records.count() %}
-        <div class="row">
-            {% for record in records %}
-            <div class="col-md-4 col-xs-12">
-                <div class="media-card-3d podcast">
-                    <div class="media-card-3d-container">
-                        <div class="media-card-3d-background">
-                            {# Inline audio/podcast embed #}
-                            {% if record.url %}
-                                <div class="media-card-inline-video">
-                                    <iframe
-                                        src="{{ record.url }}"
-                                        loading="lazy"
-                                        frameborder="0"
-                                        allow="autoplay; clipboard-write; encrypted-media"
-                                        height="234"
-                                        allowfullscreen>
-                                    </iframe>
-                                </div>
-                            {% endif %}
+<main>
+    <section class="container-fluid podcasts-page">
+        <div class="container">
+            <!-- Back Navigation -->
+            <nav aria-label="Breadcrumb">
+                <div class="media-center-back">
+                    <a href="/media-center" class="back-link" aria-label="Back to Media Center">
+                        <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="" class="back-icon" aria-hidden="true">
+                        Back to Media Center
+                    </a>
+                </div>
+            </nav>
+            <h1 class="sr-only">Podcasts</h1>
+            {% if records.count() %}
+            <div class="row">
+                {% for record in records %}
+                <div class="col-md-4 col-xs-12">
+                    <article class="media-card-3d podcast">
+                        <div class="media-card-3d-container">
+                            <div class="media-card-3d-background">
+                                {# Inline audio/podcast embed #}
+                                {% if record.url %}
+                                    <div class="media-card-inline-video">
+                                        <iframe
+                                            src="{{ record.url }}"
+                                            title="{{ record.title }} - Podcast player"
+                                            loading="lazy"
+                                            frameborder="0"
+                                            allow="autoplay; clipboard-write; encrypted-media"
+                                            height="234"
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                {% endif %}
 
-                            {# Fallback icon (hidden behind iframe) #}
-                            <!-- <div class="media-card-3d-image">
-                                <span class="podcast-icon">🎙️</span>
+                                {# Fallback icon (hidden behind iframe) #}
+                                <!-- <div class="media-card-3d-image">
+                                    <span class="podcast-icon" role="img" aria-label="Podcast icon">🎙️</span>
+                                </div>
+                                <div class="media-card-3d-gradient"></div> -->
                             </div>
-                            <div class="media-card-3d-gradient"></div> -->
+                            <!-- <h2 class="media-card-3d-title">{{ record.title }}</h2> -->
                         </div>
-                        <!-- <h3 class="media-card-3d-title">{{ record.title }}</h3> -->
-                    </div>
-                    <div class="media-card-3d-actions">
-                        <!-- {% if record.url %}
-                            <button class="btn btn-library video-modal-trigger" data-video-url="{{ record.url }}" data-video-title="{{ record.title }}">Listen Now</button>
-                        {% endif %} -->
-                        {% if record.file %}
-                            <a href="?download={{ record.file.id }}&file_name={{ record.title | url_encode }}" class="btn btn-library">Download Audio</a>
-                        {% endif %}
-                    </div>
+                        <div class="media-card-3d-actions">
+                            <!-- {% if record.url %}
+                                <button type="button" class="btn btn-library video-modal-trigger" data-video-url="{{ record.url }}" data-video-title="{{ record.title }}" aria-label="Listen to podcast: {{ record.title }}">Listen Now</button>
+                            {% endif %} -->
+                            {% if record.file %}
+                                <a href="?download={{ record.file.id }}&file_name={{ record.title | url_encode }}" class="btn btn-library" aria-label="Download {{ record.title }} podcast audio file">Download Audio</a>
+                            {% endif %}
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <h2 class="center-xs coming-soon">{{ noRecordsMessage }}</h2>
                 </div>
             </div>
-            {% endfor %}
+            {% endif %}
         </div>
-        {% else %}
-        <div class="row">
-            <div class="col-md-12 col-xs-12">
-                <h2 class="center-xs coming-soon">{{ noRecordsMessage }}</h2>
-            </div>
-        </div>
-        {% endif %}
-    </div>
-</section>
+    </section>
+</main>
 
 <!-- Video/Audio Modal -->
-<div id="videoModal" class="video-modal">
+<div id="videoModal" class="video-modal" role="dialog" aria-modal="true" aria-labelledby="audioModalTitle" aria-hidden="true">
     <div class="video-modal-overlay"></div>
     <div class="video-modal-content">
-        <button class="video-modal-close">&times;</button>
+        <button type="button" class="video-modal-close" aria-label="Close audio player">&times;</button>
+        <h2 id="audioModalTitle" class="sr-only">Audio Player</h2>
         <div class="video-modal-wrapper">
-            <iframe id="videoFrame" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+            <iframe id="videoFrame" title="Audio player" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 </div>
