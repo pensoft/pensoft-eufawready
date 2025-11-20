@@ -88,7 +88,7 @@ function onStart(){
                             <a href="?download={{ record.file.id }}&file_name={{ record.name | url_encode }}" class="btn btn-library">Download</a>
                         {% endif %}
                         {% if record.url %}
-                            <a href="{{ record.url }}" target="_blank" class="btn btn-library">Read More</a>
+                            <a href="{{ record.url }}" target="_blank" class="btn btn-library btn-read-more">Read More</a>
                         {% endif %}
                         {% if record.file_lang_versions %}
                             <div class="download-dropdown lang-versions">

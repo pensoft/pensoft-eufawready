@@ -299,3 +299,22 @@ button:not(:disabled) {
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 }
+
+.btn-library.btn-read-more {
+    &:before {
+        display: none; // Remove download icon for Read More button
+    }
+
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 17px;
+        background-image: url('../../assets/images/read-more-white.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-left: 8px; // Space after text
+        flex-shrink: 0;
+    }
+}
