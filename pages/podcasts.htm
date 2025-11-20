@@ -125,38 +125,3 @@ function onStart(){
         </div>
     </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('videoModal');
-    const videoFrame = document.getElementById('videoFrame');
-    const closeBtn = document.querySelector('.video-modal-close');
-    const overlay = document.querySelector('.video-modal-overlay');
-    const triggers = document.querySelectorAll('.video-modal-trigger');
-
-    triggers.forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
-            e.preventDefault();
-            const videoUrl = this.getAttribute('data-video-url');
-            videoFrame.src = videoUrl;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    });
-
-    function closeModal() {
-        modal.classList.remove('active');
-        videoFrame.src = '';
-        document.body.style.overflow = '';
-    }
-
-    closeBtn.addEventListener('click', closeModal);
-    overlay.addEventListener('click', closeModal);
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
-});
-</script>

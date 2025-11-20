@@ -74,7 +74,14 @@
             partnersPopupReadMore: '.partners-popup-read-more',
             partnerTeamBio: '.partner-team-bio',
             partnerTeamBioContent: '.partner-team-bio-content',
-            
+
+            // Video/Audio Modal
+            videoModal: '#videoModal',
+            videoModalClose: '.video-modal-close',
+            videoModalOverlay: '.video-modal-overlay',
+            videoModalTrigger: '.video-modal-trigger',
+            videoFrame: '#videoFrame',
+
             // Work Packages
             workPackagesAccordion: '.work-packages .wp-accordion',
             accordionToggle: '.accordion-toggle',
@@ -98,7 +105,8 @@
             menu: 'menuClose setupDropdowns',
             dropdown: 'mobileDropdown',
             biography: 'bioToggle biographyToggle',
-            accordion: 'wpAccordion'
+            accordion: 'wpAccordion',
+            video: 'videoModal videoClose videoOverlay videoEscape'
         }
     };
 
@@ -622,6 +630,90 @@
             updateButtonText($link, 'Hide Biography ');
             $icon.css('transform', 'rotate(180deg)');
         }
+    }
+
+    // =================================================================
+    // VIDEO/AUDIO MODAL
+    // =================================================================
+
+    /**
+     * Initialize Video/Audio Modal functionality
+     * Handles both YouTube/Vimeo videos and podcast audio embeds
+     * Public API - exposed globally
+     */
+    function initVideoModal() {
+        const $modal = $(CONFIG.SELECTORS.videoModal);
+        const $videoFrame = $(CONFIG.SELECTORS.videoFrame);
+        const $closeBtn = $(CONFIG.SELECTORS.videoModalClose);
+        const $overlay = $(CONFIG.SELECTORS.videoModalOverlay);
+        const $triggers = $(CONFIG.SELECTORS.videoModalTrigger);
+
+        if (!$modal.length || !$triggers.length) return;
+
+        /**
+         * Open video modal with iframe URL
+         * @private
+         */
+        function openModal(trigger) {
+            // Store trigger for focus restoration
+            $modal.data('lastFocusedElement', trigger);
+
+            const videoUrl = $(trigger).data('video-url');
+            const videoTitle = $(trigger).data('video-title') || 'Video';
+
+            if (!videoUrl) return;
+
+            // Set iframe src and show modal
+            $videoFrame.attr('src', videoUrl);
+            $modal.addClass('show').attr('aria-hidden', 'false');
+            $(CONFIG.SELECTORS.body).css('overflow', 'hidden');
+
+            // Set focus to close button for accessibility
+            setFocus($closeBtn[0], CONFIG.DELAYS.focus, false);
+        }
+
+        /**
+         * Close video modal
+         * @private
+         */
+        function closeModal() {
+            const lastFocusedElement = $modal.data('lastFocusedElement');
+
+            // Clear iframe src to stop playback
+            $videoFrame.attr('src', '');
+            $modal.removeClass('show').attr('aria-hidden', 'true');
+            $(CONFIG.SELECTORS.body).css('overflow', '');
+
+            // Restore focus to trigger element
+            if (lastFocusedElement) {
+                setFocus(lastFocusedElement, CONFIG.DELAYS.focus, true);
+            }
+        }
+
+        // Attach event handlers with namespaced events
+        $triggers.off('click.videoModal').on('click.videoModal', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            openModal(this);
+        });
+
+        $closeBtn.off('click.videoClose').on('click.videoClose', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeModal();
+        });
+
+        $overlay.off('click.videoOverlay').on('click.videoOverlay', function(e) {
+            if ($(e.target).is($overlay)) {
+                closeModal();
+            }
+        });
+
+        $(document).off('keydown.videoEscape').on('keydown.videoEscape', function(e) {
+            if (e.key === 'Escape' && $modal.hasClass('show')) {
+                closeModal();
+            }
+        });
     }
 
     // =================================================================
@@ -1408,6 +1500,7 @@
         initLibraryFilters();
         initDownloadDropdowns();
         initBubbleAnimations();
+        initVideoModal();
         handleHashNavigation();
         handleDropdownAnchors();
         forceExternalLinks();
@@ -1434,6 +1527,7 @@
     window.initLibraryFilters = initLibraryFilters;
     window.initDownloadDropdowns = initDownloadDropdowns;
     window.initBubbleAnimations = initBubbleAnimations;
+    window.initVideoModal = initVideoModal;
     window.documentHasScroll = documentHasScroll;
     window.isBreakpointLarge = isBreakpointLarge;
     window.scrollDown = scrollDown;

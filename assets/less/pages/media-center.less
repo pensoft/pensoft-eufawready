@@ -682,41 +682,6 @@
             }
         }
 
-        &.newsletter{
-            .media-card-3d-image{
-                // Extend image beyond container with horizontal overflow
-                left: -8.72%;
-                right: -8.72%;
-                width: 117.44%;
-
-                img{
-                    object-fit: contain;
-                    object-position: center;
-                }
-            }
-
-            .media-card-3d-date{
-                position: absolute;
-                top: 15px;
-                left: 22px;
-                z-index: 3;
-                font-family: 'Satoshi', sans-serif;
-                font-size: 12px;
-                font-weight: 600;
-                color: #0A612B;
-                background: rgba(255, 255, 255, 0.95);
-                padding: 4px 10px;
-                border-radius: 6px;
-                letter-spacing: -0.2px;
-
-                .breakpoint-large-down({
-                    font-size: 11px;
-                    top: 12px;
-                    left: 18px;
-                });
-            }
-        }
-
         .media-card-3d-gradient{
             position: absolute;
             bottom: 0;
@@ -768,7 +733,7 @@
             width: 117.44%;
 
             img{
-                object-fit: contain;
+                object-fit: cover;
                 object-position: center;
             }
         }
@@ -784,6 +749,50 @@
             img{
                 object-fit: contain;
                 object-position: center;
+            }
+        }
+    }
+
+    &.newsletter{
+        .media-card-3d-container{
+            .media-card-3d-image{
+                // Extend image beyond container with horizontal overflow
+                left: -8.72%;
+                right: -8.72%;
+                width: 117.44%;
+
+                img{
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+
+            .media-card-3d-date{
+                position: absolute;
+                top: 15px;
+                left: 22px;
+                z-index: 3;
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                background: rgba(10, 97, 43, 0.85);
+                font-family: 'Satoshi', sans-serif;
+                font-size: 12px;
+                font-weight: 500;
+                color: #ffffff;
+                padding: 9px 11px;
+                border-radius: 12px;
+                letter-spacing: -0.39px;
+                text-align: center;
+                white-space: nowrap;
+                line-height: normal;
+                text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+
+                .breakpoint-large-down({
+                    font-size: 11px;
+                    top: 12px;
+                    left: 18px;
+                    padding: 8px 10px;
+                });
             }
         }
     }
@@ -940,7 +949,7 @@
     align-items: center;
     justify-content: center;
 
-    &.active{
+    &.show{
         display: flex;
     }
 
