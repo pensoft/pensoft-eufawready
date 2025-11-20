@@ -8,6 +8,22 @@ robot_follow = "follow"
 [siteSearchInclude]
 
 ==
+<?php
+use Pensoft\Media\Models\MediaLogos;
+use Pensoft\Media\Models\Flyers;
+use Pensoft\Media\Models\Newsletters;
+use Pensoft\Media\Models\Videos;
+use Pensoft\Media\Models\Podcasts;
+
+function onStart(){
+    // Check if each media type has records
+    $this['hasLogos'] = MediaLogos::exists();
+    $this['hasFlyers'] = Flyers::exists();
+    $this['hasNewsletters'] = Newsletters::exists();
+    $this['hasVideos'] = Videos::where('parent_id', null)->exists();
+    $this['hasPodcasts'] = Podcasts::exists();
+}
+?>
 ==
 
 {% component 'siteSearchInclude' %}
@@ -17,6 +33,7 @@ robot_follow = "follow"
         <div class="container">
             <h1 class="sr-only">Media Center</h1>
             <div class="row">
+                {% if hasLogos %}
                 <div class="col-md-4 col-xs-12">
                     <a href="/media-center/brand-kit" class="media-center-item brand-kit" aria-label="View Brand Kit - Download logos and brand assets">
                         <div class="media-center-item-background">
@@ -28,6 +45,8 @@ robot_follow = "follow"
                         <h2 class="media-center-item-title">Brand Kit</h2>
                     </a>
                 </div>
+                {% endif %}
+                {% if hasFlyers %}
                 <div class="col-md-4 col-xs-12">
                     <a href="/media-center/promotional-materials" class="media-center-item promotional-materials" aria-label="View Promotional Materials - Download flyers and posters">
                         <div class="media-center-item-background">
@@ -39,24 +58,31 @@ robot_follow = "follow"
                         <h2 class="media-center-item-title">Promotional Materials</h2>
                     </a>
                 </div>
+                {% endif %}
+                {% if hasNewsletters %}
                 <div class="col-md-4 col-xs-12">
                     <a href="/media-center/newsletters" class="media-center-item newsletters" aria-label="View Newsletters - Read and download project newsletters">
                         <div class="media-center-item-background"></div>
                         <h2 class="media-center-item-title">Newsletters</h2>
                     </a>
                 </div>
+                {% endif %}
+                {% if hasVideos %}
                 <div class="col-md-4 col-xs-12">
                     <a href="/media-center/videos" class="media-center-item videos" aria-label="View Videos - Watch project videos and presentations">
                         <div class="media-center-item-background"></div>
                         <h2 class="media-center-item-title">Videos</h2>
                     </a>
                 </div>
+                {% endif %}
+                {% if hasPodcasts %}
                 <div class="col-md-4 col-xs-12">
                     <a href="/media-center/podcasts" class="media-center-item podcasts" aria-label="View Podcasts - Listen to project podcasts and audio content">
                         <div class="media-center-item-background"></div>
                         <h2 class="media-center-item-title">Podcasts</h2>
                     </a>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
