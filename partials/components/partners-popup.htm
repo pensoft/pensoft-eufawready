@@ -24,7 +24,7 @@
 
             {% if item.content %}
             <div class="partners-popup-content-wrapper">
-                <div class="partners-popup-content">{{ item.content | striptags }}</div>
+                <div class="partners-popup-content">{{ item.content | striptags | raw }}</div>
                 <a href="#" 
                 class="partners-popup-read-more" 
                 aria-label="Read more about {{ item.title }}" 

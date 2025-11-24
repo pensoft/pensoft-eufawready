@@ -15,7 +15,7 @@
         {% endif %}
 
         {% if item.content %}
-        <div class="advisory-popup-content">{{ item.content | raw }}</div>
+        <div class="advisory-popup-content">{{ item.content | striptags | raw }}</div>
         {% endif %}
     </div>
 </div>
