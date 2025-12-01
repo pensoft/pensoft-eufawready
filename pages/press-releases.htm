@@ -1,0 +1,66 @@
+title = "Press releases"
+layout = "default"
+url = "/media-center/press-releases"
+
+[siteSearchInclude]
+==
+<?php
+use Pensoft\Media\Models\Pressreleases;
+
+
+function onStart(){
+	$this['pressreleases'] = Pressreleases::get();
+
+}
+?>
+==
+{% component 'siteSearchInclude' %}
+
+<main>
+    <section class="container-fluid promotional-materials-page">
+        <div class="container">
+            <!-- Back Navigation -->
+            <nav aria-label="Breadcrumb">
+                <div class="media-center-back">
+                    <a href="/media-center" class="back-link" aria-label="Back to Media Center">
+                        <img src="{{ 'assets/images/chevron-left-green.svg'|theme }}" alt="" class="back-icon" aria-hidden="true">
+                        Back to Media Center
+                    </a>
+                </div>
+            </nav>
+            <h1 class="sr-only">Press releases</h1>
+            {% if pressreleases.count() %}
+            
+            
+                {% for record in pressreleases %}
+                <div class="profile-card">
+                    <div class="profile-info" style="text-align: left!important;">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span class="doc_year">{{record.date |date('d F Y')}}</span>
+                                <h3 class="card-title">{{record.name}}</h3>
+                                <div class="body">
+                                    {{record.description | raw}}
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                {% for link in record.link %}
+                                <a target="_blank" href="{{link.url}}" class="btn btn-primary no-margin">{{link.text}}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            
+            {% else %}
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <h2 class="center-xs coming-soon">No Press releases available yet.</h2>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+</main>

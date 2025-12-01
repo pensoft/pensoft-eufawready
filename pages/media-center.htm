@@ -6,7 +6,6 @@ robot_index = "index"
 robot_follow = "follow"
 
 [siteSearchInclude]
-
 ==
 <?php
 use Pensoft\Media\Models\MediaLogos;
@@ -14,6 +13,7 @@ use Pensoft\Media\Models\Flyers;
 use Pensoft\Media\Models\Newsletters;
 use Pensoft\Media\Models\Videos;
 use Pensoft\Media\Models\Podcasts;
+use Pensoft\Media\Models\Pressreleases;
 
 function onStart(){
     // Check if each media type has records
@@ -22,10 +22,10 @@ function onStart(){
     $this['hasNewsletters'] = Newsletters::exists();
     $this['hasVideos'] = Videos::where('parent_id', null)->exists();
     $this['hasPodcasts'] = Podcasts::exists();
+    $this['hasPressreleases'] = Pressreleases::exists();
 }
 ?>
 ==
-
 {% component 'siteSearchInclude' %}
 
 <main>
@@ -80,6 +80,20 @@ function onStart(){
                     <a href="/media-center/podcasts" class="media-center-item podcasts" aria-label="View Podcasts - Listen to project podcasts and audio content">
                         <div class="media-center-item-background"></div>
                         <h2 class="media-center-item-title">Podcasts</h2>
+                    </a>
+                </div>
+                {% endif %}
+                
+                {% if hasPressreleases %}
+                <div class="col-md-4 col-xs-12">
+                    <a href="/media-center/press-releases" class="media-center-item pressreleases" aria-label="View press releases - Read press releases">
+                        <div class="media-center-item-background">
+                            <div class="media-center-item-image">
+                                <img src="{{ 'press-releases.png' | media }}" alt="Press releases preview showing content" />
+                            </div>
+                            <div class="media-center-item-gradient"></div>
+                        </div>
+                        <h2 class="media-center-item-title">Press releases</h2>
                     </a>
                 </div>
                 {% endif %}
