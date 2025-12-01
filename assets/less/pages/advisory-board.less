@@ -9,7 +9,7 @@
 
 // Profile Card Container
 .profile-card {
-    background: #f7f6f1;
+    // background: #f7f6f1;
     border-radius: 20px;
     padding: 0;
     margin-bottom: 20px;
@@ -18,10 +18,10 @@
     flex-direction: column;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-    &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    }
+    // &:hover {
+    //     transform: translateY(-4px);
+    //     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    // }
 }
 
 // Avatar Container
@@ -88,12 +88,28 @@
     justify-content: center;
     gap: 8px;
     margin-top: auto;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color 0.3s ease;
+
+    &::after {
+        content: '';
+        display: block;
+        width: 14px;
+        height: 10px;
+        background-image: url('/themes/pensoft-eufawready/assets/images/arrow-initial.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        transition: width 0.3s ease, background-image 0.3s ease;
+    }
 
     &:hover {
-        color: #007A38;
+        color: #006A31;
         text-decoration: none;
-        transform: translateX(3px);
+        
+        &::after {
+            width: 18px;
+            background-image: url('/themes/pensoft-eufawready/assets/images/arrow-hovered.svg');
+        }
     }
 }
 
