@@ -242,14 +242,39 @@
                     text-align: center;
                 });
 
+                .funding-logos {
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+
+                    .breakpoint-large-down({
+                        flex-direction: column;
+                        width: 100%;
+                        gap: 30px;
+                    });
+                }
+
                 .eu-flag {
                     width: 158px;
                     height: 35px;
                     object-fit: contain;
 
                     .breakpoint-large-down({
-                        width: 140px;
-                        height: 31px;
+                        width: 100%;
+                        max-width: 250px;
+                        height: auto;
+                    });
+                }
+
+                .swiss-flag {
+                    width: 425px;
+                    height: 165px;
+                    object-fit: contain;
+
+                    .breakpoint-large-down({
+                        width: 100%;
+                        max-width: 250px;
+                        height: auto;
                     });
                 }
                 

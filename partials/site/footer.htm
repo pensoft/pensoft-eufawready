@@ -53,7 +53,10 @@ description_limit = 0
                     <!-- EU Funding Badge -->
                     {% if footer_funds_flag %}
                     <div class="eu-funding">
-                        <img src="{{ footer_funds_flag }}" alt="EU Flag" class="eu-flag">
+                        <div class="funding-logos">
+                            <img src="{{ footer_funds_flag }}" alt="EU Flag" class="eu-flag">
+                            <img src="{{ 'assets/images/schweizerische-logo.svg' | theme }}" alt="Swiss Funding" class="swiss-flag">
+                        </div>
                         <div class="funding-text">
                             {% component 'funding-text' %}
                         </div>
