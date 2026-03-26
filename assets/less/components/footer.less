@@ -235,7 +235,6 @@
                 gap: 20px;
                 align-items: flex-start;
                 width: 100%;
-                max-width: 640px;
 
                 .breakpoint-large-down({
                     align-items: center;
@@ -248,54 +247,60 @@
                     gap: 20px;
 
                     .breakpoint-large-down({
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        gap: 20px;
+                    });
+
+                    .breakpoint-small-down({
                         flex-direction: column;
-                        width: 100%;
-                        gap: 30px;
+                        gap: 15px;
                     });
                 }
 
                 .eu-flag {
-                    width: 158px;
-                    height: 106px;
+                    width: 137px;
+                    height: 30px;
                     object-fit: contain;
 
                     .breakpoint-large-down({
-                        width: 100%;
-                        max-width: 250px;
-                        height: 106px;
-                    });
-                }
-
-                .korea-flag {
-                    width: 158px;
-                    height: 106px;
-                    object-fit: contain;
-
-                    .breakpoint-large-down({
-                        width: 100%;
-                        max-width: 250px;
-                        height: 106px;
+                        width: 120px;
+                        height: auto;
                     });
                 }
 
                 .swiss-flag {
-                    width: 425px;
-                    height: 165px;
+                    width: 380px;
+                    height: auto;
                     object-fit: contain;
 
                     .breakpoint-large-down({
-                        width: 100%;
-                        max-width: 250px;
+                        width: 300px;
+                        height: auto;
+                    });
+
+                    .breakpoint-small-down({
+                        width: 260px;
+                    });
+                }
+
+                .korea-flag {
+                    width: 164px;
+                    height: 26px;
+                    object-fit: contain;
+
+                    .breakpoint-large-down({
+                        width: 140px;
                         height: auto;
                     });
                 }
-                
+
                 .funding-text .jumbotron-item {
                     padding: 0 !important;
                 }
 
                 .funding-text p {
-                    color: rgba(255, 255, 255, 0.6);
+                    color: #a3a3a3;
                     font-size: 12px;
                     font-family: 'Arial', sans-serif;
                     line-height: 19px;
