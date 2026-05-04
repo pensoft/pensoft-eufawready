@@ -1,9 +1,9 @@
-url = "advisory-board"
+url = "stakeholder-board"
 layout = "default"
-title = "Advisory Board"
+title = "Stakeholder Board"
 is_hidden = 0
-meta_title = "Advisory Board"
-meta_description = "Advisory Board"
+meta_title = "Stakeholder Board"
+meta_description = "Stakeholder Board"
 robot_index = "index"
 robot_follow = "follow"
 
@@ -15,8 +15,8 @@ robot_follow = "follow"
 use Pensoft\Cardprofiles\Models\Category;
 
 function onStart(){
-    // Fetch advisory board profiles by category slug
-    $category = Category::where('slug', 'advisory-board')->first();
+    // Fetch stakeholder board profiles by category slug
+    $category = Category::where('slug', 'stakeholder-board')->first();
 
     if ($category) {
         $this['profiles'] = $category->profiles()
@@ -30,7 +30,7 @@ function onStart(){
 
 {% component 'siteSearchInclude' %}
 
-<section class="container-fluid advisory-board" aria-label="Advisory Board Members">
+<section class="container-fluid stakeholder-board" aria-label="Stakeholder Board Members">
     <div class="container container-wrapper">
         <div class="row">
             {% if profiles %}
@@ -65,7 +65,7 @@ function onStart(){
                 {% endfor %}
             {% else %}
                 <div class="col-md-12 col-xs-12">
-                    <p>No advisory board members found.</p>
+                    <p>No stakeholder board members found.</p>
                 </div>
             {% endif %}
         </div>
@@ -76,10 +76,9 @@ function onStart(){
 <div class="profile-popup-data" style="display: none;" aria-hidden="true">
     {% if profiles %}
         {% for profile in profiles %}
-            {% partial 'components/advisory-board-popup' item=profile %}
+            {% partial 'components/stakeholder-board-popup' item=profile %}
         {% endfor %}
     {% endif %}
 </div>
 
-{% partial 'components/advisory-board-popup-modal' %}
-
+{% partial 'components/stakeholder-board-popup-modal' %}

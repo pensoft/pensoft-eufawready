@@ -61,9 +61,16 @@
             advisoryModal: '#advisoryBoardModal',
             advisoryModalContent: '#advisoryModalContent',
             advisoryModalClose: '#advisoryBoardModalClose',
-            advisoryReadMore: '.advisory-board .read-more',
-            advisoryPopupName: '.advisory-popup-name',
-            
+            advisoryReadMore: '.advisory-board .profile-card, .advisory-board .read-more',
+            advisoryPopupName: '.profile-popup-name',
+
+            // Stakeholder Board Modal
+            stakeholderModal: '#stakeholderBoardModal',
+            stakeholderModalContent: '#stakeholderModalContent',
+            stakeholderModalClose: '#stakeholderBoardModalClose',
+            stakeholderReadMore: '.stakeholder-board .profile-card, .stakeholder-board .read-more',
+            stakeholderPopupName: '.profile-popup-name',
+
             // Partners Modal
             partnersModal: '#partnersModal',
             partnersModalContent: '#partnersModalContent',
@@ -101,6 +108,7 @@
         EVENT_NAMESPACES: {
             search: 'searchClose searchEscape searchSubmit',
             advisory: 'advisoryPopup advisoryClose advisoryOverlay advisoryEscape',
+            stakeholder: 'stakeholderPopup stakeholderClose stakeholderOverlay stakeholderEscape',
             partners: 'partnersPopup partnersClose partnersOverlay partnersEscape',
             menu: 'menuClose setupDropdowns',
             dropdown: 'mobileDropdown',
@@ -494,6 +502,31 @@
         });
 
         advisoryBoardModal.init();
+    }
+
+    // =================================================================
+    // STAKEHOLDER BOARD POPUP
+    // =================================================================
+
+    let stakeholderBoardModal;
+
+    /**
+     * Initialize Stakeholder Board popup functionality
+     * Public API - exposed globally
+     */
+    function initStakeholderBoardPopup() {
+        stakeholderBoardModal = new ModalController({
+            modalSelector: CONFIG.SELECTORS.stakeholderModal,
+            contentSelector: CONFIG.SELECTORS.stakeholderModalContent,
+            closeSelector: CONFIG.SELECTORS.stakeholderModalClose,
+            triggerSelector: CONFIG.SELECTORS.stakeholderReadMore,
+            titleSelector: CONFIG.SELECTORS.stakeholderPopupName,
+            contentDataSelector: '.profile-content',
+            dataAttribute: 'profile-id',
+            eventNamespace: 'stakeholder'
+        });
+
+        stakeholderBoardModal.init();
     }
 
     // =================================================================
@@ -1522,6 +1555,7 @@
         // Initialize all modules
         initHamburgerMenuDropdowns();
         initAdvisoryBoardPopup();
+        initStakeholderBoardPopup();
         initPartnersPopup();
         initWorkPackagesAccordion();
         initBiographyToggle();
@@ -1553,6 +1587,7 @@
     window.showSearchForm = showSearchForm;
     window.hideSearchForm = hideSearchForm;
     window.initAdvisoryBoardPopup = initAdvisoryBoardPopup;
+    window.initStakeholderBoardPopup = initStakeholderBoardPopup;
     window.initPartnersPopup = initPartnersPopup;
     window.initWorkPackagesAccordion = initWorkPackagesAccordion;
     window.initBiographyToggle = initBiographyToggle;
