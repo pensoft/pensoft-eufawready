@@ -82,6 +82,13 @@
             partnerTeamBio: '.partner-team-bio',
             partnerTeamBioContent: '.partner-team-bio-content',
 
+            // Partner Projects Modal
+            partnerProjectModal: '#partnerProjectModal',
+            partnerProjectModalContent: '#partnerProjectModalContent',
+            partnerProjectModalClose: '#partnerProjectModalClose',
+            projectCards: '.project-card-clickable',
+            partnerProjectPopupLabel: '.partner-project-popup-label',
+
             // Video/Audio Modal
             videoModal: '#videoModal',
             videoModalClose: '.video-modal-close',
@@ -110,6 +117,7 @@
             advisory: 'advisoryPopup advisoryClose advisoryOverlay advisoryEscape',
             stakeholder: 'stakeholderPopup stakeholderClose stakeholderOverlay stakeholderEscape',
             partners: 'partnersPopup partnersClose partnersOverlay partnersEscape',
+            partnerProject: 'partnerProjectPopup partnerProjectClose partnerProjectOverlay partnerProjectEscape',
             menu: 'menuClose setupDropdowns',
             dropdown: 'mobileDropdown',
             biography: 'bioToggle biographyToggle',
@@ -556,6 +564,27 @@
         });
 
         partnersModal.init();
+    }
+
+    let partnerProjectModal;
+
+    /**
+     * Initialize Partner Projects popup functionality
+     * Public API - exposed globally
+     */
+    function initPartnerProjectsPopup() {
+        partnerProjectModal = new ModalController({
+            modalSelector: CONFIG.SELECTORS.partnerProjectModal,
+            contentSelector: CONFIG.SELECTORS.partnerProjectModalContent,
+            closeSelector: CONFIG.SELECTORS.partnerProjectModalClose,
+            triggerSelector: CONFIG.SELECTORS.projectCards,
+            titleSelector: CONFIG.SELECTORS.partnerProjectPopupLabel,
+            contentDataSelector: '.project-content',
+            dataAttribute: 'project-id',
+            eventNamespace: 'partnerProject'
+        });
+
+        partnerProjectModal.init();
     }
 
     /**
@@ -1557,6 +1586,7 @@
         initAdvisoryBoardPopup();
         initStakeholderBoardPopup();
         initPartnersPopup();
+        initPartnerProjectsPopup();
         initWorkPackagesAccordion();
         initBiographyToggle();
         initDesktopNavigation();

@@ -1,0 +1,30 @@
+<div class="project-content" data-project-id="{{ item.id }}">
+    <div class="partner-project-popup-main">
+        {# Left Side: Logo + Website Button #}
+        <div class="partner-project-popup-logo-container">
+            {% if item.cover %}
+            <div class="partner-project-popup-logo-box">
+                <img src="{{ item.cover.path }}" alt="{{ item.instituion }}">
+            </div>
+            {% endif %}
+
+            {% if item.instituion_url %}
+            <a href="{{ item.instituion_url }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-primary visit-website-btn">
+                Visit website
+            </a>
+            {% endif %}
+        </div>
+
+        {# Right Side: Project summary #}
+        <div class="partner-project-popup-info">
+            <p class="partner-project-popup-label" tabindex="-1">Project summary</p>
+
+            {% if item.content %}
+            <div class="partner-project-popup-content">{{ item.content | raw }}</div>
+            {% endif %}
+        </div>
+    </div>
+</div>

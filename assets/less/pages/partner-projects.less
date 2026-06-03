@@ -1,0 +1,517 @@
+// ============================================
+// PARTNER PROJECTS — INTRO
+// ============================================
+// The intro is rendered by the `parnters-project-intro` jumbotron
+// (template2): an <h1 class="display-1"> title plus the raw rich-editor
+// body. Styles target that real markup inside `.jumbotron_column` and
+// match the Figma spec (node 918:566): a 520px centred column, 19px
+// gap between title and body, title 30px Satoshi Medium / -0.9px /
+// #09220A, body 17px Satoshi Regular / -0.51px / #546554, both centred.
+
+.partner-projects-intro {
+    padding: 50px 0 10px;
+    background-color: #ffffff;
+    text-align: center;
+
+    // `.parnters-project-intro` is the `.container` row, which is pinned
+    // wide by `.container { max-width … !important }`. Don't fight that —
+    // cap the inner jumbotron content (which isn't a `.container`) to the
+    // 520px Figma column and centre it instead.
+    .jumbotron-item {
+        padding: 0;
+        max-width: 520px;
+        margin: 0 auto;
+        float: none;
+    }
+
+    .jumbotron_column {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        text-align: center;
+    }
+
+    // Title — rendered as <h1 class="display-1"> by jumbotron template2.
+    // Scoped here so it does NOT affect headings elsewhere.
+    .display-1 {
+        color: #09220A;
+        text-align: center;
+        font-family: 'Satoshi Regular', sans-serif;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 120%;
+        letter-spacing: -0.9px;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+    // Body — raw rich-editor markup (paragraphs) inside the jumbotron column
+    .jumbotron_column p {
+        color: #546554;
+        text-align: center;
+        font-family: 'Satoshi', 'Satoshi Regular', sans-serif;
+        font-size: 17px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.51px;
+        margin: 0;
+
+        & + p {
+            margin-top: 12px;
+        }
+    }
+
+    // Admin-only "Edit" link (jumbotron default.htm) — a <p> sibling of the
+    // column; keep it unobtrusive and centred under the intro text.
+    .edit-link {
+        display: inline-block;
+        font-family: 'Satoshi Regular', sans-serif;
+        font-size: 15px;
+        margin-top: 16px;
+    }
+
+    .breakpoint-large-down({
+        padding: 40px 0 10px;
+    });
+
+    .breakpoint-small-down({
+        padding: 30px 0 5px;
+
+        .jumbotron-item {
+            max-width: 100%;
+        }
+
+        .jumbotron_column {
+            gap: 14px;
+        }
+
+        .display-1 {
+            font-size: 24px;
+            letter-spacing: -0.72px;
+        }
+
+        .jumbotron_column p {
+            font-size: 16px;
+            letter-spacing: -0.48px;
+        }
+    });
+}
+
+// ============================================
+// PARTNER PROJECTS — CARD GRID
+// ============================================
+
+.partner-projects-section {
+    padding: 30px 0 60px;
+    background-color: #ffffff;
+
+    .row {
+        margin: 0 -10px;
+    }
+
+    [class*="col-"] {
+        padding: 0 10px;
+        margin-bottom: 20px;
+    }
+
+    .project-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 270px;
+        background-color: #f7f6f1;
+        border-radius: 20px;
+        padding: 23px 22px 22px;
+        box-sizing: border-box;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        &.project-card-clickable {
+            cursor: pointer;
+
+            &:focus {
+                outline: 2px solid #009344;
+                outline-offset: 2px;
+            }
+        }
+    }
+
+    // Logo + arrow row
+    .project-card-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 48px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(9, 34, 10, 0.1);
+    }
+
+    .project-card-logo {
+        max-width: 150px;
+        max-height: 48px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        object-position: left center;
+    }
+
+    // Green diagonal-arrow square (also opens the popup)
+    .project-card-arrow {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        background-color: #009344;
+        border-radius: 8px;
+        transition: background-color 0.25s ease;
+
+        img {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    .project-card:hover .project-card-arrow {
+        background-color: #006A31;
+    }
+
+    .project-card-label {
+        font-family: 'Satoshi Bold', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: #546554;
+        letter-spacing: -0.45px;
+        margin: 17px 0 9px;
+    }
+
+    // Trimmed content with fade-out
+    .project-card-excerpt {
+        position: relative;
+        font-family: 'Satoshi Regular', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: #546554;
+        letter-spacing: -0.48px;
+        line-height: 1.45;
+        height: 88px;
+        overflow: hidden;
+
+        // Strip inherited block spacing from rich-editor markup
+        p, ul, ol, h1, h2, h3, h4, h5, h6 {
+            margin: 0 0 6px;
+            font-size: inherit;
+            color: inherit;
+            line-height: inherit;
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 48px;
+            background: linear-gradient(to bottom, rgba(247, 246, 241, 0), #f7f6f1);
+            pointer-events: none;
+        }
+    }
+
+    // Read more link
+    .project-card-readmore {
+        font-family: 'Satoshi Medium', sans-serif;
+        font-size: 17px;
+        font-weight: 500;
+        color: #009344;
+        letter-spacing: -0.51px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin-top: 16px;
+        transition: gap 0.25s ease;
+
+        .read-more-icon {
+            width: 12px;
+            height: 11px;
+            object-fit: contain;
+        }
+    }
+
+    .project-card:hover .project-card-readmore {
+        gap: 11px;
+    }
+
+    .breakpoint-large-down({
+        padding: 20px 0 40px;
+    });
+
+    .breakpoint-small-down({
+        padding: 15px 0 30px;
+
+        [class*="col-"] {
+            margin-bottom: 15px;
+        }
+
+        .project-card {
+            min-height: 0;
+        }
+    });
+}
+
+// ============================================
+// PARTNER PROJECTS — MODAL POPUP
+// ============================================
+
+// Modal Overlay (Background)
+.modal-overlay.partner-project-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(211, 211, 211, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 20px;
+
+    &.show {
+        display: flex;
+    }
+}
+
+// Modal Container
+.modal-container.partner-project-modal-container {
+    position: relative;
+    background: white;
+    border-radius: 10px;
+    width: 90vw;
+    max-width: 1042px;
+    max-height: 85vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-shadow: -3px 0px 25px 10px rgba(185, 185, 185, 0.25);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+// Close Button
+.modal-close.partner-project-modal-close {
+    position: absolute;
+    top: 18px;
+    right: 14px;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: transform 0.2s ease;
+
+    .close-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    &:focus {
+        outline: 2px solid #009344;
+        outline-offset: 2px;
+    }
+}
+
+// Modal Content Wrapper
+.modal-content.partner-project-modal-content {
+    padding: 50px 60px 40px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+// Main Layout (Logo on left, Info on right)
+.partner-project-popup-main {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+}
+
+// Logo Container (Left Side)
+.partner-project-popup-logo-container {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    width: 349px;
+    max-width: 40%;
+    min-width: 280px;
+}
+
+// Logo Box
+.partner-project-popup-logo-box {
+    background-color: #f7f6f1;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 236px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        max-width: 240px;
+        max-height: 167px;
+        object-fit: contain;
+        object-position: center;
+    }
+}
+
+// Info Section (Right Side)
+.partner-project-popup-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+}
+
+.partner-project-popup-label {
+    font-family: 'Satoshi Bold', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #546554;
+    letter-spacing: -0.45px;
+    margin: 0;
+    padding: 0;
+}
+
+.partner-project-popup-content {
+    font-family: 'Satoshi Regular', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #546554;
+    letter-spacing: -0.48px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+
+    p {
+        margin: 0 0 14px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+// Responsive Adjustments - Tablet
+.breakpoint-large-down({
+    .modal-container.partner-project-modal-container {
+        width: 95vw;
+        max-width: 800px;
+    }
+
+    .modal-content.partner-project-modal-content {
+        padding: 40px 30px 30px;
+    }
+
+    .partner-project-popup-main {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .partner-project-popup-logo-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .partner-project-popup-logo-box {
+        min-height: 180px;
+
+        img {
+            max-width: 200px;
+            max-height: 120px;
+        }
+    }
+
+    .partner-project-popup-info {
+        max-height: 65vh;
+    }
+});
+
+// Responsive Adjustments - Mobile
+.breakpoint-small-down({
+    .modal-container.partner-project-modal-container {
+        width: 95vw;
+        margin: 10px;
+        max-height: 95vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .modal-content.partner-project-modal-content {
+        padding: 30px 20px 25px;
+    }
+
+    .modal-close.partner-project-modal-close {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .partner-project-popup-main {
+        gap: 25px;
+    }
+
+    .partner-project-popup-logo-container {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .partner-project-popup-logo-box {
+        min-height: 150px;
+
+        img {
+            max-width: 160px;
+            max-height: 80px;
+        }
+    }
+
+    .partner-project-popup-info {
+        max-height: none;
+        padding-right: 5px;
+    }
+
+    .partner-project-popup-content {
+        font-size: 15px;
+    }
+});

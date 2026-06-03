@@ -1,0 +1,79 @@
+url = "partner-projects"
+layout = "default"
+title = "Partner Projects"
+is_hidden = 0
+meta_title = "Partner Projects"
+meta_description = "Partner Projects"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+[jumbotron parnters-project-intro]
+jumbotron = "parnters-project-intro"
+templates = "template2"
+background = transparent
+description_limit = 0
+
+==
+<?php
+function onStart(){
+    use Pensoft\Partners\Models\Partners as Partner;
+
+    $this['projects'] = Partner::where('type', 2)
+        ->orderBy('id')
+        ->get();
+}
+?>
+==
+
+{% component 'siteSearchInclude' %}
+
+<section class="container-fluid partner-projects-intro" aria-label="Partner Projects intro">
+    <div class="container parnters-project-intro">
+        {% component 'parnters-project-intro' %}
+    </div>
+</section>
+
+<section class="container-fluid partner-projects-section" aria-label="Partner Projects">
+    <div class="container">
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="project-card project-card-clickable"
+                     role="button"
+                     tabindex="0"
+                     data-project-id="{{ project.id }}"
+                     aria-label="View details about {{ project.instituion }}">
+                    <div class="project-card-head">
+                        {% if project.cover %}
+                        <img src="{{ project.cover.path }}" alt="{{ project.instituion }}" class="project-card-logo">
+                        {% endif %}
+                        <span class="project-card-arrow" aria-hidden="true">
+                            <img src="{{ 'assets/images/arrow-diagonal-white.svg' | theme }}" alt="">
+                        </span>
+                    </div>
+
+                    <p class="project-card-label">Project summary</p>
+
+                    <div class="project-card-excerpt">{{ project.content | raw }}</div>
+
+                    <span class="project-card-readmore">
+                        Read more
+                        <img src="{{ 'assets/images/chevron-right-green.svg' | theme }}" alt="" class="read-more-icon" aria-hidden="true">
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# Hidden pre-rendered popup content for each project #}
+<div class="project-popup-data" style="display: none;" aria-hidden="true">
+    {% for project in projects %}
+        {% partial 'components/partner-project-popup' item=project %}
+    {% endfor %}
+</div>
+
+{% partial 'components/partner-project-popup-modal' %}
