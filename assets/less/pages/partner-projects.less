@@ -163,7 +163,9 @@
         object-position: left center;
     }
 
-    // Green diagonal-arrow square (also opens the popup)
+    // Green diagonal-arrow square. As a link (.project-card-arrow-link) it
+    // expands into a "Visit website" pill on card hover; the plain <span>
+    // fallback (no website) just darkens on hover.
     .project-card-arrow {
         flex-shrink: 0;
         display: inline-flex;
@@ -171,18 +173,69 @@
         justify-content: center;
         width: 30px;
         height: 30px;
+        padding: 0;
         background-color: #009344;
         border-radius: 8px;
-        transition: background-color 0.25s ease;
-
-        img {
-            width: 14px;
-            height: 14px;
-        }
+        overflow: hidden;
+        text-decoration: none;
+        transition: width 0.3s ease, background-color 0.25s ease, padding 0.3s ease;
     }
 
+    .project-card-arrow-label {
+        max-width: 0;
+        opacity: 0;
+        white-space: nowrap;
+        font-family: 'Satoshi Regular', sans-serif;
+        font-size: 15px;
+        line-height: 1;
+        color: #ffffff;
+        letter-spacing: -0.45px;
+        transition: max-width 0.3s ease, opacity 0.2s ease;
+    }
+
+    .project-card-arrow-icon {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .project-card-arrow-icon-diagonal {
+        opacity: 1;
+    }
+
+    .project-card-arrow-icon-horizontal {
+        position: absolute;
+        opacity: 0;
+        width: auto;
+        height: 12px;
+    }
+
+    // Card hover darkens the plain (no-website) arrow square.
     .project-card:hover .project-card-arrow {
         background-color: #006A31;
+    }
+
+    // Hovering the link arrow itself expands it into a labelled pill.
+    .project-card-arrow-link:hover {
+        width: auto;
+        padding: 0 11px;
+        gap: 7px;
+        background-color: #006A31;
+
+        .project-card-arrow-label {
+            max-width: 120px;
+            opacity: 1;
+        }
+
+        .project-card-arrow-icon-diagonal {
+            opacity: 0;
+        }
+
+        .project-card-arrow-icon-horizontal {
+            position: relative;
+            opacity: 1;
+        }
     }
 
     .project-card-label {
@@ -241,14 +294,15 @@
         transition: gap 0.25s ease;
 
         .read-more-icon {
-            width: 12px;
-            height: 11px;
+            width: 14px;
+            height: 14px;
+            margin-top: 2px;
             object-fit: contain;
         }
     }
 
     .project-card:hover .project-card-readmore {
-        gap: 11px;
+        gap: 9px;
     }
 
     .breakpoint-large-down({

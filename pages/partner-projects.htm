@@ -49,9 +49,22 @@ function onStart(){
                         {% if project.cover %}
                         <img src="{{ project.cover.path }}" alt="{{ project.instituion }}" class="project-card-logo">
                         {% endif %}
+                        {% if project.instituion_url %}
+                        <a href="{{ project.instituion_url }}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="project-card-arrow project-card-arrow-link"
+                           aria-label="Visit website of {{ project.instituion }}"
+                           onclick="event.stopPropagation();">
+                            <span class="project-card-arrow-label">Visit website</span>
+                            <img src="{{ 'assets/images/arrow-diagonal-white.svg' | theme }}" alt="" aria-hidden="true" class="project-card-arrow-icon project-card-arrow-icon-diagonal">
+                            <img src="{{ 'assets/images/arrow-right-white.svg' | theme }}" alt="" aria-hidden="true" class="project-card-arrow-icon project-card-arrow-icon-horizontal">
+                        </a>
+                        {% else %}
                         <span class="project-card-arrow" aria-hidden="true">
-                            <img src="{{ 'assets/images/arrow-diagonal-white.svg' | theme }}" alt="">
+                            <img src="{{ 'assets/images/arrow-diagonal-white.svg' | theme }}" alt="" class="project-card-arrow-icon project-card-arrow-icon-diagonal">
                         </span>
+                        {% endif %}
                     </div>
 
                     <p class="project-card-label">Project summary</p>
