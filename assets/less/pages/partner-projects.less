@@ -266,6 +266,18 @@
             line-height: inherit;
         }
 
+        // Links inside rich-editor content — brand green
+        a {
+            color: #009344;
+            text-decoration: none;
+
+            &:hover,
+            &:focus {
+                color: #006A31;
+                text-decoration: underline;
+            }
+        }
+
         &:after {
             content: "";
             position: absolute;
@@ -479,6 +491,18 @@
 
         &:last-child {
             margin-bottom: 0;
+        }
+    }
+
+    // Links inside rich-editor content — brand green
+    a {
+        color: #009344;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            color: #006A31;
+            text-decoration: underline;
         }
     }
 }
