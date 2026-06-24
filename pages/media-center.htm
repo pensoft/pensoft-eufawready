@@ -62,7 +62,12 @@ function onStart(){
                 {% if hasNewsletters %}
                 <div class="col-md-4 col-xs-12">
                     <a href="/media-center/newsletters" class="media-center-item newsletters" aria-label="View Newsletters - Read and download project newsletters">
-                        <div class="media-center-item-background"></div>
+                        <div class="media-center-item-background">
+                            <div class="media-center-item-image">
+                                <img src="{{ 'newsletters.png' | media }}" alt="EUFAWREADY newsletters preview" />
+                            </div>
+                            <div class="media-center-item-gradient"></div>
+                        </div>
                         <h2 class="media-center-item-title">Newsletters</h2>
                     </a>
                 </div>
